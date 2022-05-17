@@ -14,6 +14,10 @@ public class Security {
     private String user;
     private String password;
 
+    public Security() {
+    }
+    
+    
     
     //Constructor
     public Security(String user, String password) {
