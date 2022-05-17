@@ -6,16 +6,15 @@ package domain;
 
 /**
  *
- * @author Usuario
+ * @author Fiorella
  */
 public class SinglyLinkedList {
-    Security p=new Security();    
-    String pasword=p.getPassword();
+
     
-    public String encrypt(String md5){
+    public String encrypt(String pasword){
         try{
             java.security.MessageDigest md= java.security.MessageDigest.getInstance("MD5");
-            byte []array=md.digest(md5.getBytes());
+            byte []array=md.digest(pasword.getBytes());
             StringBuffer sb= new StringBuffer();
             for (int i = 0; i < array.length; i++) {
                 sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1,3));
