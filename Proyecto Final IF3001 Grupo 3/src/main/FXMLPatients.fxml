@@ -10,51 +10,62 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="779.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.FXMLPatientsController">
+<BorderPane fx:id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="779.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.FXMLPatientsController">
    <left>
-      <VBox prefHeight="400.0" prefWidth="112.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="400.0" prefWidth="112.0" style="-fx-background-color: #07F4FF;" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="114.0" text="Create">
-               <VBox.margin>
-                  <Insets top="55.0" />
-               </VBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="114.0" text="Read">
+            <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="114.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 4px 0px 4px 0px;" text="Create">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
+               <font>
+                  <Font name="Agency FB" size="23.0" />
+               </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="114.0" text="Update">
+            <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="114.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 4px 0px 4px 0px;" text="Read">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
+               <font>
+                  <Font name="Agency FB" size="23.0" />
+               </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="114.0" text="Delete">
+            <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="114.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 4px 0px 4px 0px;" text="Update">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
+               <font>
+                  <Font name="Agency FB" size="23.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="114.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 4px 0px 4px 0px;" text="Delete">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Agency FB" size="23.0" />
+               </font>
             </Button>
          </children>
       </VBox>
    </left>
    <center>
-      <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="patientsTableView" prefHeight="328.0" prefWidth="667.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn prefWidth="91.0" text="ID" />
-          <TableColumn prefWidth="133.0" text="Name " />
-            <TableColumn prefWidth="108.0" text="Telephone" />
-            <TableColumn prefWidth="162.0" text="Direction" />
-            <TableColumn prefWidth="172.0" text="Email" />
+          <TableColumn fx:id="idTableColumn" prefWidth="91.0" text="ID" />
+          <TableColumn fx:id="nameTableColumn" prefWidth="133.0" text="Name " />
+            <TableColumn fx:id="telephoneTableColumn" prefWidth="108.0" text="Telephone" />
+            <TableColumn fx:id="directionTableColumn" prefWidth="162.0" text="Direction" />
+            <TableColumn fx:id="emailTableColumn" prefWidth="172.0" text="Email" />
         </columns>
       </TableView>
    </center>
    <top>
-      <AnchorPane prefHeight="92.0" prefWidth="653.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="79.0" prefWidth="779.0" style="-fx-background-color: #1A2C63;" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="290.0" layoutY="14.0" prefHeight="64.0" prefWidth="200.0" text="Patients List" textAlignment="CENTER">
+            <Label layoutX="290.0" layoutY="8.0" prefHeight="64.0" prefWidth="200.0" text="Patients List" textAlignment="CENTER" textFill="WHITE">
                <font>
-                  <Font size="36.0" />
+                  <Font name="Agency FB" size="50.0" />
                </font>
             </Label>
          </children>
