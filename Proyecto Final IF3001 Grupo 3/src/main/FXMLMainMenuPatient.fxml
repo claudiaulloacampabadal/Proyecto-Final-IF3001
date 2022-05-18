@@ -44,19 +44,19 @@
       </AnchorPane>
    </bottom>
    <top>
-      <AnchorPane prefHeight="94.0" prefWidth="902.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="94.0" prefWidth="902.0" style="-fx-background-color: #7497FF;" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="btnPayment" layoutX="303.0" mnemonicParsing="false" onAction="#btnPaymentOnAction" prefHeight="94.0" prefWidth="323.0" style="-fx-background-color: transparent; -fx-border-color: blue; -fx-border-width: 0px 2px 0px 2px;" text="Payment" textAlignment="CENTER" wrapText="true">
                <font>
-                  <Font name="Agency FB" size="22.0" />
+                  <Font name="Agency FB" size="28.0" />
                </font></Button>
             <Button fx:id="btnAppointment" layoutX="-6.0" mnemonicParsing="false" onAction="#btnAppointmentOnAction" prefHeight="94.0" prefWidth="310.0" style="-fx-background-color: transparent; -fx-border-color: blue; -fx-border-width: 0px 2px 0px 2px;" text=" Management Appointments" textAlignment="CENTER" wrapText="true">
                <font>
-                  <Font name="Agency FB" size="22.0" />
+                  <Font name="Agency FB" size="28.0" />
                </font></Button>
             <Button fx:id="btnReports" layoutX="623.0" mnemonicParsing="false" onAction="#btnReportOnAction" prefHeight="94.0" prefWidth="279.0" style="-fx-background-color: transparent; -fx-border-color: blue; -fx-border-width: 0px 2px 0px 2px;" text="System Reports" textAlignment="CENTER" wrapText="true">
                <font>
-                  <Font name="Agency FB" size="22.0" />
+                  <Font name="Agency FB" size="28.0" />
                </font></Button>
          </children>
       </AnchorPane>
