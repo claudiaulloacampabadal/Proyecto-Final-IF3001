@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="661.0" prefWidth="902.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.FXMLMainMenuController">
+   <center>
+      <AnchorPane fx:id="ap" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #1A2C63;" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="lbClinica" layoutX="336.0" layoutY="146.0" prefHeight="99.0" prefWidth="209.0" text="Clínica CFM" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Agency FB" size="57.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
+   </center>
+   <top>
+      <HBox prefHeight="95.0" prefWidth="902.0" style="-fx-background-color: #8DAAFF;" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnPatients" mnemonicParsing="false" onAction="#btnPatientsOnAction" prefHeight="94.0" prefWidth="136.0" style="-fx-background-color: transparent; -fx-border-width: 0px 2px 0px 2px; -fx-border-color: blue;" text="Patients">
+               <font>
+                  <Font name="Agency FB" size="22.0" />
+               </font></Button>
+            <Button fx:id="btnDoctorsAndSpecial" mnemonicParsing="false" onAction="#btnDoctorsOnAction" prefHeight="94.0" prefWidth="136.0" style="-fx-background-color: transparent; -fx-border-color: blue; -fx-border-width: 0px 2px 0px 2px;" text="Doctors and Specialists" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Agency FB" size="22.0" />
+               </font></Button>
+            <Button fx:id="btnDisease" mnemonicParsing="false" onAction="#btnDiseaseOnAction" prefHeight="94.0" prefWidth="136.0" style="-fx-background-color: transparent; -fx-border-color: blue; -fx-border-width: 0px 2px 0px 2px;" text=" Illnesses and Diseases" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Agency FB" size="22.0" />
+               </font></Button>
+            <Button fx:id="btnAppointment" mnemonicParsing="false" onAction="#btnAppointmentOnAction" prefHeight="94.0" prefWidth="136.0" style="-fx-background-color: transparent; -fx-border-color: blue; -fx-border-width: 0px 2px 0px 2px;" text=" Management Appointments" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Agency FB" size="22.0" />
+               </font></Button>
+            <Button fx:id="btnMedicalAttention" mnemonicParsing="false" onAction="#btnMedicalAttentionOnAction" prefHeight="94.0" prefWidth="136.0" style="-fx-background-color: transparent; -fx-border-color: blue; -fx-border-width: 0px 2px 0px 2px;" text="Medical Attention" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Agency FB" size="22.0" />
+               </font></Button>
+            <Button fx:id="btnPayment" mnemonicParsing="false" onAction="#btnPaymentOnAction" prefHeight="94.0" prefWidth="136.0" style="-fx-background-color: transparent; -fx-border-color: blue; -fx-border-width: 0px 2px 0px 2px;" text="Payment" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Agency FB" size="22.0" />
+               </font></Button>
+            <Button fx:id="btnReports" mnemonicParsing="false" onAction="#btnReportOnAction" prefHeight="94.0" prefWidth="136.0" style="-fx-background-color: transparent; -fx-border-color: blue; -fx-border-width: 0px 2px 0px 2px;" text="System Reports" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Agency FB" size="22.0" />
+               </font></Button>
+         </children>
+      </HBox>
+   </top>
+   <bottom>
+      <AnchorPane prefHeight="91.0" prefWidth="902.0" style="-fx-background-color: #B3C6FF;" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnExit" alignment="BOTTOM_CENTER" layoutX="791.0" layoutY="8.0" mnemonicParsing="false" onAction="#btnExitOnAction" prefHeight="89.0" prefWidth="115.0" style="-fx-background-color: transparent;" text="Exit">
+               <font>
+                  <Font name="Agency FB" size="22.0" />
+               </font></Button>
+            <Button fx:id="btnHome" alignment="BOTTOM_CENTER" layoutX="2.0" layoutY="7.0" mnemonicParsing="false" onAction="#btnHomeOnAction" prefHeight="91.0" prefWidth="118.0" style="-fx-background-color: transparent;" text="Home">
+               <font>
+                  <Font name="Agency FB" size="22.0" />
+               </font></Button>
+            <ImageView fitHeight="37.0" fitWidth="39.0" layoutX="160.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@configuration.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="38.0" fitWidth="36.0" layoutX="830.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@exit.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="btnConfiguration" alignment="BOTTOM_CENTER" layoutX="115.0" layoutY="7.0" mnemonicParsing="false" onAction="#btnConfigurationOnAction" prefHeight="91.0" prefWidth="128.0" style="-fx-background-color: transparent;" text="Configuration">
+               <font>
+                  <Font name="Agency FB" size="22.0" />
+               </font></Button>
+            <ImageView fitHeight="37.0" fitWidth="39.0" layoutX="43.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@house.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </bottom>
+</BorderPane>
