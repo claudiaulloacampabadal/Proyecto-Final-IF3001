@@ -5,11 +5,15 @@
  */
 package main;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -46,6 +50,23 @@ public class FXMLMainMenuPatientController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+    
+    //loader
+    public static void loadPage(URL ui, BorderPane bp){
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(ui); 
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLMainMenuController.class.getName());
+        }
+        //cleaning nodes
+        //bp.setTop(null);
+        bp.setCenter(null); 
+        //bp.setBottom(null); 
+        //bp.setLeft(null);
+        //bp.setRight(null);
+        bp.setCenter(root);
+    }
 
     @FXML
     private void btnPaymentOnAction(ActionEvent event) {
@@ -61,10 +82,14 @@ public class FXMLMainMenuPatientController implements Initializable {
 
     @FXML
     private void btnExitOnAction(ActionEvent event) {
+        System.exit(-1);
     }
 
     @FXML
     private void btnHomeOnAction(ActionEvent event) {
+        this.lbClinica.setText("Clínica CFM");
+        this.bp.setCenter(ap);
     }
-    
+
+  
 }

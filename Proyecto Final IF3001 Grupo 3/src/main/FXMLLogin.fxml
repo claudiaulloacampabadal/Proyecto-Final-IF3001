@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -58,6 +59,11 @@
                   <Image url="@password.png" />
                </image>
             </ImageView>
+            <Button fx:id="btnLog" layoutX="565.0" layoutY="566.0" mnemonicParsing="false" onAction="#btnLogOnAction" prefHeight="51.0" prefWidth="126.0" style="-fx-background-color: #07F4FF; -fx-border-color: white; -fx-border-width: 4px 4px 4px 4px;" text="Login">
+               <font>
+                  <Font name="Agency FB" size="26.0" />
+               </font>
+            </Button>
          </children></AnchorPane>
    </center>
 </BorderPane>
