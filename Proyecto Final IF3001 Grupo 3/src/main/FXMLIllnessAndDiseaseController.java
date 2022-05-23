@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -20,24 +21,12 @@ import javafx.scene.layout.BorderPane;
  *
  * @author Maria Celeste
  */
-public class FXMLPatientsController implements Initializable {
+public class FXMLIllnessAndDiseaseController implements Initializable {
+    
+    private Alert alert;
 
     @FXML
     private BorderPane bp;
-    @FXML
-    private TableView<?> patientsTableView;
-    @FXML
-    private TableColumn<?, ?> idTableColumn;
-    @FXML
-    private TableColumn<?, ?> emailTableColumn;
-    @FXML
-    private TableColumn<?, ?> firstNameTableColumn;
-    @FXML
-    private TableColumn<?, ?> lastNameTableColumn;
-    @FXML
-    private TableColumn<?, ?> birthdayTableColumn;
-    @FXML
-    private TableColumn<?, ?> nameTableColumn1;
     @FXML
     private Button btnCreate;
     @FXML
@@ -46,6 +35,12 @@ public class FXMLPatientsController implements Initializable {
     private Button btnUpdate;
     @FXML
     private Button btnDelete;
+    @FXML
+    private TableView<?> patientsTableView;
+    @FXML
+    private TableColumn<?, ?> idTableColumn;
+    @FXML
+    private TableColumn<?, ?> descriptionTableColumn;
 
     /**
      * Initializes the controller class.
@@ -69,6 +64,7 @@ public class FXMLPatientsController implements Initializable {
 
     @FXML
     private void btnDeleteOnAction(ActionEvent event) {
+        
     }
     
 }
