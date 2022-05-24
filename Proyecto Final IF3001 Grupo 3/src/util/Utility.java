@@ -5,8 +5,8 @@
  */
 package util;
 
-import domain.DoublyLinkedList;
-import domain.SinglyLinkedList;
+import domain.TDA.DoublyLinkedList;
+import domain.TDA.SinglyLinkedList;
 import java.text.DecimalFormat;
 import java.util.Random;
 

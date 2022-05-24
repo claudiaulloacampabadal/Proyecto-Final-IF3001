@@ -2,34 +2,36 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package domain;
+package domain.TDA;
+
+import domain.*;
 
 /**
  *
  * @author Usuario
  */
-public class CircularLinkedList implements List{
+public class CircularDoublyLinkedList implements List{
     
-      private Node first; //apunta al inicio de la lista
+    private Node first; //apunta al inicio de la lista
      private Node last; //apunta al ult nodo de la lista
 
     //Constructor
-    public CircularLinkedList(){
+    public CircularDoublyLinkedList(){
         this.first = this.last = null;
     }
 
     @Override
     public int size() throws ListException {
         if(isEmpty())
-            throw new ListException("Circular Linked List is empty");
+            throw new ListException("Circular Doubly Linked List is empty");
         Node aux = first;
         int counter = 0;
-        while(aux!=last){//last es como el utilimo nodo
+        while(aux!=last){
            counter++;
            aux = aux.next;
         }
         //sale del while cuando aux esta en el ult nodo
-        return counter+1;//counter-1 por que no cuenta el ultimo nodod ya que el last es el mismo nodo
+        return counter+1;
     }
 
     @Override
@@ -45,7 +47,7 @@ public class CircularLinkedList implements List{
     @Override
     public boolean contains(Object element) throws ListException {
          if(isEmpty())
-            throw new ListException("Circular Linked List is empty");
+            throw new ListException("Circular Doubly Linked List is empty");
         Node aux = first;
         while(aux!=last){
             if(util.Utility.equals(aux.data, element))
@@ -53,21 +55,23 @@ public class CircularLinkedList implements List{
            aux = aux.next;
         }
         //sale del while cuando aux esta en el ult nodo
-        return util.Utility.equals(aux.data, element);//validacion si la contiene
+        return util.Utility.equals(aux.data, element);
     }
 
     @Override
     public void add(Object element) {
         Node newNode = new Node(element);
         if(isEmpty()){
-            first = last = newNode;//se ve el primer nodo
+            first = last = newNode;
         }
         else{
             last.next = newNode;
             last = newNode;
             
             //hago el enlace circular
-            last.next = first;//en donde conecto el apuntador de last el ultimo nodo
+            last.next = first;
+            //hago el doble enlace
+            first.prev = last;
         }
     }
 
@@ -80,8 +84,9 @@ public class CircularLinkedList implements List{
            newNode.next = first; 
            first = newNode;
         }
-        //hacemos que la lista sea circular
-        last.next = first;//hay que mover los apuntadores
+        //hago el enlace circular y doble
+        last.next = first;
+        first.prev = last;
     }
 
     @Override
@@ -89,52 +94,15 @@ public class CircularLinkedList implements List{
         add(element);
     }
 
-      @Override
+    @Override
     public void addInSortedList(Object element) {
-        Node newNode = new Node(element);
-        //CASO 1. LA LISTA ESTA VACIA
-        if(isEmpty()){
-            first = last = newNode;
-        }else{
-            //CASO 2. first.next es nulo, o no es nulo
-            //y el elemento a insertar es menor al del inicio
-            if(util.Utility.greaterT(first.data, element)){
-                newNode.next = first;
-                first = newNode;
-            }else{
-                //CASE 3. TODO LO DEMAS
-                Node prev = first;
-                Node aux = first.next;
-                boolean added=false;
-                while(aux!=last&&!added){
-                    if(util.Utility.lessT(element, aux.data)){
-                        prev.next = newNode;
-                        newNode.next = aux;
-                        added = true;
-                    }
-                    prev = aux;
-                    aux = aux.next;
-                }
-                //si llega aqui, se enlaza cuando aux==last
-                if(util.Utility.lessT(element, aux.data)&& !added){
-                    prev.next = newNode;
-                    newNode.next = aux;
-                }else //en este caso, se enlaza al final
-                    if(!added){
-                        aux.next = newNode;
-                        //muevo last al ult nodo
-                        last = newNode;
-                    }
-            }
-        }
-        //hago el enlace circular
-        last.next = first;
+       
     }
 
     @Override
     public void remove(Object element) throws ListException {
         if(isEmpty())
-            throw new ListException("Circular Linked List is empty");
+            throw new ListException("Circular Doubly Linked List is empty");
         //caso 1. El elemento a suprimir es el primero
         if(util.Utility.equals(first.data, element)){
             first = first.next;
@@ -152,15 +120,24 @@ public class CircularLinkedList implements List{
             if(util.Utility.equals(aux.data, element)){
                 //desenlanza el nodo
                 prev.next = aux.next;
-                   //debo asegurarme q last apunte al ultimo nodo
-                   //entendiendo que aux esta en el nodo a suprimir
+                //mantengo el doble enlace
+                aux.next.prev = prev;//Opcion 2
+                //otra alternativa
+//                Node aux2 = aux.next;
+//                aux2.prev = prev;//Opcion 2
+                
+                
+                
+                
+                 //debo asegurarme q last apunte al ultimo nodo
                 if(aux==last){ //estamos en el ultimo nodo
                     last=prev;
                 }
             }
         }
-        //mantengo el enlace circular
+        //mantengo el enlace circular y doble
         last.next = first;
+        first.prev = last;
         //q pasa si solo queda un nodo
         //y es el q quiero eliminar
         if(first==last&&util.Utility.equals(first.data, element)){
@@ -171,51 +148,64 @@ public class CircularLinkedList implements List{
     @Override
     public Object removeFirst() throws ListException {
         if(isEmpty())
-            throw new ListException("Circular Linked List is empty");
+            throw new ListException("Circular Doubly Linked List is empty");
         Object element = first.data;
         first = first.next;
-        //hago el enlace circular
+        //hago el enlace circular y doble
         last.next = first;
+        first.prev = last;
         return element;
     }
 
-     @Override
+    @Override
     public Object removeLast() throws ListException {
-        if(isEmpty()){
-            throw new ListException("Circular Linked List is empty");
+         if(isEmpty())
+            throw new ListException("Circular Doubly Linked List is empty");
+        //case 2. El elemento a suprimir puede estar donde sea
+        Object element = last.data;
+            Node prev = first; //elemento anterior
+            Node aux = first.next; //elemento sgte
+            while(aux!=last){
+                prev = aux; //actualizo anterior
+                aux = aux.next;
+            }
+            //se sale cuando alcanza aux==last
+            //o cuando encuentra el elemento a suprimir
+            if(util.Utility.equals(aux.data, element)){
+                //desenlanza el nodo
+                prev.next = aux.next;
+                //mantengo el doble enlace
+                aux.next.prev = prev;
+              
+                 //debo asegurarme q last apunte al ultimo nodo
+                if(aux==last){ //estamos en el ultimo nodo
+                    last=prev;
+                }
         }
-        Node aux = first;
-        Node prev = first; //para dejar rastro, apunta al anterior de aux
-        while(aux!=last){
-            prev = aux; //un nodo atras de aux
-            aux = aux.next;
-        }
-        //se sale del while cuando esta en el ultimo nodo
-        Object element = aux.data;
-        //prev.next = first; //desconecto el ultimo nodo
-        last = prev;
-        //mantengo el enlace circular
+        //mantengo el enlace circular y doble
         last.next = first;
+        first.prev = last;
+        //q pasa si solo queda un nodo
+        //y es el q quiero eliminar
         if(first==last){
             clear(); //anulo la lista
         }
-        
-        return element;
+     return element;
     }
- 
+  
 
-    @Override
+
+     @Override
     public void sort() throws ListException {
-         
         Node current = first, index = null;
         Object temp;
         if(isEmpty()){
-            throw new ListException("Circular Linked List is empty");
+            throw new ListException("Circular Doubly Linked List is empty");
         } else {
             do {
                  
                 index = current.next;
-                while (index != first) {
+                while (index != first.next) {
                
                     if (util.Utility.lessT(index.data, current.data)) {
                         temp = current.data;
@@ -233,7 +223,7 @@ public class CircularLinkedList implements List{
          Node current = first, index = null;
         Object temp;
         if(isEmpty()){
-            throw new ListException("Circular Linked List is empty");
+            throw new ListException("Circular Doubly Linked List is empty");
         } else {
             do {
                  
@@ -256,7 +246,7 @@ public class CircularLinkedList implements List{
     @Override
     public int indexOf(Object element) throws ListException {
         if(isEmpty()){
-            throw new ListException("Circular Linked List is empty");
+            throw new ListException("Circular Doubly Linked List is empty");
         }
         Node aux = first;
         int index=1;
@@ -277,28 +267,28 @@ public class CircularLinkedList implements List{
     @Override
     public Object getFirst() throws ListException {
         if(isEmpty())
-            throw new ListException("Circular Linked List is empty");
+            throw new ListException("Circular Doubly Linked List is empty");
         return first.data;
     }
 
     @Override
     public Object getLast() throws ListException {
         if(isEmpty()){
-            throw new ListException("Circular Linked List is empty");
+            throw new ListException("Circular Doubly Linked List is empty");
         }
         return last.data; //es el ultimo en la lista
     }
 
-    @Override
+  @Override
     public Object getPrev(Object element) throws ListException {
        if(this.isEmpty()){
             throw new ListException("Circular Linked List is Empty");
         }
         //Caso 1. Si es el inicio, no tiene anterior
         if(util.Utility.equals(first.data, element)){
-            return "Es el inicio, no tiene anterior";
+            return last.data;//Esto hace que salta el elemento anterri a first que es last
         }
-        //Caso 2. Todo lo demas
+        //Caso 1. Todos los demas casos
         Node aux = first;
         while(aux.next!=last){
             if(util.Utility.equals(aux.next.data, element)){
@@ -316,7 +306,7 @@ public class CircularLinkedList implements List{
     @Override
     public Object getNext(Object element) throws ListException {
         if (this.isEmpty()) {
-            throw new ListException("Circular Linked List is Empty");
+            throw new ListException("Circular Doubly Linked List is Empty");
         }
         Node aux = first;
         while (aux != last) {
@@ -324,7 +314,7 @@ public class CircularLinkedList implements List{
                 if (aux.next != null) {
                     return aux.next.data;
                 } else {
-                    return "no tiene";
+                    return first.data;
                 }
             }
             aux = aux.next;
@@ -339,7 +329,7 @@ public class CircularLinkedList implements List{
     @Override
     public Node getNode(int index) throws ListException {
         if(isEmpty()){
-            throw new ListException("Circular Linked List is empty");
+            throw new ListException("Circular Doubly Linked List is empty");
         }
         Node aux = first;
         int i = 1; //posicion del primer nodo
@@ -359,14 +349,14 @@ public class CircularLinkedList implements List{
 
     @Override
     public String toString() {
-        String result = "Circular Linked List Content\n";
+        String result = "Circular Doubly Linked List Content\n";
         Node aux = first;
         while(aux!=last){
            result+=aux.data+"\n";
            aux = aux.next;
         }
         //agregamos la info del ultimo nodo
-        return result+"\n"+aux.data;//poruqe cunado es las no lo toma en cuenta
+        return result+"\n"+aux.data;
     }
     
     

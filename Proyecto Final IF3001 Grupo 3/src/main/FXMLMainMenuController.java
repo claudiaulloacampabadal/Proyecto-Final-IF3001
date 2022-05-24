@@ -15,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -28,6 +29,7 @@ import javafx.stage.Stage;
  */
 public class FXMLMainMenuController implements Initializable {
 
+    Alert alert;
     @FXML
     private Button btnPatients;
     @FXML
@@ -114,7 +116,13 @@ public class FXMLMainMenuController implements Initializable {
 
     @FXML
     private void btnExitOnAction(ActionEvent event) {
-        System.exit(-1);
+        alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText("Are you sure you want to close this session?");
+        alert.showAndWait();
+           
+            if(alert.getResult().getText().equalsIgnoreCase("aceptar"))
+                System.exit(-1);
+
     }
 
     @FXML
