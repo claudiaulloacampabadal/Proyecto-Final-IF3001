@@ -5,8 +5,11 @@
  */
 package main;
 
+import domain.MailMessage;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
+import javax.mail.MessagingException;
 
 /**
  * FXML Controller class
@@ -56,7 +60,17 @@ public class FXMLPatientsController implements Initializable {
     }    
 
     @FXML
-    private void btnCreateOnAction(ActionEvent event) {
+    private void btnCreateOnAction(ActionEvent event){
+
+       try {
+//            //Cuando se añade se manda un correo
+//            //Se manda ID y password con logo y nombre de la clinic
+//actualmente manda un correro ami correro, par amandarlo a otro se modifica el string con el correo que se quiere a enviar
+            MailMessage.sendMail("macebonilla03@gmail.com");
+          } catch (Exception ex) {
+           Logger.getLogger(FXMLPatientsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     
     }
 
     @FXML

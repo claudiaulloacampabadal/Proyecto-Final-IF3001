@@ -305,7 +305,7 @@ public class SinglyLinkedList implements List {
             //separamos la contraseña en un arreglo
             byte []array=md.digest(pasword.getBytes());
             //se crea un stringBuffer para guardar el cambio ya encriptado
-            StringBuffer sb= new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             for (int i = 0; i < array.length; i++) {
                 //append concatena a la cadena original
                 sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1,3));

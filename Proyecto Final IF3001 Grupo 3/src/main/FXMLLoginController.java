@@ -74,7 +74,7 @@ public class FXMLLoginController implements Initializable {
             stage.show();
             //llama a la ventana login para cerrarla
              Stage mystage = (Stage) this.btnLog.getScene().getWindow();
-             mystage.close();
+             mystage.close();//cierra la pantalla del login
             
         } catch (IOException ex) {
             Logger.getLogger(FXMLMainMenuController.class.getName());
@@ -84,6 +84,8 @@ public class FXMLLoginController implements Initializable {
     
     @FXML
     private void btnLogOnAction(ActionEvent event) {
+        //Añadir la validadcion de la contraseña y el metodo de encriptacion y descencriptacion
+        // Validar si la contraseña es 
         
         
         if(cbLogin.getValue().equalsIgnoreCase("Administrator")){//carga las paginas dependiendo si es administrador o paciente
@@ -95,5 +97,29 @@ public class FXMLLoginController implements Initializable {
         }
         
     }
+    
+    
+    
+    //metodo de encriptacion
+    public String encrypt(String pasword){
+        try{
+            java.security.MessageDigest md= java.security.MessageDigest.getInstance("MD5");
+            //separamos la contraseña en un arreglo
+            byte []array=md.digest(pasword.getBytes());
+            //se crea un stringBuffer para guardar el cambio ya encriptado
+            StringBuffer sb= new StringBuffer();
+            for (int i = 0; i < array.length; i++) {
+                //append concatena a la cadena original
+                sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1,3));
+            }
+            return sb.toString();            
+            //posible error de que el algoritmo no esté en el entorno
+        }catch(java.security.NoSuchAlgorithmException e){            
+        }
+        return null;
+    }
+    
+    
+    
     
 }
