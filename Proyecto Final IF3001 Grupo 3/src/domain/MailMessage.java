@@ -22,30 +22,44 @@ import javax.mail.internet.MimeMessage;
  */
 public class MailMessage {
     	
-  public static void sendMail(String recipient) throws Exception{
+ public static void sendMail(String recipient) throws Exception{
        System.out.println("Preparing to send email");
+            String myAccountEmail = "clinicacfm@gmail.com";
+            String password = "ClauFioCele22";
                
-        Properties properties = new Properties();
-            properties.put("mail.smtp.auth", "true");
-            properties.put("mail.smtp.starttls.enable", "true");
-            properties.put("mail.smtp.host", "smtp.gmail.com");
-            properties.put("mail.smtp.port",587);
-            properties.put("mail.smtp.ssl.protocols", "TLSv1.2");
-            properties.put("mail.smtp.mail.sender","emisor@gmail.com");
-            properties.put("mail.smtp.user", "usuario");
+        Properties properties = System.getProperties();
+            //Enable authentication
+        properties.put("mail.smtp.auth", "true");
+        //Set TLS encryption enabled
+        properties.put("mail.smtp.starttls.enable", "true");
+        //Set SMTP host
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        //Set smtp port
+        properties.put("mail.smtp.port", "25");
+        properties.put("mail.transport.protocol", "smtp");
+        properties.setProperty("mail.smtp.ssl.protocols", "TLSv1.2");
+        properties.put("mail.smtp.auth", "true");
+   
+      //  properties.put("mail.debug", "true");
+ 
 //Se añade el email que e debe enviar
-        String myAccountEmail = "macebonilla03@gmail.com";
-        String password = "xxxxxxx";
 
-        Session session = Session.getInstance(properties, new Authenticator(){
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication(){
-                return new PasswordAuthentication(myAccountEmail,password);
-            }
-        });
-         
+       Session session = Session.getInstance(properties,
+            new Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(
+                            myAccountEmail, password);
+                }
+            });
+
         Message message = prepareMessage(session, myAccountEmail,recipient);
         Transport.send(message);
+//        Transport transport = session.getTransport();
+//        transport.connect("smtp.gmail.com", 25, myAccountEmail, password);
+//       // transport.connect("smtp.gmail.com", "clinicacfm@gmail.com", password);
+//        transport.sendMessage(message, message.getAllRecipients());
+//        transport.close();
         System.out.println("Message sent succesfully");
     }
 //Se hace le mesaje para enviarse
@@ -63,7 +77,6 @@ public class MailMessage {
         return null;
 
    }
-    
-    
+  
     
 }
