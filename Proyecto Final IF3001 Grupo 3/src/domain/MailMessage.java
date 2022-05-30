@@ -9,12 +9,17 @@ import javax.mail.PasswordAuthentication;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
 import javax.mail.Authenticator;
+import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 /**
  *
@@ -22,7 +27,7 @@ import javax.mail.internet.MimeMessage;
  */
 public class MailMessage {
     	
- public static void sendMail(String recipient) throws Exception{
+ public static void sendMail(String recipient, String name) throws Exception{
        System.out.println("Preparing to send email");
             String myAccountEmail = "clinicacfm@gmail.com";
             String password = "ClauFioCele22";
@@ -53,7 +58,7 @@ public class MailMessage {
                 }
             });
 
-        Message message = prepareMessage(session, myAccountEmail,recipient);
+        Message message = prepareMessage(session, myAccountEmail,recipient, name);
         Transport.send(message);
 //        Transport transport = session.getTransport();
 //        transport.connect("smtp.gmail.com", 25, myAccountEmail, password);
@@ -63,13 +68,19 @@ public class MailMessage {
         System.out.println("Message sent succesfully");
     }
 //Se hace le mesaje para enviarse
-    private static Message prepareMessage(Session session, String myAccountEmail,String recipient) {
+    private static Message prepareMessage(Session session, String myAccountEmail,String recipient, String name) {
         try {
             Message message = new MimeMessage(session);
+            //Para poner una imagen al enviar el correo
+            BodyPart image = new MimeBodyPart();
+            //image.setDataHandler(new DataHandler(new FileDataSource("package.images\\medical.png")));
+            MimeMultipart parts = new MimeMultipart();
+            parts.addBodyPart(image);
             message.setFrom(new InternetAddress(myAccountEmail));
             message.setRecipient(Message.RecipientType.TO,new InternetAddress(recipient));
-            message.setSubject("My First Email from Java App");
+            message.setSubject(name + ", Welcome to Clinic CFM");
             message.setText("Hey There, \n Look my email");
+           // message.setContent(parts);
             return message;//retorna el mensaje para la clase
         } catch (Exception ex) {
             Logger.getLogger(MailMessage.class.getName()).log(Level.SEVERE, null, ex);

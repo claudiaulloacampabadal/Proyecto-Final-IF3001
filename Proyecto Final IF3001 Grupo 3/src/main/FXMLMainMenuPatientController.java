@@ -62,11 +62,12 @@ public class FXMLMainMenuPatientController implements Initializable {
             Logger.getLogger(FXMLMainMenuController.class.getName());
         }
         //cleaning nodes
-        //bp.setTop(null);
+       // bp.setTop(null);
         bp.setCenter(null); 
         //bp.setBottom(null); 
         //bp.setLeft(null);
         //bp.setRight(null);
+        
         bp.setCenter(root);
     }
 

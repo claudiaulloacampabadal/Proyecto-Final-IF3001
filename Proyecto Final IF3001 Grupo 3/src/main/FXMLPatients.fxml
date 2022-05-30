@@ -56,8 +56,8 @@
           <TableColumn fx:id="firstNameTableColumn" prefWidth="134.0" text="First Name" />
             <TableColumn fx:id="lastNameTableColumn" prefWidth="135.0" text="Last Name" />
             <TableColumn fx:id="birthdayTableColumn" prefWidth="105.0" text="Birthday" />
-            <TableColumn fx:id="emailTableColumn" prefWidth="111.0" text="Address" />
-            <TableColumn fx:id="nameTableColumn1" prefWidth="133.0" text="Email" />
+            <TableColumn fx:id="addressTableColumn" prefWidth="111.0" text="Address" />
+            <TableColumn fx:id="emailTableColumn" prefWidth="133.0" text="Email" />
         </columns>
       </TableView>
    </center>

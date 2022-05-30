@@ -6,18 +6,23 @@
 package main;
 
 import domain.MailMessage;
+import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javax.mail.MessagingException;
+import static main.FXMLMainMenuController.loadPage;
 
 /**
  * FXML Controller class
@@ -29,19 +34,19 @@ public class FXMLPatientsController implements Initializable {
     @FXML
     private BorderPane bp;
     @FXML
-    private TableView<?> patientsTableView;
+    private TableView<List<String>> patientsTableView;
     @FXML
-    private TableColumn<?, ?> idTableColumn;
+    private TableColumn<List<String>, String> idTableColumn;
     @FXML
-    private TableColumn<?, ?> emailTableColumn;
+    private TableColumn<List<String>, String> emailTableColumn;
     @FXML
-    private TableColumn<?, ?> firstNameTableColumn;
+    private TableColumn<List<String>, String> firstNameTableColumn;
     @FXML
-    private TableColumn<?, ?> lastNameTableColumn;
+    private TableColumn<List<String>, String> lastNameTableColumn;
     @FXML
-    private TableColumn<?, ?> birthdayTableColumn;
-    @FXML
-    private TableColumn<?, ?> nameTableColumn1;
+    private TableColumn<List<String>, String> birthdayTableColumn;
+       @FXML
+    private TableColumn<List<String>, String> addressTableColumn;
     @FXML
     private Button btnCreate;
     @FXML
@@ -50,29 +55,41 @@ public class FXMLPatientsController implements Initializable {
     private Button btnUpdate;
     @FXML
     private Button btnDelete;
-
+  
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }   
+    
+    
+      public static void loadPage(URL ui, BorderPane bp){
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(ui); 
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLMainMenuController.class.getName());
+        }
+        //cleaning nodes
+        bp.setTop(null);
+        bp.setCenter(null); 
+        bp.setBottom(null); 
+        bp.setLeft(null);
+        bp.setRight(null);
+        
+        bp.setCenter(root);
+    }
+
+    
 
     @FXML
     private void btnCreateOnAction(ActionEvent event){
-
-       try {
-//            //Cuando se añade se manda un correo
-//            //Se manda ID y password con logo y nombre de la clinic
-//actualmente manda un correro ami correro, para mandarlo a otro se modifica el string con el correo que se quiere a enviar
-            MailMessage.sendMail("macebonilla03@gmail.com");
-          } catch (Exception ex) {
-           Logger.getLogger(FXMLPatientsController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-     
+        //Se manda a bari el lugar para agregar a los pacientes
+        loadPage(getClass().getResource("FXMLAddPatient.fxml"), bp);
     }
-
+    
     @FXML
     private void btnReadOnAction(ActionEvent event) {
     }
@@ -84,5 +101,8 @@ public class FXMLPatientsController implements Initializable {
     @FXML
     private void btnDeleteOnAction(ActionEvent event) {
     }
+    
+    
+    
     
 }
