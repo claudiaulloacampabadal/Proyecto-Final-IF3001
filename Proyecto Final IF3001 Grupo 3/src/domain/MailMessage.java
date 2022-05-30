@@ -73,14 +73,17 @@ public class MailMessage {
             Message message = new MimeMessage(session);
             //Para poner una imagen al enviar el correo
             BodyPart image = new MimeBodyPart();
-            //image.setDataHandler(new DataHandler(new FileDataSource("package.images\\medical.png")));
+           image.setDataHandler(new DataHandler(new FileDataSource("C:\\Users\\Maria Celeste\\Desktop\\U - I.E\\I Semestre-2022\\IF 3001\\Proyecto-Grupo3\\Proyecto Final IF3001 Grupo 3\\src\\images\\medical.png")));
+           image.setFileName("Clinica.png");
+
             MimeMultipart parts = new MimeMultipart();
             parts.addBodyPart(image);
+            
             message.setFrom(new InternetAddress(myAccountEmail));
             message.setRecipient(Message.RecipientType.TO,new InternetAddress(recipient));
             message.setSubject(name + ", Welcome to Clinic CFM");
             message.setText("Hey There, \n Look my email");
-           // message.setContent(parts);
+           message.setContent(parts);
             return message;//retorna el mensaje para la clase
         } catch (Exception ex) {
             Logger.getLogger(MailMessage.class.getName()).log(Level.SEVERE, null, ex);
