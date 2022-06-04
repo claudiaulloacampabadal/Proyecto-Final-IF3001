@@ -37,6 +37,12 @@ public class Sickness {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Override
+    public String toString() {
+        //Los gardo en to string con token ;
+        return identity + ";" + description;
+    }
     
     
 }

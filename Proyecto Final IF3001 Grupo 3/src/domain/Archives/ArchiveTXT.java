@@ -20,9 +20,9 @@ import javax.swing.JOptionPane;
  */
 public class ArchiveTXT {
      //Metodo general que nos habilita el printStream para hacer escritura de archivo
-    public PrintStream getPrintStream(boolean saveData){
+    public PrintStream getPrintStream(boolean saveData , String path){
         
-         File numbersData = new File("passwords.txt");
+         File numbersData = new File(path+".txt");
          PrintStream ps = null;
         
         
@@ -40,9 +40,9 @@ public class ArchiveTXT {
     }
 
     //Metodo que me permita estandarizar el metodo de lectura de el archivo
-    public BufferedReader getBufferedReader(){
+    public BufferedReader getBufferedReader(String path){
         
-        File numberData = new File("passwords.txt");
+        File numberData = new File(path+".txt");
         BufferedReader br = null;
         
         try{

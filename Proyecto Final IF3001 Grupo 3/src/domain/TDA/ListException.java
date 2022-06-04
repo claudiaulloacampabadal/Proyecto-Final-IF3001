@@ -11,7 +11,7 @@ import domain.*;
  *
  * @author Maria Celeste
  */
-class ListException extends Exception {
+public class ListException extends Exception {
 
     public ListException(String string) {
         super(string);

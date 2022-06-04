@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="bp" prefHeight="501.0" prefWidth="583.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.FXMLAddIllnesAndDiseaseController">
+   <center>
+      <AnchorPane id="AnchorPane" prefHeight="501.0" prefWidth="646.0">
+         <children>
+            <Pane prefHeight="83.0" prefWidth="621.0" style="-fx-background-color: #083F9A;">
+               <children>
+                  <Label layoutX="207.0" layoutY="10.0" text="Add Sickness" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Agency FB" size="53.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane layoutX="-1.0" layoutY="82.0" prefHeight="338.0" prefWidth="622.0" style="-fx-background-color: #5AD6EC;">
+               <children>
+                  <Label layoutX="38.0" layoutY="92.0" text="Id:">
+                     <font>
+                        <Font name="Agency FB" size="35.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="idTextField" layoutX="197.0" layoutY="93.0" prefHeight="40.0" prefWidth="126.0" />
+                  <TextField fx:id="tF_Description" layoutX="197.0" layoutY="206.0" prefHeight="44.0" prefWidth="310.0" />
+                  <Label layoutX="31.0" layoutY="206.0" prefHeight="36.0" prefWidth="166.0" text="Description:">
+                     <font>
+                        <Font name="Agency FB" size="35.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane layoutX="4.0" layoutY="410.0" prefHeight="91.0" prefWidth="617.0" style="-fx-background-color: transparent;">
+               <children>
+                  <Button fx:id="btnAdd" layoutX="52.0" layoutY="21.0" mnemonicParsing="false" onAction="#btnAddOnAction" prefHeight="50.0" prefWidth="114.0" text="Add" />
+                  <Button fx:id="btnClose" layoutX="470.0" layoutY="21.0" mnemonicParsing="false" onAction="#bntCloseOnAction" prefHeight="50.0" prefWidth="114.0" text="Close" />
+                  <Button fx:id="btnClean" layoutX="252.0" layoutY="21.0" mnemonicParsing="false" onAction="#btnCleanOnAction" prefHeight="50.0" prefWidth="114.0" text="Clean" />
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
