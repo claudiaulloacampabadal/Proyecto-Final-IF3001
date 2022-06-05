@@ -4,7 +4,12 @@
  */
 package domain.TDA;
 
-import domain.*;
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+import java.security.Key;
+import java.security.MessageDigest;
+import java.util.Arrays;
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 import static util.Utility.greaterT;
 
 /**
@@ -12,8 +17,9 @@ import static util.Utility.greaterT;
  * @author Fiorella
  */
 public class SinglyLinkedList implements List {
-    
+
     private Node first; //apunta al inicio de la lista
+    String LLAVE="";
 
     //Constructor
     public SinglyLinkedList() {
@@ -46,19 +52,18 @@ public class SinglyLinkedList implements List {
 
     @Override
     public boolean contains(Object element) throws ListException {
-        if(isEmpty()){
+        if (isEmpty()) {
             throw new ListException("Is empty!");
         }
         Node aux = first;
-        while(aux!=null){
-            if(util.Utility.equals(aux.data, element)){
+        while (aux != null) {
+            if (util.Utility.equals(aux.data, element)) {
                 return true;
             }
             aux = aux.next;
         }
         return false; //indica que el elemento no existe
     }
-
 
     @Override
     public void add(Object element) {
@@ -294,26 +299,59 @@ public class SinglyLinkedList implements List {
         }
         return result;
     }
-    
-    
-    
 
-    //metodo de encriptacion
-    public String encrypt(String pasword){
-        try{
-            java.security.MessageDigest md= java.security.MessageDigest.getInstance("MD5");
-            //separamos la contraseña en un arreglo
-            byte []array=md.digest(pasword.getBytes());
-            //se crea un stringBuffer para guardar el cambio ya encriptado
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < array.length; i++) {
-                //append concatena a la cadena original
-                sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1,3));
-            }
-            return sb.toString();            
-            //posible error de que el algoritmo no esté en el entorno
-        }catch(java.security.NoSuchAlgorithmException e){            
+   
+   
+        
+     // Clave de encriptación / desencriptación
+    public SecretKeySpec CrearCalve(String llave) {
+        try {
+            byte[] cadena = llave.getBytes("UTF-8");
+            MessageDigest md = MessageDigest.getInstance("SHA-1");
+            cadena = md.digest(cadena);
+            cadena = Arrays.copyOf(cadena, 16);
+            SecretKeySpec secretKeySpec = new SecretKeySpec(cadena, "AES");
+            return secretKeySpec;
+        } catch (Exception e) {
+            return null;
         }
-        return null;
+
     }
+    
+    //encriptacion
+      public String Encriptar(String encriptar) {     
+        try {
+        SecretKeySpec secretKeySpec = CrearCalve(LLAVE);
+            Cipher cipher = Cipher.getInstance("AES");
+            cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);
+            
+            byte [] cadena = encriptar.getBytes("UTF-8");
+            byte [] encriptada = cipher.doFinal(cadena);
+            String cadena_encriptada = Base64.encode(encriptada);
+            return cadena_encriptada;         
+                        
+        } catch (Exception e) {
+            return "";
+        }
+    }
+      
+      // Desencriptación
+     public String Desencriptar(String desencriptar) {
+     
+        try {
+            SecretKeySpec secretKeySpec = CrearCalve(LLAVE);
+            Cipher cipher = Cipher.getInstance("AES");
+            cipher.init(Cipher.DECRYPT_MODE, secretKeySpec);
+            
+            byte [] cadena = com.sun.org.apache.xml.internal.security.utils.Base64.decode(desencriptar);
+            byte [] desencriptacioon = cipher.doFinal(cadena);
+            String cadena_desencriptada = new String(desencriptacioon);
+            return cadena_desencriptada;
+            
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+
 }

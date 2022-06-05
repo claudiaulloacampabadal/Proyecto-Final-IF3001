@@ -11,5 +11,35 @@ import domain.*;
  * @author Usuario
  */
 public class BinarySearchTree {
+ 
+        private int data;
+        private Node left;
+        private Node right;
+        private Node root;
+
+    public BinarySearchTree() {
+        
+        
+        
+    
+    
+    }
+
+
+      
+    
+    
+    
+    
+    
+    
     
 }
+
+
+
+
+
+
+
+

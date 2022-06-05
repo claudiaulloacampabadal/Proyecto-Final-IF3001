@@ -22,8 +22,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import jdk.nashorn.internal.objects.NativeDebug;
-import static main.FXMLMainMenuController.loadPage;
 
 /**
  * FXML Controller class
