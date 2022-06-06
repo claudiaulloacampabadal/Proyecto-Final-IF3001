@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
@@ -46,11 +47,11 @@ import javax.swing.JOptionPane;
 /**
  * FXML Controller class
  *
- * @author Maria Celeste
+ * @author Proyecto Final
  */
 public class FXMLIllnessAndDiseaseController implements Initializable {
 
-    ArchiveTXT archives;
+    ArchiveTXT archives = new ArchiveTXT();
     private SinglyLinkedList illness;
     private Alert alert;
 
@@ -76,10 +77,17 @@ public class FXMLIllnessAndDiseaseController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       //  getIllness();
+    
+        //Si no esta vacia
+        if(!util.Utility.getSinglyLinkedList().isEmpty()){
+            //carga la lista utility, que añadio
+            this.illness = util.Utility.getSinglyLinkedList();
+        }else{//si esta vacia por primera vez entonces
+            //Llama al metodo que carga el archivo
+           this.illness = getIllness();
+        }
         
-        this.illness = util.Utility.getSinglyLinkedList();
-        util.Utility.setSinglyLinkedList(illness);
+      //  getIllness();
         this.idTableColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<List<String>, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<List<String>, String> data) {
@@ -87,45 +95,42 @@ public class FXMLIllnessAndDiseaseController implements Initializable {
                 return new ReadOnlyObjectWrapper<>(data.getValue().get(0));//tome los valores que estan en el indice 0
             }
         });
-        this.idTableColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<List<String>, String>, ObservableValue<String>>() {
+        this.descriptionTableColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<List<String>, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<List<String>, String> data) {
                 //
-                return new ReadOnlyObjectWrapper<>(data.getValue().get(0));//tome los valores que estan en el indice 0
+                return new ReadOnlyObjectWrapper<>(data.getValue().get(1));//tome los valores que estan en el indice 0
             }
         });
-        
-            if (illness!=null && !illness.isEmpty()) {
+          
+        //Cargar los datos en una tableView
+        if (illness!=null && !illness.isEmpty()) {
             this.patientsTableView.setItems(getData());
- 
         }  
 
     }
 
-    public void loadPage(URL ui) {
-
+    //Metodo para borrar todo el bp y que carge la otra pagina
+      public static void loadPage(URL ui, BorderPane bp){
+        Parent root = null;
         try {
-            FXMLLoader loader = new FXMLLoader();
-            Parent root = loader.load(ui);//carga el url
-
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-
-            //crea un nuevo stage para que parezca sin el login
-            stage.setScene(scene);
-            stage.setTitle("Proyecto Final Gr3 - 2022");
-            stage.setResizable(false);
-            stage.show();
-
+            root = FXMLLoader.load(ui); 
         } catch (IOException ex) {
             Logger.getLogger(FXMLMainMenuController.class.getName());
         }
-
+        //cleaning nodes
+        bp.setTop(null);
+        bp.setCenter(null); 
+        bp.setBottom(null); 
+        bp.setLeft(null);
+        bp.setRight(null);
+        
+        bp.setCenter(root);
     }
 
     @FXML
     private void btnCreateOnAction(ActionEvent event) {
-        loadPage(getClass().getResource("FXMLAddIllnessAndDisease.fxml"));
+        loadPage(getClass().getResource("FXMLAddIllnessAndDisease.fxml"),bp);
     }
 
     @FXML
@@ -143,65 +148,70 @@ public class FXMLIllnessAndDiseaseController implements Initializable {
      private ObservableList<List<String>> getData(){
         //recordar agregar los datos
         ObservableList<List<String>> data = FXCollections.observableArrayList();
-      
-         
 
         try {
-            for(int i = 1; i < util.Utility.getSinglyLinkedList().size(); i++) {
-                Sickness s = (Sickness) util.Utility.getSinglyLinkedList().getNode(i).data;
+            for(int i = 1; i <= illness.size(); i++) {
+                Sickness s = (Sickness) illness.getNode(i).data;
                 List<String> arrayList = new ArrayList<>();
                 
                 arrayList.add(String.valueOf(s.getIdentity()));
-                arrayList.add(s.getDescription());//Comparo se le elmentos 1= Low 2 = Medium 3 = High para que aprezacn en la tabla
+                arrayList.add(s.getDescription());
                
                 data.add(arrayList);
-                //Se hace un metodo que me retorne el priority del elemento que esta
             }
         } catch (ListException ex) {
             Logger.getLogger(FXMLIllnessAndDiseaseController.class.getName()).log(Level.SEVERE, null, ex);
         }
                 
-    
-          
+       
           return data; 
         
      }
      
-    public void getIllness() {
-        illness = util.Utility.getSinglyLinkedList();
+     //Metodo para leer los archivos con listas
+    private SinglyLinkedList getIllness() {
+        SinglyLinkedList list = util.Utility.getSinglyLinkedList();
         BufferedReader br = archives.getBufferedReader("illness");
        
         try {
+           //  FileReader file = new FileReader(new File("illness.txt"));
              String lineRegister = br.readLine();
-
                 while (lineRegister != null) {
 
-                    String  sick = "";
+                    String sick ="";
                     int id = 0;
                     //EL token es;
                     StringTokenizer sT = new StringTokenizer(lineRegister,";");
-                    int controlTokens = 0;
+                    int controlTokens = 1;
 
                     //Para separar los tokens
                     while (sT.hasMoreTokens()) {
-                        if (controlTokens == 0) {
-                            id = Integer.parseInt(sT.nextToken());//Guardamos el 1
-                        } else if (controlTokens == 1) {
+                        if(controlTokens == 1){
+                            id = Integer.parseInt(sT.nextToken());
+                        }else if(controlTokens == 2){
                             sick = sT.nextToken();
                         }
                         controlTokens++;
-                    }//End while
+                    }//End while   
                     
-                    illness.add(new Sickness(id, sick));
-                    util.Utility.setSinglyLinkedList(illness);
-                    lineRegister = br.readLine();
-
+                    //Esto evita que en la lista se repiten enfermedades o se sumen dobles
+                    if(list.isEmpty()){
+                        list.add(new Sickness(id, sick));
+                        lineRegister = br.readLine();
+                    }else if(!list.contains(new Sickness(id, sick))){
+                        list.add(new Sickness(id, sick));
+                        lineRegister = br.readLine();
+                    }
                 }
-       
+                //Se pone aqui para que se carge en el addList
+                util.Utility.setSinglyLinkedList(list);
+   
         }catch (IOException ex) {
             Logger.getLogger(FXMLIllnessAndDiseaseController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ListException ex) {
+            Logger.getLogger(FXMLIllnessAndDiseaseController.class.getName()).log(Level.SEVERE, null, ex);
         }
-   
+            return list;
         }
 
     }

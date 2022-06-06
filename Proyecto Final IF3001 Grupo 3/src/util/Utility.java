@@ -5,6 +5,7 @@
  */
 package util;
 
+import domain.Sickness;
 import domain.TDA.DoublyLinkedList;
 import domain.TDA.SinglyLinkedList;
 import java.text.DecimalFormat;
@@ -92,6 +93,7 @@ public class Utility {
         if(a instanceof Integer && b instanceof Integer) return "Integer";
         if(a instanceof String && b instanceof String) return "String";
         if(a instanceof Character && b instanceof Character) return "Character";
+        if(a instanceof Sickness && b instanceof Sickness) return "Sickness";
         return "unknown";
     }
 
@@ -107,6 +109,10 @@ public class Utility {
             case "Character":
                 Character a3=(Character)a; Character b3=(Character)b;
                 return a3.compareTo(b3)==0;
+             case "Sickness":
+                Sickness s1 =(Sickness)a; Sickness s2 =(Sickness)b;
+                return s1.getIdentity() == s2.getIdentity() 
+                || s1.getDescription().equalsIgnoreCase(s2.getDescription());
                 
         }
         return false;

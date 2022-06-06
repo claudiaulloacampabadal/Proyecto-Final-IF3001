@@ -88,5 +88,15 @@ public class Doctor {
     public void setAdress(String adress) {
         this.adress = adress;
     }
+
+    //TO string para los archivos
+    @Override
+    public String toString() {
+        return id + ";" + lastname + ";" + firstname + ";" + birthday + ";" + phoneNumber + ";" + email + ";" + adress;
+    }
+
+   
+    
+    
     
 }//END CLASS

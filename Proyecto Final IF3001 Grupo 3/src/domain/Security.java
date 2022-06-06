@@ -16,9 +16,7 @@ public class Security {
 
     public Security() {
     }
-    
-    
-    
+     
     //Constructor
     public Security(String user, String password) {
         this.user = user;
