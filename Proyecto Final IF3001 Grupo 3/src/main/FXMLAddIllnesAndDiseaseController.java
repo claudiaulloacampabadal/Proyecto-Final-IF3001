@@ -96,7 +96,7 @@ public class FXMLAddIllnesAndDiseaseController implements Initializable {
                             btnCleanOnAction(event);
                             alert = new Alert(Alert.AlertType.ERROR);
                             alert.setTitle("Illness - Add");
-                            alert.setContentText("Illness ADD succes");
+                            alert.setContentText("The element is repeated");
                             alert.show();
                         }
                         

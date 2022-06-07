@@ -11,12 +11,7 @@ import domain.TDA.ListException;
 import domain.TDA.SinglyLinkedList;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.URL;
 import java.util.ArrayList;
@@ -34,15 +29,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 import javafx.util.Callback;
-import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -128,23 +121,52 @@ public class FXMLIllnessAndDiseaseController implements Initializable {
         bp.setCenter(root);
     }
 
+    //Agregar
     @FXML
     private void btnCreateOnAction(ActionEvent event) {
         loadPage(getClass().getResource("FXMLAddIllnessAndDisease.fxml"),bp);
     }
-
+    
+    //Leer
     @FXML
     private void btnReadOnAction(ActionEvent event) {
     }
 
+    //Modificar
     @FXML
     private void btnUpdateOnAction(ActionEvent event) {
     }
 
+    //Eliminar
     @FXML
     private void btnDeleteOnAction(ActionEvent event) {
+        TextInputDialog delete = new TextInputDialog("Element for delete");
+        delete.setTitle("");
+        delete.showAndWait();
+        
+        alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText("Are you sure you want to remove this element?");
+        alert.showAndWait();
+        
+        if(alert.getResult().getText().equalsIgnoreCase("aceptar")){
+            try {
+                illness.remove(new Sickness(Integer.parseInt(delete.getResult()), ""));
+                util.Utility.setSinglyLinkedList(illness);
+                this.patientsTableView.setItems(getData());
+            } catch (ListException ex) {
+                Logger.getLogger(FXMLIllnessAndDiseaseController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch(NumberFormatException nfe){
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Illness - Add");
+                alert.setContentText("Invalid character, try a number.");
+                alert.show();
+            }
+            removeArchive(Integer.parseInt(delete.getResult()));
+        }
 
     }
+    
+    //El getData para la tableView
      private ObservableList<List<String>> getData(){
         //recordar agregar los datos
         ObservableList<List<String>> data = FXCollections.observableArrayList();
@@ -172,9 +194,11 @@ public class FXMLIllnessAndDiseaseController implements Initializable {
     private SinglyLinkedList getIllness() {
         SinglyLinkedList list = util.Utility.getSinglyLinkedList();
         BufferedReader br = archives.getBufferedReader("illness");
+        File file = new File("illness.txt");
        
         try {
-           //  FileReader file = new FileReader(new File("illness.txt"));
+            //Revisa si el archivo existe
+           if(file.exists()){
              String lineRegister = br.readLine();
                 while (lineRegister != null) {
 
@@ -205,6 +229,10 @@ public class FXMLIllnessAndDiseaseController implements Initializable {
                 }
                 //Se pone aqui para que se carge en el addList
                 util.Utility.setSinglyLinkedList(list);
+           }else{
+               //Sino existe se crea uno
+               file.createNewFile();
+           }
    
         }catch (IOException ex) {
             Logger.getLogger(FXMLIllnessAndDiseaseController.class.getName()).log(Level.SEVERE, null, ex);
@@ -214,4 +242,34 @@ public class FXMLIllnessAndDiseaseController implements Initializable {
             return list;
         }
 
-    }
+    //Remover las variables de un archivo
+    private void removeArchive(int result) {
+        //Llamo losd emtods BuffereRedar Y printStream
+        BufferedReader br = archives.getBufferedReader("illness");
+        PrintStream ps = archives.getPrintStream(true, "illness");
+           try {
+             String lineRegister = br.readLine();
+                while (lineRegister != null) {
+
+                    int id = 0;
+                    //El token es;
+                    StringTokenizer sT = new StringTokenizer(lineRegister,";");
+                   
+                    //Para separar los tokens
+                    id = Integer.parseInt(sT.nextToken());
+                    //Reviso si el id es el mismo que el result
+                        if(id == result){
+                            //Elimino la linea del archivo
+                            ps.print(lineRegister);
+                        }
+                    
+                  
+                }
+           
+        }catch (IOException ex) {
+            Logger.getLogger(FXMLIllnessAndDiseaseController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+   }
+
+  }

@@ -12,7 +12,7 @@
    <center>
       <AnchorPane id="AnchorPane" prefHeight="409.0" prefWidth="622.0">
          <children>
-            <Pane prefHeight="83.0" prefWidth="621.0" style="-fx-background-color: #083F9A;">
+            <Pane prefHeight="83.0" prefWidth="622.0" style="-fx-background-color: #083F9A;">
                <children>
                   <Label layoutX="207.0" layoutY="10.0" text="Add Sickness" textAlignment="CENTER" textFill="WHITE">
                      <font>
@@ -28,7 +28,7 @@
                         <Font name="Agency FB" size="35.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="idTextField" layoutX="197.0" layoutY="52.0" prefHeight="40.0" prefWidth="126.0" />
+                  <TextField fx:id="idTextField" editable="false" layoutX="197.0" layoutY="52.0" prefHeight="40.0" prefWidth="85.0" />
                   <TextField fx:id="tF_Description" layoutX="197.0" layoutY="140.0" prefHeight="44.0" prefWidth="310.0" />
                   <Label layoutX="31.0" layoutY="140.0" prefHeight="36.0" prefWidth="166.0" text="Description:">
                      <font>
