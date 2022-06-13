@@ -14,7 +14,6 @@
         </buildExtensions>
         <data xmlns="http://www.netbeans.org/ns/j2se-project/3">
             <name>Proyecto Final IF3001 Grupo 3</name>
-            <explicit-platform explicit-source-supported="true"/>
             <source-roots>
                 <root id="src.JavaMail.dir"/>
                 <root id="src.dir"/>
