@@ -9,11 +9,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="bp" prefHeight="501.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.FXMLAddPatientController">
+<BorderPane fx:id="bp" prefHeight="457.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.FXMLAddPatientController">
    <center>
-      <AnchorPane id="AnchorPane" prefHeight="432.0" prefWidth="750.0">
+      <AnchorPane id="AnchorPane" prefHeight="501.0" prefWidth="710.0">
          <children>
-            <Pane layoutX="1.0" prefHeight="83.0" prefWidth="749.0" style="-fx-background-color: #083F9A;">
+            <Pane layoutX="-6.0" prefHeight="83.0" prefWidth="724.0" style="-fx-background-color: #083F9A;">
                <children>
                   <Label layoutX="280.0" layoutY="10.0" text="Add Patient" textAlignment="CENTER" textFill="WHITE">
                      <font>
@@ -22,51 +22,60 @@
                   </Label>
                </children>
             </Pane>
-            <Pane layoutX="-1.0" layoutY="82.0" prefHeight="338.0" prefWidth="750.0" style="-fx-background-color: #5AD6EC;">
+            <Pane layoutX="1.0" layoutY="82.0" prefHeight="283.0" prefWidth="719.0" style="-fx-background-color: #5AD6EC;">
                <children>
                   <Label layoutX="31.0" layoutY="7.0" text="Id:">
                      <font>
                         <Font name="Agency FB" size="35.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="idTextField" layoutX="204.0" layoutY="8.0" prefHeight="40.0" prefWidth="149.0" />
-                  <Label layoutX="31.0" layoutY="60.0" prefHeight="36.0" prefWidth="162.0" text="Last Name:">
+                  <TextField fx:id="idTextField" layoutX="71.0" layoutY="9.0" prefHeight="40.0" prefWidth="147.0" />
+                  <Label layoutX="385.0" layoutY="63.0" prefHeight="36.0" prefWidth="162.0" text="Last Name:">
                      <font>
                         <Font name="Agency FB" size="35.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="firstNTextField" layoutX="204.0" layoutY="113.0" prefHeight="44.0" prefWidth="310.0" />
-                  <Label layoutX="29.0" layoutY="114.0" prefHeight="36.0" prefWidth="166.0" text="First Name:">
+                  <TextField fx:id="firstNTextField" layoutX="25.0" layoutY="106.0" prefHeight="44.0" prefWidth="261.0" />
+                  <Label layoutX="23.0" layoutY="63.0" prefHeight="36.0" prefWidth="166.0" text="First Name:">
                      <font>
                         <Font name="Agency FB" size="35.0" />
                      </font>
                   </Label>
-                  <Label layoutX="31.0" layoutY="171.0" text="E-mail:">
+                  <Label layoutX="25.0" layoutY="169.0" text="E-mail:">
                      <font>
                         <Font name="Agency FB" size="35.0" />
                      </font>
                   </Label>
-                  <Label layoutX="29.0" layoutY="280.0" text="Birthday:">
+                  <Label layoutX="270.0" layoutY="14.0" text="Birthday:">
                      <font>
                         <Font name="Agency FB" size="35.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="lastNTextField" layoutX="204.0" layoutY="59.0" prefHeight="44.0" prefWidth="310.0" />
-                  <DatePicker fx:id="calendarChoice" layoutX="204.0" layoutY="281.0" prefHeight="41.0" prefWidth="236.0" />
-                  <TextField fx:id="emailTextField" layoutX="204.0" layoutY="170.0" prefHeight="44.0" prefWidth="310.0" />
-                  <TextField fx:id="addressTextField" layoutX="204.0" layoutY="224.0" prefHeight="44.0" prefWidth="310.0" />
-                  <Label layoutX="29.0" layoutY="225.0" text="Addres:">
+                  <TextField fx:id="lastNTextField" layoutX="385.0" layoutY="106.0" prefHeight="44.0" prefWidth="258.0" />
+                  <DatePicker fx:id="calendarChoice" layoutX="385.0" layoutY="15.0" prefHeight="41.0" prefWidth="236.0" />
+                  <TextField fx:id="emailTextField" layoutX="23.0" layoutY="212.0" prefHeight="44.0" prefWidth="310.0" />
+                  <TextField fx:id="addressTextField" layoutX="385.0" layoutY="212.0" prefHeight="44.0" prefWidth="310.0" />
+                  <Label layoutX="385.0" layoutY="169.0" text="Address:">
                      <font>
                         <Font name="Agency FB" size="35.0" />
                      </font>
                   </Label>
                </children>
             </Pane>
-            <Pane layoutX="4.0" layoutY="410.0" prefHeight="91.0" prefWidth="740.0" style="-fx-background-color: transparent;">
+            <Pane layoutX="2.0" layoutY="365.0" prefHeight="91.0" prefWidth="717.0" style="-fx-background-color: transparent;">
                <children>
-                  <Button fx:id="btnAdd" layoutX="65.0" layoutY="21.0" mnemonicParsing="false" onAction="#btnAddOnAction" prefHeight="50.0" prefWidth="114.0" text="Add" />
-                  <Button fx:id="btnClose" layoutX="534.0" layoutY="21.0" mnemonicParsing="false" onAction="#bntCloseOnAction" prefHeight="50.0" prefWidth="114.0" text="Close" />
-                  <Button fx:id="btnClean" layoutX="301.0" layoutY="21.0" mnemonicParsing="false" onAction="#btnCleanOnAction" prefHeight="50.0" prefWidth="114.0" text="Clean" />
+                  <Button fx:id="btnAdd" layoutX="65.0" layoutY="21.0" mnemonicParsing="false" onAction="#btnAddOnAction" prefHeight="50.0" prefWidth="114.0" style="-fx-background-color: #083F9A;" text="Add" textFill="WHITE">
+                     <font>
+                        <Font name="Agency FB" size="23.0" />
+                     </font></Button>
+                  <Button fx:id="btnClose" layoutX="534.0" layoutY="21.0" mnemonicParsing="false" onAction="#bntCloseOnAction" prefHeight="50.0" prefWidth="114.0" style="-fx-background-color: #083F9A;" text="Close" textFill="WHITE">
+                     <font>
+                        <Font name="Agency FB" size="23.0" />
+                     </font></Button>
+                  <Button fx:id="btnClean" layoutX="301.0" layoutY="21.0" mnemonicParsing="false" onAction="#btnCleanOnAction" prefHeight="50.0" prefWidth="114.0" style="-fx-background-color: #083F9A;" text="Clean" textFill="WHITE">
+                     <font>
+                        <Font name="Agency FB" size="23.0" />
+                     </font></Button>
                </children>
             </Pane>
          </children>

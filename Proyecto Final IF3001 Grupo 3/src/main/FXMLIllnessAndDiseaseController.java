@@ -314,7 +314,7 @@ public class FXMLIllnessAndDiseaseController implements Initializable {
     private void removeArchive(String lineToRemove) {
       try {
  
-        File file = new File("illness");
+        File file = new File("illness.txt");
  
         if (!file.isFile()) {
             return;

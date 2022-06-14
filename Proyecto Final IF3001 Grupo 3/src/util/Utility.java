@@ -6,9 +6,13 @@
 package util;
 
 import domain.Sickness;
+import domain.TDA.CircularDoublyLinkedList;
+import domain.TDA.CircularLinkedList;
 import domain.TDA.DoublyLinkedList;
 import domain.TDA.SinglyLinkedList;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 
 /**
@@ -16,9 +20,28 @@ import java.util.Random;
  * @author Maria Celeste
  */
 public class Utility {
-        private static SinglyLinkedList singlyLinkedList = new SinglyLinkedList();
+    private static SinglyLinkedList singlyLinkedList = new SinglyLinkedList();
     private static DoublyLinkedList doublyLinkedList = new DoublyLinkedList();
+    private static CircularLinkedList circularLinkedList = new CircularLinkedList();
+   private static CircularDoublyLinkedList circularDoublyLinkedList = new CircularDoublyLinkedList();
 
+    public static CircularLinkedList getCircularLinkedList() {
+        return circularLinkedList;
+    }
+
+    public static void setCircularLinkedList(CircularLinkedList circularLinkedList) {
+        Utility.circularLinkedList =  circularLinkedList;
+    }
+    
+     public static CircularDoublyLinkedList getCircularDoublyLinkedList() {
+        return circularDoublyLinkedList;
+    }
+
+    public static void setCircularDoublyLinkedList(CircularDoublyLinkedList circularDoublyLinkedList) {
+        Utility.circularDoublyLinkedList =  circularDoublyLinkedList;
+    }
+   
+   
     public static SinglyLinkedList getSinglyLinkedList() {
         return singlyLinkedList;
     }
@@ -57,6 +80,11 @@ public class Utility {
          //#,##0.00 '%'
         return new DecimalFormat("#,##0.00'%'")
                 .format(value);
+    }
+     
+    public static String format(Date value){
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy"); 
+        return format.format(value);
     }
     
     public static void fill(int a[]) {

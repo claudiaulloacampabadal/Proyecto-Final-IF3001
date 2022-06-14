@@ -17,18 +17,17 @@ public class Patient {
     private String lastname;
     private String firstname;
     private Date birthday;
-    private String phoneNumber;
+    //private String phoneNumber;
     private String email;
     private String adress;
 
     
     //constructor
-    public Patient(int id, String lastname, String firstname, Date birthday, String phoneNumber, String email, String adress) {
+    public Patient(int id, String lastname, String firstname, Date birthday, String email, String adress) {
         this.id = id;
         this.lastname = lastname;
         this.firstname = firstname;
         this.birthday = birthday;
-        this.phoneNumber = phoneNumber;
         this.email = email;
         this.adress = adress;
     }
@@ -66,14 +65,6 @@ public class Patient {
         this.birthday = birthday;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -89,6 +80,13 @@ public class Patient {
     public void setAdress(String adress) {
         this.adress = adress;
     }
+    
+
+    @Override
+    public String toString() {
+        return id + ";" + lastname + ";" + firstname + ";" + birthday + ";" +email + ";" +adress;
+   }
+    
     
     
     
