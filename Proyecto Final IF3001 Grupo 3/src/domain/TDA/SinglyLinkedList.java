@@ -343,7 +343,7 @@ public class SinglyLinkedList implements List {
             Cipher cipher = Cipher.getInstance("AES");
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec);
             
-            byte [] cadena = com.sun.org.apache.xml.internal.security.utils.Base64.decode(desencriptar);
+            byte [] cadena = Base64.decode(desencriptar);
             byte [] desencriptacioon = cipher.doFinal(cadena);
             String cadena_desencriptada = new String(desencriptacioon);
             return cadena_desencriptada;

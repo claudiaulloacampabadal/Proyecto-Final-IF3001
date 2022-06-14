@@ -28,7 +28,7 @@
                         <Font name="Agency FB" size="35.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="idTextField" editable="false" layoutX="197.0" layoutY="52.0" prefHeight="40.0" prefWidth="85.0" />
+                  <TextField fx:id="idTextField" layoutX="197.0" layoutY="52.0" prefHeight="40.0" prefWidth="85.0" />
                   <TextField fx:id="tF_Description" layoutX="197.0" layoutY="140.0" prefHeight="44.0" prefWidth="310.0" />
                   <Label layoutX="31.0" layoutY="140.0" prefHeight="36.0" prefWidth="166.0" text="Description:">
                      <font>
@@ -39,9 +39,18 @@
             </Pane>
             <Pane layoutX="2.0" layoutY="306.0" prefHeight="91.0" prefWidth="617.0" style="-fx-background-color: transparent;">
                <children>
-                  <Button fx:id="btnAdd" layoutX="52.0" layoutY="21.0" mnemonicParsing="false" onAction="#btnAddOnAction" prefHeight="50.0" prefWidth="114.0" text="Add" />
-                  <Button fx:id="btnClose" layoutX="470.0" layoutY="21.0" mnemonicParsing="false" onAction="#bntCloseOnAction" prefHeight="50.0" prefWidth="114.0" text="Close" />
-                  <Button fx:id="btnClean" layoutX="252.0" layoutY="21.0" mnemonicParsing="false" onAction="#btnCleanOnAction" prefHeight="50.0" prefWidth="114.0" text="Clean" />
+                  <Button fx:id="btnAdd" layoutX="52.0" layoutY="21.0" mnemonicParsing="false" onAction="#btnAddOnAction" prefHeight="50.0" prefWidth="114.0" style="-fx-background-color: #083F9A;" text="Add" textFill="WHITE">
+                     <font>
+                        <Font name="Agency FB" size="23.0" />
+                     </font></Button>
+                  <Button fx:id="btnClose" layoutX="470.0" layoutY="21.0" mnemonicParsing="false" onAction="#bntCloseOnAction" prefHeight="50.0" prefWidth="114.0" style="-fx-background-color: #083F9A;" text="Close" textFill="WHITE">
+                     <font>
+                        <Font name="Agency FB" size="23.0" />
+                     </font></Button>
+                  <Button fx:id="btnClean" layoutX="252.0" layoutY="21.0" mnemonicParsing="false" onAction="#btnCleanOnAction" prefHeight="50.0" prefWidth="114.0" style="-fx-background-color: #083F9A;" text="Clean" textFill="WHITE">
+                     <font>
+                        <Font name="Agency FB" size="23.0" />
+                     </font></Button>
                </children>
             </Pane>
          </children>

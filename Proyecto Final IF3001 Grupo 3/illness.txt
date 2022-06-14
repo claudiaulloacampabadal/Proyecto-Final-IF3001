@@ -1,7 +1,1 @@
-1;Diabetes
 2;Cancer
-3;Lupus
-4;Migraña
-5;Colesterol
-6;Gatritis
-7;Autismo
