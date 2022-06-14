@@ -5,6 +5,9 @@
  */
 package util;
 
+import domain.Doctor;
+import domain.Patient;
+import domain.Security;
 import domain.Sickness;
 import domain.TDA.CircularDoublyLinkedList;
 import domain.TDA.CircularLinkedList;
@@ -130,6 +133,9 @@ public class Utility {
         if(a instanceof String && b instanceof String) return "String";
         if(a instanceof Character && b instanceof Character) return "Character";
         if(a instanceof Sickness && b instanceof Sickness) return "Sickness";
+        if(a instanceof Security && b instanceof Security) return "Security";
+        if(a instanceof Doctor && b instanceof Doctor) return "Doctor";
+        if(a instanceof Patient && b instanceof Patient) return "Patient";
         return "unknown";
     }
 
@@ -149,7 +155,17 @@ public class Utility {
                 Sickness s1 =(Sickness)a; Sickness s2 =(Sickness)b;
                 return s1.getIdentity() == s2.getIdentity() 
                 || s1.getDescription().equalsIgnoreCase(s2.getDescription());
-                
+            case "Security":
+                Security sec1 =(Security)a; Security sec2 =(Security)b;
+                return sec1.getUser().equals(sec2.getUser()) &&  sec1.getPassword().equals(sec2.getPassword()) 
+                      && sec1.getType().equals(sec2.getType());
+            case "Doctor":
+                Doctor d1 =(Doctor)a; Doctor d2 =(Doctor)b;
+                return d1.getId() == d2.getId();
+            case "Patient":
+                Patient p1 =(Patient)a; Patient p2 =(Patient)b;
+                return p1.getId()== p2.getId() ;
+               
         }
         return false;
     }

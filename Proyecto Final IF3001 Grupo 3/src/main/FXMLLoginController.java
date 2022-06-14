@@ -116,7 +116,13 @@ public class FXMLLoginController implements Initializable {
                 } else if(cbLogin.getValue().equalsIgnoreCase("Patient")){
                      loadPage(getClass().getResource("FXMLMainMenuPatient.fxml"));
                  }
-                }
+            }else{
+                   alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Log Action");
+            alert.setHeaderText("Login..");
+            alert.setContentText("Fill All the Spaces");
+                
+            }
 
         } else {
             alert = new Alert(Alert.AlertType.ERROR);
