@@ -87,6 +87,7 @@ public class FXMLAddPatientController implements Initializable {
             //Se manda ID y password con logo y nombre de la clinic
            //actualmente manda un correro ami correro, para mandarlo a otro se modifica el string con el correo que se quiere a enviar
             MailMessage.sendMail("macebonilla03@gmail.com","Maria Celeste");
+            //en el correo se envia el usuario y la contraseña
           } catch (Exception ex) {
            Logger.getLogger(FXMLPatientsController.class.getName()).log(Level.SEVERE, null, ex);
         }
