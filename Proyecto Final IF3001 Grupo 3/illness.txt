@@ -1,1 +1,4 @@
+1;Autismo
 2;Cancer
+3;Sindrome de Down
+4;Diarrea

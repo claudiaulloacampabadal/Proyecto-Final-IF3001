@@ -156,7 +156,11 @@ public class FXMLIllnessAndDiseaseController implements Initializable {
                 
             }
        } catch (ListException ex) {
-             Logger.getLogger(FXMLIllnessAndDiseaseController.class.getName()).log(Level.SEVERE, null, ex);
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Illness - Update");
+            alert.setContentText("List is Empty!");
+            alert.show();
+            
       } catch(NumberFormatException nfe){
             alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Illness - Read");
@@ -169,32 +173,32 @@ public class FXMLIllnessAndDiseaseController implements Initializable {
     //Modificar
     @FXML
     private void btnUpdateOnAction(ActionEvent event) {
-        
-        TextInputDialog update = new TextInputDialog();
-        update.setTitle("Illness And Disease");
-        update.setHeaderText("Enter the ID of Element for modify");
-        update.showAndWait();
-        try {
-            Sickness s = new Sickness(Integer.parseInt(update.getResult()), "");
-            if(illness.contains(s)){
-                //Buscar donde esta
-                TextInputDialog text = new TextInputDialog();
-                text.setTitle("Illness And Disease");
-                System.out.print(text.getResult());
-                text.setHeaderText("Enter the new description");
-                text.showAndWait();
-                
-                updateList(s,text.getResult());
-                this.patientsTableView.setItems(getData());
-                modifyArchive();
-            }else{
-               alert = new Alert(Alert.AlertType.ERROR);
-               alert.setTitle("Illness - Update");
-               alert.setContentText("Element doesn't exist");
-               alert.show();
-                
-    }
-       } catch (ListException ex) {
+        if(illness.isEmpty()){
+            TextInputDialog update = new TextInputDialog();
+            update.setTitle("Illness And Disease");
+            update.setHeaderText("Enter the ID of Element for modify");
+            update.showAndWait();
+            try {
+                Sickness s = new Sickness(Integer.parseInt(update.getResult()), "");
+                if(illness.contains(s)){
+                    //Buscar donde esta
+                    TextInputDialog text = new TextInputDialog();
+                    text.setTitle("Illness And Disease");
+                    System.out.print(text.getResult());
+                    text.setHeaderText("Enter the new description");
+                    text.showAndWait();
+
+                    updateList(s,text.getResult());
+                    this.patientsTableView.setItems(getData());
+                    modifyArchive();
+                }else{
+                   alert = new Alert(Alert.AlertType.ERROR);
+                   alert.setTitle("Illness - Update");
+                   alert.setContentText("Element doesn't exist");
+                   alert.show();
+            
+                      }
+     } catch (ListException ex) {
              Logger.getLogger(FXMLIllnessAndDiseaseController.class.getName()).log(Level.SEVERE, null, ex);
       } catch(NumberFormatException nfe){
             alert = new Alert(Alert.AlertType.ERROR);
@@ -202,6 +206,14 @@ public class FXMLIllnessAndDiseaseController implements Initializable {
             alert.setContentText("Invalid character, try a number.");
             alert.show();
             }
+            
+        }else{
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Illness - Update");
+            alert.setContentText("List is Empty!");
+            alert.show();
+            
+        }
     }
 
     //Eliminar
@@ -219,7 +231,11 @@ public class FXMLIllnessAndDiseaseController implements Initializable {
             try {
                 illness.remove(new Sickness(Integer.parseInt(delete.getResult()), ""));
                 util.Utility.setSinglyLinkedList(illness);
-                this.patientsTableView.setItems(getData());
+                if(!illness.isEmpty()){
+                    this.patientsTableView.setItems(getData());
+                }else{
+                    this.patientsTableView.getItems().clear();
+               }
             } catch (ListException ex) {
                 Logger.getLogger(FXMLIllnessAndDiseaseController.class.getName()).log(Level.SEVERE, null, ex);
             } catch(NumberFormatException nfe){
@@ -321,7 +337,7 @@ public class FXMLIllnessAndDiseaseController implements Initializable {
         }
  
         //Construct the new file that will later be renamed to the original filename.
-        File tempFile = new File(file.getAbsolutePath());
+        File tempFile = new File(file.getAbsolutePath()+".tmp");
  
         BufferedReader br = archives.getBufferedReader("illness");
         PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
