@@ -5,9 +5,15 @@
  */
 package main;
 
+import domain.Archives.ArchiveTXT;
 import domain.MailMessage;
+import domain.Security;
+import domain.Sickness;
 import domain.TDA.CircularLinkedList;
+import domain.TDA.SinglyLinkedList;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -30,7 +36,9 @@ import static main.FXMLPatientsController.loadPage;
  */
 public class FXMLAddPatientController implements Initializable {
     
+    ArchiveTXT archives = new ArchiveTXT();
     CircularLinkedList patients;
+    SinglyLinkedList users;
 
     @FXML
     private BorderPane bp;
@@ -59,6 +67,7 @@ public class FXMLAddPatientController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.patients = util.Utility.getCircularLinkedList();
+        this.users = util.Utility.getSinglyLinkedListPassword();
         
     }   
     
@@ -87,6 +96,10 @@ public class FXMLAddPatientController implements Initializable {
             //Se manda ID y password con logo y nombre de la clinic
            //actualmente manda un correro ami correro, para mandarlo a otro se modifica el string con el correo que se quiere a enviar
             MailMessage.sendMail("macebonilla03@gmail.com","Maria Celeste");
+            Security  sec = new Security("","","patient");
+            users.add(sec);
+            addArchive(sec, "users");
+            util.Utility.setSinglyLinkedListPassword(users);
             //en el correo se envia el usuario y la contraseña
           } catch (Exception ex) {
            Logger.getLogger(FXMLPatientsController.class.getName()).log(Level.SEVERE, null, ex);
@@ -107,6 +120,27 @@ public class FXMLAddPatientController implements Initializable {
         lastNTextField.setText("");
         addressTextField.setText("");
         emailTextField.setText("");
+    }
+      private void addArchive(Object o, String path) {
+        BufferedReader br = archives.getBufferedReader(path);
+        PrintStream ps = archives.getPrintStream(true, path);
+        try {
+        String lineRegister = "";
+         while(lineRegister != null){
+
+            lineRegister = br.readLine();
+                         
+            if(lineRegister != null){
+                            
+            }else{
+               ps.println(o);
+               break;
+             }
+          }
+       } catch (IOException ex) {
+                Logger.getLogger(FXMLAddIllnesAndDiseaseController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+        
     }
     
 }

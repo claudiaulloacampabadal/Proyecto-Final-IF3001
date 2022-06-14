@@ -21,6 +21,7 @@ import java.util.Random;
  */
 public class Utility {
     private static SinglyLinkedList singlyLinkedList = new SinglyLinkedList();
+    private static SinglyLinkedList singlyLinkedListPassWord = new SinglyLinkedList();
     private static DoublyLinkedList doublyLinkedList = new DoublyLinkedList();
     private static CircularLinkedList circularLinkedList = new CircularLinkedList();
    private static CircularDoublyLinkedList circularDoublyLinkedList = new CircularDoublyLinkedList();
@@ -48,6 +49,13 @@ public class Utility {
 
     public static void setSinglyLinkedList(SinglyLinkedList singlyLinkedList) {
         Utility.singlyLinkedList = singlyLinkedList;
+    }
+     public static SinglyLinkedList getSinglyLinkedListPassword() {
+        return singlyLinkedListPassWord;
+    }
+
+    public static void setSinglyLinkedListPassword(SinglyLinkedList singlyLinkedList) {
+        Utility.singlyLinkedListPassWord = singlyLinkedList;
     }
 
     public static DoublyLinkedList getDoublyLinkedList() {

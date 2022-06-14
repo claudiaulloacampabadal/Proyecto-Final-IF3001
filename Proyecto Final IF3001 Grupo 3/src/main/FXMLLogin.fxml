@@ -15,7 +15,7 @@
    <center>
       <AnchorPane fx:id="ap" prefHeight="661.0" prefWidth="774.0" style="-fx-background-color: #1A2C63;" BorderPane.alignment="CENTER">
          <children>
-            <TextField layoutX="479.0" layoutY="294.0" prefHeight="33.0" prefWidth="200.0" />
+            <TextField fx:id="txtUser" layoutX="479.0" layoutY="294.0" prefHeight="33.0" prefWidth="200.0" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
             <Label layoutX="297.0" layoutY="387.0" prefHeight="29.0" prefWidth="108.0" text="Password" textFill="WHITE">
                <font>
@@ -37,7 +37,7 @@
                   <Font name="Agency FB" size="24.0" />
                </font>
             </Label>
-            <TextField layoutX="479.0" layoutY="387.0" prefHeight="34.0" prefWidth="203.0" />
+            <TextField fx:id="txtPassword" layoutX="479.0" layoutY="387.0" prefHeight="34.0" prefWidth="203.0" />
             <ImageView fitHeight="26.0" fitWidth="24.0" layoutX="267.0" layoutY="477.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/users.png" />
