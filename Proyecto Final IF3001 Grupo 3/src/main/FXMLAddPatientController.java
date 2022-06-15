@@ -110,7 +110,7 @@ public class FXMLAddPatientController implements Initializable {
 
     @FXML
     private void bntCloseOnAction(ActionEvent event) {
-        loadPage(getClass().getResource("FXMLPatient.fxml"), bp);
+        loadPage(getClass().getResource("FXMLPatients.fxml"), bp);
     }
 
     @FXML

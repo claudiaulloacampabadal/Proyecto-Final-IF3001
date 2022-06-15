@@ -311,7 +311,6 @@ public class FXMLDoctorsAndSpecialistsController implements Initializable {
                             case 1:
                                 id = Integer.parseInt(sT.nextToken());
                                 controlTokens++;//Separa el id
-                                System.out.print(id);
                                 break;
                             case 2:
                                 lstName = sT.nextToken();
@@ -342,13 +341,13 @@ public class FXMLDoctorsAndSpecialistsController implements Initializable {
                     }//End while   
                      Doctor d = new Doctor(id, lstName, fName, birthday, phone,email, address);
                     //Esto evita que en la lista se repiten enfermedades o se sumen dobles
-                    if (list.isEmpty()) {
+                    
+                    if(lineRegister != null){
                         list.add(d);
-                        lineRegister = br.readLine();
-                    } else if (!list.contains(d)) {
-                        list.add(d);
-                        lineRegister = br.readLine();
                     }
+                        lineRegister = br.readLine();
+                 
+                    
                 }
                 //Se pone aqui para que se carge en el addList
                 util.Utility.setDoublyLinkedList(list);
@@ -358,7 +357,7 @@ public class FXMLDoctorsAndSpecialistsController implements Initializable {
                 file.createNewFile();
             }
 
-        } catch (IOException | ListException ex) {
+        } catch (IOException ex) {
             Logger.getLogger(FXMLIllnessAndDiseaseController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
             Logger.getLogger(FXMLPatientsController.class.getName()).log(Level.SEVERE, null, ex);
