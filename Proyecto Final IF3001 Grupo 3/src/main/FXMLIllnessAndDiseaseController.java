@@ -215,6 +215,13 @@ public class FXMLIllnessAndDiseaseController implements Initializable {
             
         }
     }
+     @FXML
+    private void idOnEditCommit(TableColumn.CellEditEvent<List<String>, String> event) {
+    }
+
+    @FXML
+    private void descriptionOnEditCommit(TableColumn.CellEditEvent<List<String>, String> event) {
+    }
 
     //Eliminar
     @FXML
@@ -404,5 +411,6 @@ public class FXMLIllnessAndDiseaseController implements Initializable {
         
         
     }
+
 
   }

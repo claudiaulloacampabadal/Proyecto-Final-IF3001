@@ -92,7 +92,7 @@ public class Doctor {
     //TO string para los archivos
     @Override
     public String toString() {
-        return id + ";" + lastname + ";" + firstname + ";" + birthday + ";" + phoneNumber + ";" + email + ";" + adress;
+        return id + ";" + lastname + ";" + firstname + ";" +util.Utility.format(birthday)+ ";" + phoneNumber + ";" + email + ";" + adress;
     }
 
    

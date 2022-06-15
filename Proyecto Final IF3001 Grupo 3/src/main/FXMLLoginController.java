@@ -97,7 +97,6 @@ public class FXMLLoginController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(FXMLMainMenuController.class.getName());
         }
-
     }
 
     @FXML
@@ -106,10 +105,10 @@ public class FXMLLoginController implements Initializable {
         // Validar si la contraseña es 
         try {
             //revisa si no estan en blanco
-        if (!cbLogin.getValue().equals("") || !txtUser.getText().equals("") || !txtPassword.getText().equals("")) {
+        if (cbLogin.getValue() != null && !txtUser.getText().equals("") && !txtPassword.getText().equals("")) {
 
             //revisa si la lista contiene ese usuario
-            if (users.contains(new Security(txtUser.getText(), txtPassword.getText(), cbLogin.getValue()))) {
+            if(users.contains(new Security(txtUser.getText(), txtPassword.getText(), cbLogin.getValue()))) {
                     //dependiendo si es paciente o adminstrador abre diferentes menus
                if(cbLogin.getValue().equalsIgnoreCase("Administrator")){//carga las paginas dependiendo si es administrador o paciente
                       loadPage(getClass().getResource("FXMLMainMenu.fxml"));
@@ -117,31 +116,33 @@ public class FXMLLoginController implements Initializable {
                      loadPage(getClass().getResource("FXMLMainMenuPatient.fxml"));
                  }
             }else{
-                   alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Log Action");
-            alert.setHeaderText("Login..");
-            alert.setContentText("Fill All the Spaces");
-                
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Log Action");
+                alert.setHeaderText("Login..");
+                alert.setContentText("Incorrect user or password, try again.");
+                alert.show();
             }
-
+      
         } else {
             alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Log Action");
             alert.setHeaderText("Login..");
             alert.setContentText("Fill All the Spaces");
-        }
+            alert.show();
+            }
         } catch (ListException ex) {
              //Si esta vacia tira la alerta
-              alert = new Alert(Alert.AlertType.ERROR);
+             alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Log Action");
             alert.setHeaderText("Login..");
             alert.setContentText("Doesn´t found anything, is empty");
+            alert.show();
         }
 
     }
 
     private SinglyLinkedList getUsers() {
-        SinglyLinkedList list = util.Utility.getSinglyLinkedList();
+        SinglyLinkedList list = util.Utility.getSinglyLinkedListPassword();
         BufferedReader br = archives.getBufferedReader("users");
         File file = new File("users.txt");
 
@@ -158,7 +159,6 @@ public class FXMLLoginController implements Initializable {
                     //EL token es;
                     StringTokenizer sT = new StringTokenizer(lineRegister, ";");
                     int controlTokens = 1;
-
                     //Para separar los tokens
                     while (sT.hasMoreTokens()) {
                         switch (controlTokens) {
@@ -174,17 +174,18 @@ public class FXMLLoginController implements Initializable {
                                 type = sT.nextToken();
                                 controlTokens++;
                                 break;
+                            default:
+                                break;
                         }
                     }//End while   
-
+      
+                    Security sec  = new Security(user, password, type);
                     //Esto evita que en la lista se repiten enfermedades o se sumen dobles
-                    if (list.isEmpty()) {
-                        list.add(new Security(user, password, type));
-                        lineRegister = br.readLine();
-                    } else if (!list.contains(new Security(user, password, type))) {
-                        list.add(new Security(user, password, type));
-                        lineRegister = br.readLine();
+                    if(lineRegister != null){
+                        list.add(sec);
                     }
+                    lineRegister = br.readLine();
+                   
                 }
                 //Se pone aqui para que se carge en el addList
                 //pone la lista en el set de utility
@@ -193,10 +194,7 @@ public class FXMLLoginController implements Initializable {
                 //Sino existe se crea uno
                 file.createNewFile();
             }
-
         } catch (IOException ex) {
-            Logger.getLogger(FXMLIllnessAndDiseaseController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ListException ex) {
             Logger.getLogger(FXMLIllnessAndDiseaseController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;

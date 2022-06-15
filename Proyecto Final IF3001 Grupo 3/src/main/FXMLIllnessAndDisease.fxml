@@ -50,10 +50,10 @@
       </VBox>
    </left>
    <center>
-      <TableView fx:id="patientsTableView" prefHeight="328.0" prefWidth="667.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="patientsTableView" editable="true" prefHeight="328.0" prefWidth="667.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="idTableColumn" prefWidth="124.0" text="ID" />
-          <TableColumn fx:id="descriptionTableColumn" prefWidth="542.0" text="Description" />
+          <TableColumn fx:id="idTableColumn" onEditCommit="#idOnEditCommit" prefWidth="124.0" text="ID" />
+          <TableColumn fx:id="descriptionTableColumn" onEditCommit="#descriptionOnEditCommit" prefWidth="542.0" text="Description" />
         </columns>
       </TableView>
    </center>
