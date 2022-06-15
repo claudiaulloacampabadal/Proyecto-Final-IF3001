@@ -68,6 +68,12 @@ public class Appointment {
     public void setRemarks(String remarks) {
         this.remarks = remarks;
     }
+
+    @Override
+    public String toString() {
+        return identity + ";" + patientID + ";" + doctorID + ";" + dateTime + ";" + remarks;
+    }
+    
     
     
     
