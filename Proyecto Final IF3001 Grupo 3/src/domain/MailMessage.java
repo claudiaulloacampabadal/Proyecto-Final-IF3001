@@ -12,11 +12,15 @@ import javax.mail.PasswordAuthentication;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
 import javax.mail.Authenticator;
+import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
@@ -71,8 +75,8 @@ public class MailMessage {
         try {
             Message message = new MimeMessage(session);
             //Para poner una imagen al enviar el correo
-           // BodyPart image = new MimeBodyPart();
-         //  image.setDataHandler(new DataHandler(new FileDataSource("C:\\Users\\Maria Celeste\\Desktop\\U - I.E\\I Semestre-2022\\IF 3001\\Proyecto-Grupo3\\Proyecto Final IF3001 Grupo 3\\src\\images\\medical.png")));
+          // BodyPart image = new MimeBodyPart();
+          // image.setDataHandler(new DataHandler(new FileDataSource("medical.png")));
            //image.setFileName("Clinica.png");
 
             MimeMultipart parts = new MimeMultipart();
@@ -90,6 +94,5 @@ public class MailMessage {
         return null;
 
    }
-  
     
 }
