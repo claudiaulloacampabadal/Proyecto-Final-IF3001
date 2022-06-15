@@ -7,6 +7,7 @@ package main;
 
 import domain.Archives.ArchiveTXT;
 import domain.MailMessage;
+import domain.Patient;
 import domain.Security;
 import domain.Sickness;
 import domain.TDA.CircularLinkedList;
@@ -23,6 +24,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -39,6 +41,7 @@ public class FXMLAddPatientController implements Initializable {
     ArchiveTXT archives = new ArchiveTXT();
     CircularLinkedList patients;
     SinglyLinkedList users;
+    private Alert alert;
 
     @FXML
     private BorderPane bp;
@@ -91,17 +94,31 @@ public class FXMLAddPatientController implements Initializable {
     
     @FXML
     private void btnAddOnAction(ActionEvent event) {
-              try {
+        try {
            //Cuando se añade se manda un correo
             //Se manda ID y password con logo y nombre de la clinic
            //actualmente manda un correro ami correro, para mandarlo a otro se modifica el string con el correo que se quiere a enviar
-            MailMessage.sendMail("macebonilla03@gmail.com","Maria Celeste");
-            Security  sec = new Security("","","patient");
-            users.add(sec);
-            addArchive(sec, "users");
-            util.Utility.setSinglyLinkedListPassword(users);
-            //en el correo se envia el usuario y la contraseña
-          } catch (Exception ex) {
+           if(patients != null && !patients.isEmpty()){
+                   //Metodo para enviar un correo
+               //Patient p = new Patient(0, lastname, firstname, birthday, email, adress);
+                //MailMessage.sendMail(p.getEmail(), p.getFirstname() +" "+ p.getLastname());
+                Security  sec = new Security("","","Patient");
+                users.add(sec);
+                addArchive(sec, "users");
+                util.Utility.setSinglyLinkedListPassword(users);
+                //en el correo se envia el usuario y la contraseña
+            
+           }else{
+               //Añadir cuando sea el primero
+               
+               
+               
+               
+           }
+            
+            
+            
+        } catch (Exception ex) {
            Logger.getLogger(FXMLPatientsController.class.getName()).log(Level.SEVERE, null, ex);
         }
      
