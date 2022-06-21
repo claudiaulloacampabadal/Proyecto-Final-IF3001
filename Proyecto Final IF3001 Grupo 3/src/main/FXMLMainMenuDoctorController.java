@@ -5,15 +5,11 @@
  */
 package main;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -25,13 +21,18 @@ import javafx.scene.layout.BorderPane;
  *
  * @author Maria Celeste
  */
-public class FXMLMainMenuPatientController implements Initializable {
+public class FXMLMainMenuDoctorController implements Initializable {
     
     Alert alert;
+
     @FXML
     private BorderPane bp;
     @FXML
-    private Button btnAppointment;
+    private Button btnPatients;
+    @FXML
+    private Button btnMedicalAttention;
+    @FXML
+    private Button btnPayment;
     @FXML
     private Button btnReports;
     @FXML
@@ -50,28 +51,17 @@ public class FXMLMainMenuPatientController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
-    
-    //loader
-    public static void loadPage(URL ui, BorderPane bp){
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(ui); 
-        } catch (IOException ex) {
-            Logger.getLogger(FXMLMainMenuController.class.getName());
-        }
-        //cleaning nodes
-       // bp.setTop(null);
-        bp.setCenter(null); 
-        //bp.setBottom(null); 
-        //bp.setLeft(null);
-        //bp.setRight(null);
-        
-        bp.setCenter(root);
-    }
-
 
     @FXML
-    private void btnAppointmentOnAction(ActionEvent event) {
+    private void btnPatientsOnAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void btnMedicalAttentionOnAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void btnPaymentOnAction(ActionEvent event) {
     }
 
     @FXML
@@ -80,7 +70,7 @@ public class FXMLMainMenuPatientController implements Initializable {
 
     @FXML
     private void btnExitOnAction(ActionEvent event) {
-        alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText("Are you sure you want to close this session?");
         alert.showAndWait();
            
@@ -90,9 +80,8 @@ public class FXMLMainMenuPatientController implements Initializable {
 
     @FXML
     private void btnHomeOnAction(ActionEvent event) {
-        this.lbClinica.setText("Clínica CFM");
-        this.bp.setCenter(ap);
+        
     }
 
-  
+    
 }

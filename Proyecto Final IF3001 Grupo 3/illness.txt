@@ -1,4 +1,6 @@
 1;Autismo
 2;Cancer
 3;Sindrome de Down
-4;Diarrea
+4;Covid-19
+5;Artritis
+6;Rabia

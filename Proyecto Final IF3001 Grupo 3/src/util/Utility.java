@@ -17,6 +17,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
+import javafx.scene.layout.BorderPane;
 
 /**
  *
@@ -27,7 +28,19 @@ public class Utility {
     private static SinglyLinkedList singlyLinkedListPassWord = new SinglyLinkedList();
     private static DoublyLinkedList doublyLinkedList = new DoublyLinkedList();
     private static CircularLinkedList circularLinkedList = new CircularLinkedList();
-   private static CircularDoublyLinkedList circularDoublyLinkedList = new CircularDoublyLinkedList();
+    private static CircularDoublyLinkedList circularDoublyLinkedList = new CircularDoublyLinkedList();
+    private static BorderPane bpIllness = new BorderPane();
+    
+     public static BorderPane getBorderPaneIllness() {
+        return bpIllness;
+    }
+
+    public static void setBorderPaneIllness(BorderPane bpIllness) {
+        Utility.bpIllness =  bpIllness;
+    }
+    
+    
+    
 
     public static CircularLinkedList getCircularLinkedList() {
         return circularLinkedList;

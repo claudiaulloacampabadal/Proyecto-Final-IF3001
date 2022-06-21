@@ -6,9 +6,10 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="661.0" prefWidth="902.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.FXMLMainMenuPatientController">
+<BorderPane fx:id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="661.0" prefWidth="902.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.FXMLMainMenuDoctorController">
    <center>
       <AnchorPane fx:id="ap" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #1A2C63;" BorderPane.alignment="CENTER">
          <children>
@@ -19,6 +20,28 @@
             </Label>
          </children></AnchorPane>
    </center>
+   <top>
+      <HBox prefHeight="95.0" prefWidth="902.0" style="-fx-background-color: #8DAAFF;" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnPatients" mnemonicParsing="false" onAction="#btnPatientsOnAction" prefHeight="94.0" prefWidth="222.0" style="-fx-background-color: transparent; -fx-border-width: 0px 2px 0px 2px; -fx-border-color: blue;" text="Patients">
+               <font>
+                  <Font name="Agency FB" size="22.0" />
+               </font></Button>
+            <Button fx:id="btnMedicalAttention" mnemonicParsing="false" onAction="#btnMedicalAttentionOnAction" prefHeight="94.0" prefWidth="216.0" style="-fx-background-color: transparent; -fx-border-color: blue; -fx-border-width: 0px 2px 0px 2px;" text="Medical Attention" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Agency FB" size="22.0" />
+               </font></Button>
+            <Button fx:id="btnPayment" mnemonicParsing="false" onAction="#btnPaymentOnAction" prefHeight="94.0" prefWidth="222.0" style="-fx-background-color: transparent; -fx-border-color: blue; -fx-border-width: 0px 2px 0px 2px;" text="Payment" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Agency FB" size="22.0" />
+               </font></Button>
+            <Button fx:id="btnReports" mnemonicParsing="false" onAction="#btnReportOnAction" prefHeight="94.0" prefWidth="266.0" style="-fx-background-color: transparent; -fx-border-color: blue; -fx-border-width: 0px 2px 0px 2px;" text="System Reports" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Agency FB" size="22.0" />
+               </font></Button>
+         </children>
+      </HBox>
+   </top>
    <bottom>
       <AnchorPane prefHeight="91.0" prefWidth="902.0" style="-fx-background-color: #B3C6FF;" BorderPane.alignment="CENTER">
          <children>
@@ -43,18 +66,4 @@
          </children>
       </AnchorPane>
    </bottom>
-   <top>
-      <AnchorPane prefHeight="94.0" prefWidth="902.0" style="-fx-background-color: #7497FF;" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="btnAppointment" layoutX="-6.0" mnemonicParsing="false" onAction="#btnAppointmentOnAction" prefHeight="94.0" prefWidth="469.0" style="-fx-background-color: transparent; -fx-border-color: blue; -fx-border-width: 0px 2px 0px 2px;" text=" Management Appointments" textAlignment="CENTER" wrapText="true">
-               <font>
-                  <Font name="Agency FB" size="28.0" />
-               </font></Button>
-            <Button fx:id="btnReports" layoutX="462.0" mnemonicParsing="false" onAction="#btnReportOnAction" prefHeight="94.0" prefWidth="440.0" style="-fx-background-color: transparent; -fx-border-color: blue; -fx-border-width: 0px 2px 0px 2px;" text="System Reports" textAlignment="CENTER" wrapText="true">
-               <font>
-                  <Font name="Agency FB" size="28.0" />
-               </font></Button>
-         </children>
-      </AnchorPane>
-   </top>
 </BorderPane>

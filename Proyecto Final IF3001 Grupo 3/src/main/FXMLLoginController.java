@@ -72,7 +72,7 @@ public class FXMLLoginController implements Initializable {
 
     }
 
-    ObservableList<String> ol = FXCollections.observableArrayList("Administrator", "Patient");
+    ObservableList<String> ol = FXCollections.observableArrayList("Administrator", "Patient","Doctor");
 
     //Loader para cargar la otra pagina
     //solo se manda el url no el border pane por que lo qeu se necesita es borrarlo
@@ -110,11 +110,13 @@ public class FXMLLoginController implements Initializable {
             //revisa si la lista contiene ese usuario
             if(users.contains(new Security(txtUser.getText(), txtPassword.getText(), cbLogin.getValue()))) {
                     //dependiendo si es paciente o adminstrador abre diferentes menus
-               if(cbLogin.getValue().equalsIgnoreCase("Administrator")){//carga las paginas dependiendo si es administrador o paciente
+                if(cbLogin.getValue().equalsIgnoreCase("Administrator")){//carga las paginas dependiendo si es administrador o paciente
                       loadPage(getClass().getResource("FXMLMainMenu.fxml"));
                 } else if(cbLogin.getValue().equalsIgnoreCase("Patient")){
                      loadPage(getClass().getResource("FXMLMainMenuPatient.fxml"));
-                 }
+                } else if(cbLogin.getValue().equalsIgnoreCase("Doctor")){
+                     loadPage(getClass().getResource("FXMLMainMenuDoctor.fxml"));
+                }
             }else{
                 alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Log Action");
