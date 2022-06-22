@@ -6,6 +6,7 @@
 package main;
 
 import dateTimePicker.DateTimePicker;
+import domain.TDA.DoublyLinkedList;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -30,7 +31,8 @@ import javafx.util.StringConverter;
  * @author Maria Celeste
  */
 public class FXMLAddAppointmentController implements Initializable {
-
+    
+    DoublyLinkedList appoitments;
     @FXML
     private BorderPane bp;
     @FXML
@@ -57,7 +59,7 @@ public class FXMLAddAppointmentController implements Initializable {
 
     @FXML
     private void btnAddOnAction(ActionEvent event){
-        System.out.println(util.Utility.formatDateTime(calendarChoice.getTime()));
+        
     }
 
     @FXML

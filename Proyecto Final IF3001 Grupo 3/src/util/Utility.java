@@ -27,6 +27,7 @@ public class Utility {
     private static SinglyLinkedList singlyLinkedList = new SinglyLinkedList();
     private static SinglyLinkedList singlyLinkedListPassWord = new SinglyLinkedList();
     private static DoublyLinkedList doublyLinkedList = new DoublyLinkedList();
+   private static DoublyLinkedList doublyLinkedListAppointment = new DoublyLinkedList();
     private static CircularLinkedList circularLinkedList = new CircularLinkedList();
     private static CircularDoublyLinkedList circularDoublyLinkedList = new CircularDoublyLinkedList();
     private static BorderPane bpIllness = new BorderPane();
