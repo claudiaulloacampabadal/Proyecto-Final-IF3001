@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="903.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.FXMLDoctorsAndSpecialistsController">
+<BorderPane fx:id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="903.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.doctor.FXMLDoctorsAndSpecialistsController">
    <left>
       <VBox prefHeight="400.0" prefWidth="112.0" style="-fx-background-color: #07F4FF;" BorderPane.alignment="CENTER">
          <children>
@@ -65,7 +65,7 @@
    <top>
       <AnchorPane prefHeight="79.0" prefWidth="779.0" style="-fx-background-color: #1A2C63;" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="180.0" layoutY="8.0" prefHeight="64.0" prefWidth="419.0" text="Doctors &amp; Specialists List" textAlignment="CENTER" textFill="WHITE">
+            <Label layoutX="242.0" layoutY="8.0" prefHeight="64.0" prefWidth="419.0" text="Doctors &amp; Specialists List" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Agency FB" size="50.0" />
                </font>

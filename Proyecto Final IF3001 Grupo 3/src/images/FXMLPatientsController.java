@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package main;
+package images;
 
 import domain.Archives.ArchiveTXT;
 import domain.MailMessage;
@@ -40,6 +40,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Callback;
 import javax.mail.MessagingException;
+import main.FXMLIllnessAndDiseaseController;
+import main.FXMLMainMenuController;
 import static main.FXMLMainMenuController.loadPage;
 
 /**

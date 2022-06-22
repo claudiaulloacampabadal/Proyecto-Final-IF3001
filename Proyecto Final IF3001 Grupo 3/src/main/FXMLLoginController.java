@@ -6,7 +6,6 @@ package main;
 
 import domain.Archives.ArchiveTXT;
 import domain.Security;
-import domain.Sickness;
 import domain.TDA.ListException;
 import domain.TDA.SinglyLinkedList;
 import java.io.BufferedReader;

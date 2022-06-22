@@ -14,13 +14,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -36,12 +34,6 @@ public class FXMLMainMenuController implements Initializable {
     private Button btnDoctorsAndSpecial;
     @FXML
     private Button btnDisease;
-    @FXML
-    private Button btnAppointment;
-    @FXML
-    private Button btnMedicalAttention;
-    @FXML
-    private Button btnPayment;
     @FXML
     private Button btnReports;
     @FXML
@@ -97,17 +89,6 @@ public class FXMLMainMenuController implements Initializable {
         loadPage(getClass().getResource("FXMLIllnessAndDisease.fxml"), bp);
     }
 
-    @FXML
-    private void btnAppointmentOnAction(ActionEvent event) {
-    }
-
-    @FXML
-    private void btnMedicalAttentionOnAction(ActionEvent event) {
-    }
-
-    @FXML
-    private void btnPaymentOnAction(ActionEvent event) {
-    }
 
     @FXML
     private void btnReportOnAction(ActionEvent event) {

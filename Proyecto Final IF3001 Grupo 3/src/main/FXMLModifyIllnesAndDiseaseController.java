@@ -116,6 +116,10 @@ public class FXMLModifyIllnesAndDiseaseController implements Initializable {
                         //Buscar donde esta
                         updateList(s,tF_Description.getText());
                         modifyArchive(id, tF_Description.getText());
+                       alert = new Alert(Alert.AlertType.INFORMATION);
+                       alert.setTitle("Illness - Update");
+                       alert.setContentText("Element update, succesfully!");
+                       alert.show();
                         loadPage(getClass().getResource("FXMLIllnessAndDisease.fxml"),illnessPane);
                     }else{
                        alert = new Alert(Alert.AlertType.ERROR);

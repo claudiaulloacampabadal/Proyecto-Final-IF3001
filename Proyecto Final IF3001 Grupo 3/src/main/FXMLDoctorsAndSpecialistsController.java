@@ -7,12 +7,9 @@ package main;
 
 import domain.Archives.ArchiveTXT;
 import domain.Doctor;
-import domain.Patient;
 import domain.Sickness;
-import domain.TDA.CircularLinkedList;
 import domain.TDA.DoublyLinkedList;
 import domain.TDA.ListException;
-import domain.TDA.SinglyLinkedList;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -37,13 +34,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Callback;
-import static main.FXMLIllnessAndDiseaseController.loadPage;
+import main.FXMLIllnessAndDiseaseController;
+import main.FXMLMainMenuController;
+import images.FXMLPatientsController;
 
 /**
  * FXML Controller class
@@ -367,3 +365,4 @@ public class FXMLDoctorsAndSpecialistsController implements Initializable {
 
     
 }
+

@@ -4,12 +4,14 @@
  */
 package domain.TDA;
 
-import domain.*;
-
 /**
  *
- * @author Usuario
+ * @author Profesor Gilberth Chaves A <gchavesav@ucr.ac.cr>
  */
-public class BinaryTree {
+public class TreeException extends Exception {
+
+    public TreeException(String msg) {
+        super(msg);
+    }
     
 }

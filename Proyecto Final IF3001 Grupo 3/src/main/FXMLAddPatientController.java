@@ -5,6 +5,7 @@
  */
 package main;
 
+import images.FXMLPatientsController;
 import domain.Archives.ArchiveTXT;
 import domain.MailMessage;
 import domain.Patient;
@@ -29,7 +30,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import static main.FXMLPatientsController.loadPage;
+import main.FXMLAddIllnesAndDiseaseController;
+import main.FXMLMainMenuController;
+import images.FXMLPatientsController;
+import static images.FXMLPatientsController.loadPage;
 
 /**
  * FXML Controller class

@@ -6,6 +6,7 @@
 package main;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -38,7 +39,7 @@ public class FXMLModifyDoctorController implements Initializable {
     @FXML
     private TextField phoneTextField;
     @FXML
-    private ComboBox<?> cB_Id;
+    private ComboBox<List<String>> cB_Id;
     @FXML
     private Button btnUpdate;
     @FXML
