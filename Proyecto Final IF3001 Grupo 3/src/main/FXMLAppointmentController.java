@@ -5,16 +5,23 @@
  */
 package main;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
+import static main.FXMLIllnessAndDiseaseController.loadPage;
 
 /**
  * FXML Controller class
@@ -54,8 +61,33 @@ public class FXMLAppointmentController implements Initializable {
         // TODO
     }    
 
+     public static void loadPage(URL ui) {
+
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            Parent root = loader.load(ui);//carga el url
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+
+            //crea un nuevo stage para que parezca sin el login
+            stage.setScene(scene);
+            stage.setTitle("Proyecto Final Gr3 - 2022");
+            stage.setResizable(false);
+            stage.show();
+            //llama a la ventana login para cerrarla
+     
+
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLMainMenuController.class.getName());
+        }
+    }
+
+
+    
     @FXML
     private void btnCreateOnAction(ActionEvent event) {
+         loadPage(getClass().getResource("FXMLAddAppointment.fxml"));
     }
 
     @FXML
@@ -64,6 +96,7 @@ public class FXMLAppointmentController implements Initializable {
 
     @FXML
     private void btnUpdateOnAction(ActionEvent event) {
+        loadPage(getClass().getResource("FXMLModifyAppointment.fxml"));
     }
 
     @FXML

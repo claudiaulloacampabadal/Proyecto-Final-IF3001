@@ -50,7 +50,7 @@
                <font>
                   <Font name="Agency FB" size="28.0" />
                </font></Button>
-            <Button fx:id="btnReports" layoutX="462.0" mnemonicParsing="false" onAction="#btnReportOnAction" prefHeight="94.0" prefWidth="440.0" style="-fx-background-color: transparent; -fx-border-color: blue; -fx-border-width: 0px 2px 0px 2px;" text="System Reports" textAlignment="CENTER" wrapText="true">
+            <Button fx:id="btnReports" layoutX="462.0" mnemonicParsing="false" onAction="#btnReportOnAction" prefHeight="94.0" prefWidth="440.0" style="-fx-background-color: transparent; -fx-border-color: blue; -fx-border-width: 0px 2px 0px 2px;" text="Medical Reports" textAlignment="CENTER" wrapText="true">
                <font>
                   <Font name="Agency FB" size="28.0" />
                </font></Button>

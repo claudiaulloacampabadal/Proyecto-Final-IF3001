@@ -42,6 +42,11 @@ import javafx.util.Callback;
 import main.FXMLIllnessAndDiseaseController;
 import main.FXMLMainMenuController;
 import images.FXMLPatientsController;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -149,28 +154,33 @@ public class FXMLDoctorsAndSpecialistsController implements Initializable {
         }  
        
     }   
-    
-    //Metodo para borrar todo el bp y que carge la otra pagina
-     public static void loadPage(URL ui, BorderPane bp){
-        Parent root = null;
+    //Metodo para hacer una ventana
+     public static void loadPage(URL ui) {
+
         try {
-            root = FXMLLoader.load(ui); 
+            FXMLLoader loader = new FXMLLoader();
+            Parent root = loader.load(ui);//carga el url
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+
+            //crea un nuevo stage para que parezca sin el login
+            stage.setScene(scene);
+            stage.setTitle("Proyecto Final Gr3 - 2022");
+            stage.setResizable(false);
+            stage.show();
+            //llama a la ventana login para cerrarla
+     
+
         } catch (IOException ex) {
             Logger.getLogger(FXMLMainMenuController.class.getName());
         }
-        //cleaning nodes
-        bp.setTop(null);
-        bp.setCenter(null); 
-        bp.setBottom(null); 
-        bp.setLeft(null);
-        bp.setRight(null);
-        
-        bp.setCenter(root);
     }
 
     @FXML
     private void btnCreateOnAction(ActionEvent event) {
-        loadPage(getClass().getResource("FXMLAddDoctor.fxml"),bp);
+        util.Utility.setBorderPaneDoctor(bp);
+        loadPage(getClass().getResource("FXMLAddDoctor.fxml"));
     }
 
     @FXML
@@ -215,6 +225,8 @@ public class FXMLDoctorsAndSpecialistsController implements Initializable {
 
     @FXML
     private void btnUpdateOnAction(ActionEvent event) {
+          util.Utility.setBorderPaneDoctor(bp);
+        loadPage(getClass().getResource("FXMLModifyDoctor.fxml"));
     }
 
     @FXML
@@ -362,6 +374,58 @@ public class FXMLDoctorsAndSpecialistsController implements Initializable {
         }
         return list;
     }
+    
+    private void removeArchive(String lineToRemove) {
+      try {
+ 
+        File file = new File("doctors.txt");
+ 
+        if (!file.isFile()) {
+            return;
+        }
+ 
+        //Construct the new file that will later be renamed to the original filename.
+        File tempFile = new File(file.getAbsolutePath()+".tmp");
+ 
+        BufferedReader br = archives.getBufferedReader("doctors");
+        PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
+ 
+        String line = "";
+        //Read from the original file and write to the new
+        //unless content matches data to be removed.
+        while (line != null) {
+            //El token es;
+            line = br.readLine();
+            if(line != null){
+                StringTokenizer sT = new StringTokenizer(line,";");
+                //Para separar los tokens
+                String id = sT.nextToken();
+                      //Reviso que id no sea el mismo que el "line to remove"
+                if (!id.equalsIgnoreCase(lineToRemove)) {
+                    pw.println(line);
+                    pw.flush();
+                }
+            }
+            }
+        pw.close();
+        br.close();
+        //Delete the original file
+        if (!file.delete()) {
+            System.out.println("Could not delete file");
+            return;
+        }
+ 
+        //Rename the new file to the filename the original file had.
+        if (!tempFile.renameTo(new File("doctors.txt"))){
+            System.out.println("Could not rename file");
+ 
+        }
+    } catch (FileNotFoundException ex) {
+    } catch (IOException ex) {
+    }
+        
+   }
+    
 
     
 }

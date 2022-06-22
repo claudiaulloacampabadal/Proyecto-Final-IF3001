@@ -30,17 +30,29 @@ public class Utility {
     private static CircularLinkedList circularLinkedList = new CircularLinkedList();
     private static CircularDoublyLinkedList circularDoublyLinkedList = new CircularDoublyLinkedList();
     private static BorderPane bpIllness = new BorderPane();
+    private static BorderPane bpAppointment = new BorderPane();
+    private static BorderPane bpDoctor = new BorderPane();
     
-     public static BorderPane getBorderPaneIllness() {
+     public static BorderPane getBorderPaneDoctor() {
+        return bpDoctor;
+    }
+    public static void setBorderPaneDoctor(BorderPane bpDoctor) {
+        Utility.bpDoctor =  bpDoctor;
+    }
+    
+    public static BorderPane getBorderPaneAppointment() {
+        return bpAppointment;
+    }
+    public static void setBorderPaneAppointment(BorderPane bpAppointment) {
+        Utility.bpAppointment =  bpAppointment;
+    }  
+    public static BorderPane getBorderPaneIllness() {
         return bpIllness;
     }
 
     public static void setBorderPaneIllness(BorderPane bpIllness) {
         Utility.bpIllness =  bpIllness;
     }
-    
-    
-    
 
     public static CircularLinkedList getCircularLinkedList() {
         return circularLinkedList;
@@ -111,6 +123,11 @@ public class Utility {
         return format.format(value);
     }
     
+     public static String formatDateTime(Date value){
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy  HH:mm"); 
+        return format.format(value);
+    }
+     
     public static void fill(int a[]) {
         Random random = new Random();
         for (int i = 0; i < a.length; i++)
@@ -217,10 +234,6 @@ public class Utility {
         return false;
     }
 
-    public static boolean lessTName(Object data, Object data0) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-     
     
     
 }

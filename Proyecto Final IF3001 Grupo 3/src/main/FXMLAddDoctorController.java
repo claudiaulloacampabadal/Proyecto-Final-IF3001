@@ -7,7 +7,6 @@ package main;
 
 import domain.Archives.ArchiveTXT;
 import domain.Doctor;
-import domain.Sickness;
 import domain.TDA.DoublyLinkedList;
 import domain.TDA.ListException;
 import java.io.BufferedReader;
@@ -29,9 +28,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import main.FXMLAddIllnesAndDiseaseController;
-import main.FXMLMainMenuController;
-import static main.FXMLAddPatientController.loadPage;
 
 /**
  * FXML Controller class

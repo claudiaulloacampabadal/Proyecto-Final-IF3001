@@ -231,29 +231,29 @@ public class CircularLinkedList implements List{
         }  
     }
     
-    public void sortName() throws ListException{
-         Node current = first, index = null;
-        Object temp;
-        if(isEmpty()){
-            throw new ListException("Circular Linked List is empty");
-        } else {
-            do {
-                 
-                index = current.next;
-                while (index != first) {
-               
-                    if (util.Utility.lessTName(index.data, current.data)) {
-                        temp = current.data;
-                        current.data = index.data;
-                        index.data = temp;
-                    }
-                    index = index.next;
-                }
-                current = current.next;
-            } while (current.next != first);
-        }  
-        
-    }
+//    public void sortName() throws ListException{
+//         Node current = first, index = null;
+//        Object temp;
+//        if(isEmpty()){
+//            throw new ListException("Circular Linked List is empty");
+//        } else {
+//            do {
+//                 
+//                index = current.next;
+//                while (index != first) {
+//               
+//                    if (util.Utility.lessTName(index.data, current.data)) {
+//                        temp = current.data;
+//                        current.data = index.data;
+//                        index.data = temp;
+//                    }
+//                    index = index.next;
+//                }
+//                current = current.next;
+//            } while (current.next != first);
+//        }  
+//        
+//    }
 
     @Override
     public int indexOf(Object element) throws ListException {

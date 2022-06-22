@@ -20,6 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import main.FXMLMainMenuController;
+import static main.FXMLMainMenuController.loadPage;
 
 /**
  * FXML Controller class
@@ -73,6 +74,7 @@ public class FXMLMainMenuPatientController implements Initializable {
 
     @FXML
     private void btnAppointmentOnAction(ActionEvent event) {
+          loadPage(getClass().getResource("FXMLAppointment.fxml"), bp);
     }
 
     @FXML
