@@ -32,6 +32,14 @@ public class Utility {
     private static BorderPane bpIllness = new BorderPane();
     private static BorderPane bpAppointment = new BorderPane();
     private static BorderPane bpDoctor = new BorderPane();
+    private static BorderPane bpPatient = new BorderPane();
+    
+    public static BorderPane getBorderPanePatient() {
+        return bpPatient;
+    }
+    public static void setBorderPanePatient(BorderPane bpPatient) {
+        Utility.bpPatient =  bpPatient;
+    }
     
      public static BorderPane getBorderPaneDoctor() {
         return bpDoctor;

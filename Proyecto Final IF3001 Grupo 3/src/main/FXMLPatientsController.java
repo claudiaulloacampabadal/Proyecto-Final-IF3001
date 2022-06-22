@@ -7,12 +7,17 @@ package main;
 
 import domain.Archives.ArchiveTXT;
 import domain.Doctor;
+import domain.Patient;
 import domain.Sickness;
+import domain.TDA.CircularLinkedList;
 import domain.TDA.DoublyLinkedList;
 import domain.TDA.ListException;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,29 +37,28 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
-import javafx.util.Callback;
-import images.FXMLPatientsController;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.PrintWriter;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Callback;
+import static main.FXMLIllnessAndDiseaseController.loadPage;
 
 /**
  * FXML Controller class
  *
  * @author Maria Celeste
  */
-public class FXMLDoctorsAndSpecialistsController implements Initializable {
-    ArchiveTXT archives = new ArchiveTXT();
+public class FXMLPatientsController implements Initializable {
+     ArchiveTXT archives = new ArchiveTXT();
     Alert alert;
-    DoublyLinkedList doctors;
+    
+    CircularLinkedList patients;
+
     @FXML
     private BorderPane bp;
     @FXML
@@ -66,34 +70,32 @@ public class FXMLDoctorsAndSpecialistsController implements Initializable {
     @FXML
     private Button btnDelete;
     @FXML
-    private TableColumn<List<String>, String> idTableColumn;
+    private TableView<List<String>> patientsTableView;
     @FXML
-    private TableColumn<List<String>, String> firstNameTableColumn;
+    private TableColumn<List<String>,String> idTableColumn;
     @FXML
-    private TableColumn<List<String>, String> lastNameTableColumn;
+    private TableColumn<List<String>,String> firstNameTableColumn;
     @FXML
-    private TableColumn<List<String>, String> birthdayTableColumn;
+    private TableColumn<List<String>,String> lastNameTableColumn;
     @FXML
-    private TableColumn<List<String>, String> emailTableColumn;
+    private TableColumn<List<String>,String> birthdayTableColumn;
     @FXML
-    private TableColumn<List<String>, String> phoneTableColumn;
+    private TableColumn<List<String>,String> addressTableColumn;
     @FXML
-    private TableColumn<List<String>, String> addressTableColumn;
-    @FXML
-    private TableView<List<String>> doctorTableView;
+    private TableColumn<List<String>,String> emailTableColumn;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-         //Si no esta vacia
+          //Si no esta vacia
         if(!util.Utility.getDoublyLinkedList().isEmpty()){
             //carga la lista utility, que añadio
-            this.doctors = util.Utility.getDoublyLinkedList();
+            this.patients = util.Utility.getCircularLinkedList();
         }else{//si esta vacia por primera vez entonces
             //Llama al metodo que carga el archivo
-            this.doctors = getDoctors();
+            this.patients = getPatients();
         }
         
         this.idTableColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<List<String>, String>, ObservableValue<String>>() {
@@ -117,147 +119,142 @@ public class FXMLDoctorsAndSpecialistsController implements Initializable {
                 return new ReadOnlyObjectWrapper<>(data.getValue().get(2));//tome los valores que estan en el indice 0
             }
         });
-        this.phoneTableColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<List<String>, String>, ObservableValue<String>>() {
+         this.birthdayTableColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<List<String>, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<List<String>, String> data) {
                 //
                 return new ReadOnlyObjectWrapper<>(data.getValue().get(3));//tome los valores que estan en el indice 0
             }
         });
-         this.birthdayTableColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<List<String>, String>, ObservableValue<String>>() {
+        this.addressTableColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<List<String>, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<List<String>, String> data) {
                 //
                 return new ReadOnlyObjectWrapper<>(data.getValue().get(4));//tome los valores que estan en el indice 0
             }
         });
-        this.addressTableColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<List<String>, String>, ObservableValue<String>>() {
+        this.emailTableColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<List<String>, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<List<String>, String> data) {
                 //
                 return new ReadOnlyObjectWrapper<>(data.getValue().get(5));//tome los valores que estan en el indice 0
             }
         });
-        this.emailTableColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<List<String>, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<List<String>, String> data) {
-                //
-                return new ReadOnlyObjectWrapper<>(data.getValue().get(6));//tome los valores que estan en el indice 0
-            }
-        });
           
         //Cargar los datos en una tableView
-        if (doctors!=null && !doctors.isEmpty()) {
-            this.doctorTableView.setItems(getData());
+        if (patients!=null && !patients.isEmpty()) {
+            this.patientsTableView.setItems(getData());
         }  
-       
-    }   
-    //Metodo para hacer una ventana
-     public static void loadPage(URL ui) {
+    }
 
+  //Metodo para hacer una ventana
+     public static void loadPage(URL ui) {
         try {
             FXMLLoader loader = new FXMLLoader();
             Parent root = loader.load(ui);//carga el url
 
             Scene scene = new Scene(root);
             Stage stage = new Stage();
-
             //crea un nuevo stage para que parezca sin el login
             stage.setScene(scene);
             stage.setTitle("Proyecto Final Gr3 - 2022");
             stage.setResizable(false);
             stage.show();
             //llama a la ventana login para cerrarla
-     
-
         } catch (IOException ex) {
             Logger.getLogger(FXMLMainMenuController.class.getName());
         }
-    }
+    }    
 
     @FXML
     private void btnCreateOnAction(ActionEvent event) {
-        util.Utility.setBorderPaneDoctor(bp);
-        loadPage(getClass().getResource("FXMLAddDoctor.fxml"));
+         util.Utility.setBorderPanePatient(bp);
+        loadPage(getClass().getResource("FXMLAddPatient.fxml"));
     }
 
     @FXML
     private void btnReadOnAction(ActionEvent event) {
-          //Leer segun el id
-        TextInputDialog read = new TextInputDialog();
-        read.setTitle("Doctors AND Specialist");
-        read.setHeaderText("Enter the ID of the element to read");
-        read.showAndWait();
+           //Leer segun el id
+        TextInputDialog update = new TextInputDialog();
+        update.setTitle("Patients");
+        update.setHeaderText("Enter the ID of the element to read");
+        update.showAndWait();
         try {
-            Doctor d = new Doctor(Integer.parseInt(read.getResult()), "", "", null, "", "", "");
-            //Reivsa si contiene el id del doctor
-            if(doctors.contains(d)){
-                int index = doctors.indexOf(d);
+            Patient p = new Patient(Integer.parseInt(update.getResult()), "","",null,"","");
+            if(patients.contains(p)){
+                int index = patients.indexOf(p);
                alert = new Alert(Alert.AlertType.INFORMATION);
-               alert.setTitle("Doctor AND Specialist - Read");
+               alert.setTitle("Patients - Read");
                alert.setHeaderText("The element is...");
-               alert.setContentText(String.valueOf(doctors.getNode(index).data));
+               alert.setContentText(String.valueOf(patients.getNode(index).data));
                alert.show();
                 
-            }else{//SIno le dice que no existe
+            }else{
                alert = new Alert(Alert.AlertType.ERROR);
-               alert.setTitle("Doctors - Read");
+               alert.setTitle("Patients - Read");
                alert.setContentText("Element doesn't exist");
                alert.show();
                 
             }
        } catch (ListException ex) {
             alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Doctor AND Specialist - Read");
+            alert.setTitle("Illness - Update");
             alert.setContentText("List is Empty!");
             alert.show();
             
       } catch(NumberFormatException nfe){
             alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Doctor AND Specialist - Read");
+            alert.setTitle("Illness - Read");
             alert.setContentText("Invalid character, try a number.");
             alert.show();
             }
+        
     }
-    
 
     @FXML
     private void btnUpdateOnAction(ActionEvent event) {
-          util.Utility.setBorderPaneDoctor(bp);
-        loadPage(getClass().getResource("FXMLModifyDoctor.fxml"));
+        util.Utility.setBorderPanePatient(bp);
+        loadPage(getClass().getResource("FXMLModifyPatient.fxml"));
     }
 
     @FXML
     private void btnDeleteOnAction(ActionEvent event) {
-         TextInputDialog delete = new TextInputDialog("Element for delete");
-        delete.setTitle("");
+         //Prgunta cual es el id que se quiere remover
+        TextInputDialog delete = new TextInputDialog();
+        delete.setTitle("Remove - Patients");
+        delete.setHeaderText("Enter the ID to remove");
         delete.showAndWait();
-        
+        //Se pregunta si de verdad quiere remover el archivo
         alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText("Are you sure you want to remove this element?");
         alert.showAndWait();
         
         if(alert.getResult().getText().equalsIgnoreCase("aceptar")){
             try {
-                doctors.remove(new Sickness(Integer.parseInt(delete.getResult()), ""));
-                util.Utility.setDoublyLinkedList(doctors);
-                if(!doctors.isEmpty()){
-                    this.doctorTableView.setItems(getData());
+                //Se remueve de la lista
+                patients.remove(new Patient(Integer.parseInt(delete.getResult()), "","",null,"",""));
+                util.Utility.setCircularLinkedList(patients);
+                //Si esta vacia solo se limpia la lista sino se vueleve a llamar la tabla
+                if(!patients.isEmpty()){
+                    this.patientsTableView.setItems(getData());
                 }else{
-                    this.doctorTableView.getItems().clear();
+                    this.patientsTableView.getItems().clear();
                }
             } catch (ListException ex) {
                 Logger.getLogger(FXMLIllnessAndDiseaseController.class.getName()).log(Level.SEVERE, null, ex);
             } catch(NumberFormatException nfe){
                 alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Doctor AND Specialist - Remove");
+                alert.setTitle("Illness - Remove");
                 alert.setContentText("Invalid character, try a number.");
                 alert.show();
             }
-            //removeArchive(delete.getResult());
+            //Se ejecuta el metodo remueve archivo
+            //Se manda el id
+            removeArchive(delete.getResult(), "patients");
+            //Se busca el id y se remueve el doctor, con el user
+            //removeArchive(delete.getResult(), "users");
         }
     }
- 
     
       //El getData para la tableView
      private ObservableList<List<String>> getData(){
@@ -265,17 +262,16 @@ public class FXMLDoctorsAndSpecialistsController implements Initializable {
         ObservableList<List<String>> data = FXCollections.observableArrayList();
 
         try {
-            for(int i = 1; i <= doctors.size(); i++) {
-                Doctor d = (Doctor) doctors.getNode(i).data;
+            for(int i = 1; i <= patients.size(); i++) {
+                Patient p = (Patient) patients.getNode(i).data;
                 List<String> arrayList = new ArrayList<>();
                 
-                arrayList.add(String.valueOf(d.getId()));
-                arrayList.add(d.getFirstname());
-                arrayList.add(d.getLastname());
-                arrayList.add(d.getPhoneNumber());
-                arrayList.add(util.Utility.format(d.getBirthday()));
-                arrayList.add(d.getAdress());
-                arrayList.add(d.getEmail());
+                arrayList.add(String.valueOf(p.getId()));
+                arrayList.add(p.getFirstname());
+                arrayList.add(p.getLastname());
+                arrayList.add(util.Utility.format(p.getBirthday()));
+                arrayList.add(p.getAdress());
+                arrayList.add(p.getEmail());
                
                 data.add(arrayList);
             }
@@ -286,13 +282,13 @@ public class FXMLDoctorsAndSpecialistsController implements Initializable {
           return data;  
      }
     
-     //Para obetner los datos dela rchivo y cargarlos alas listas
-    private DoublyLinkedList getDoctors() {
+       //Para obetner los datos dela rchivo y cargarlos alas listas
+    private CircularLinkedList getPatients() {
     
-        DoublyLinkedList list = util.Utility.getDoublyLinkedList();
-        BufferedReader br = archives.getBufferedReader("doctors");
+        CircularLinkedList list = util.Utility.getCircularLinkedList();
+        BufferedReader br = archives.getBufferedReader("patients");
                  
-        File file = new File("doctors.txt");
+        File file = new File("patients.txt");
 
         try {
             //Revisa si el archivo existe
@@ -306,7 +302,6 @@ public class FXMLDoctorsAndSpecialistsController implements Initializable {
                     String lstName = "";
                     SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
                     Date birthday = null;
-                    String phone ="";
                     String email = "";
                     String address = "";
                     //EL token es;
@@ -334,49 +329,42 @@ public class FXMLDoctorsAndSpecialistsController implements Initializable {
                                 controlTokens++;
                                 break;
                             case 5:
-                                phone = sT.nextToken();
-                                controlTokens++;//EL numero de telefono
-                                break;
-                            case 6:
                                 email = sT.nextToken();
                                 controlTokens++;///El email
                                 break;
-                            case 7:
+                            case 6:
                                 address = sT.nextToken();
                                 controlTokens++;//La direccion
                                 break;
                         }
                     }//End while   
-                     Doctor d = new Doctor(id, lstName, fName, birthday, phone,email, address);
+                     Patient p = new Patient(id, lstName, fName, birthday,email, address);
                     //Esto evita que en la lista se repiten enfermedades o se sumen dobles
-                    
                     if(lineRegister != null){
-                        list.add(d);
+                        list.add(p);
                     }
-                        lineRegister = br.readLine();
-                 
-                    
+                    lineRegister = br.readLine();
                 }
                 //Se pone aqui para que se carge en el addList
-                util.Utility.setDoublyLinkedList(list);
-
+                util.Utility.setCircularLinkedList(list);
             } else {
                 //Sino existe se crea uno
                 file.createNewFile();
             }
-
         } catch (IOException ex) {
             Logger.getLogger(FXMLIllnessAndDiseaseController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
-            Logger.getLogger(FXMLPatientsController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(images.FXMLPatientsController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
     }
     
-    private void removeArchive(String lineToRemove) {
+    //Remover las variables de un archivo
+    //Se remueve por id
+    private void removeArchive(String lineToRemove, String path) {
       try {
  
-        File file = new File("doctors.txt");
+        File file = new File(path+".txt");
  
         if (!file.isFile()) {
             return;
@@ -385,7 +373,7 @@ public class FXMLDoctorsAndSpecialistsController implements Initializable {
         //Construct the new file that will later be renamed to the original filename.
         File tempFile = new File(file.getAbsolutePath()+".tmp");
  
-        BufferedReader br = archives.getBufferedReader("doctors");
+        BufferedReader br = archives.getBufferedReader(path);
         PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
  
         String line = "";
@@ -414,7 +402,7 @@ public class FXMLDoctorsAndSpecialistsController implements Initializable {
         }
  
         //Rename the new file to the filename the original file had.
-        if (!tempFile.renameTo(new File("doctors.txt"))){
+        if (!tempFile.renameTo(new File(path+".txt"))){
             System.out.println("Could not rename file");
  
         }
@@ -424,7 +412,4 @@ public class FXMLDoctorsAndSpecialistsController implements Initializable {
         
    }
     
-
-    
 }
-
