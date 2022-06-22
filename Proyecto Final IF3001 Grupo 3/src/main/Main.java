@@ -21,7 +21,7 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLLogin.fxml"));
         
-         Scene scene = new Scene(root);
+        Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("Proyecto Final Gr3 - 2022");
         stage.setResizable(false);

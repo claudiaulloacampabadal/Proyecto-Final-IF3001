@@ -30,7 +30,7 @@ import javax.mail.internet.MimeMultipart;
  */
 public class MailMessage {
     	
- public static void sendMail(String recipient, String name) throws Exception{
+ public static void sendMail(String recipient, String name, String user, String pass) throws Exception{
        System.out.println("Preparing to send email");
             String myAccountEmail = "clinicacfm@gmail.com";
             String password = "ClauFioCele22";
@@ -61,7 +61,7 @@ public class MailMessage {
                 }
             });
 
-        Message message = prepareMessage(session, myAccountEmail,recipient, name);
+        Message message = prepareMessage(session, myAccountEmail,recipient, name, user,pass);
         Transport.send(message);
 //        Transport transport = session.getTransport();
 //        transport.connect("smtp.gmail.com", 25, myAccountEmail, password);
@@ -71,22 +71,23 @@ public class MailMessage {
         System.out.println("Message sent succesfully");
     }
 //Se hace le mesaje para enviarse
-    private static Message prepareMessage(Session session, String myAccountEmail,String recipient, String name) {
+    private static Message prepareMessage(Session session, String myAccountEmail,String recipient, String name, String user, String pass) {
         try {
             Message message = new MimeMessage(session);
             //Para poner una imagen al enviar el correo
-          // BodyPart image = new MimeBodyPart();
-          // image.setDataHandler(new DataHandler(new FileDataSource("medical.png")));
-           //image.setFileName("Clinica.png");
+           BodyPart image = new MimeBodyPart();
+           image.setDataHandler(new DataHandler(new FileDataSource("images/medical.png")));
+           image.setFileName("Clinica.png");
 
             MimeMultipart parts = new MimeMultipart();
-          //  parts.addBodyPart(image);
+            parts.addBodyPart(image);
             
             message.setFrom(new InternetAddress(myAccountEmail));
             message.setRecipient(Message.RecipientType.TO,new InternetAddress(recipient));
             message.setSubject(name + ", Welcome to Clinic CFM");
-            message.setText("Hey There, \n Look my email");
-           //message.setContent(parts);
+            message.setText("For enter to the plaform, \n Here is your user and password: ");
+            message.setText("\n User:"+user+"\nPassword: "+pass);
+             message.setContent(parts);
             return message;//retorna el mensaje para la clase
         } catch (Exception ex) {
             Logger.getLogger(MailMessage.class.getName()).log(Level.SEVERE, null, ex);
