@@ -12,6 +12,7 @@ import domain.Sickness;
 import domain.TDA.CircularDoublyLinkedList;
 import domain.TDA.CircularLinkedList;
 import domain.TDA.DoublyLinkedList;
+import domain.TDA.HeaderLinkedQueue;
 import domain.TDA.SinglyLinkedList;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -21,7 +22,7 @@ import javafx.scene.layout.BorderPane;
 
 /**
  *
- * @author Maria Celeste
+ * @author Usuario
  */
 public class Utility {
     private static SinglyLinkedList singlyLinkedList = new SinglyLinkedList();
@@ -30,6 +31,7 @@ public class Utility {
    private static DoublyLinkedList doublyLinkedListAppointment = new DoublyLinkedList();
     private static CircularLinkedList circularLinkedList = new CircularLinkedList();
     private static CircularDoublyLinkedList circularDoublyLinkedList = new CircularDoublyLinkedList();
+    private static HeaderLinkedQueue headerLinkedQueue = new HeaderLinkedQueue();
     private static BorderPane bpIllness = new BorderPane();
     private static BorderPane bpAppointment = new BorderPane();
     private static BorderPane bpDoctor = new BorderPane();
@@ -102,6 +104,15 @@ public class Utility {
     public static void setDoublyLinkedList(DoublyLinkedList doublyLinkedList) {
         Utility.doublyLinkedList = doublyLinkedList;
     }
+
+    public static HeaderLinkedQueue getHeaderLinkedQueue() {
+        return headerLinkedQueue;
+    }
+
+    public static void setHeaderLinkedQueue(HeaderLinkedQueue headerLinkedQueue) {
+        Utility.headerLinkedQueue = headerLinkedQueue;
+    }
+        
 
     public static int random(){
         return 1+(int) Math.floor(Math.random()*99); 
