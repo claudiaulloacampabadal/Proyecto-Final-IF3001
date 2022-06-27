@@ -354,7 +354,7 @@ public class FXMLPatientsController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(FXMLIllnessAndDiseaseController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
-            Logger.getLogger(images.FXMLPatientsController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FXMLPatientsController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
     }

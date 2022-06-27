@@ -4,6 +4,8 @@
  */
 package domain;
 
+import java.util.Scanner;
+
 /**
  *
  * @author Usuario
@@ -14,10 +16,9 @@ public class Security {
     private String user;
     private String password;
     private String type;
+
+ 
     
-    public Security() {
-    }
-     
     //Constructor
     public Security(String user, String password, String type) {
         this.user = user;
@@ -49,10 +50,12 @@ public class Security {
     public void setType(String type) {
         this.type = type;
     }
-
+       
+    
     @Override
     public String toString() {
         return  user + ";" + password + ";" + type;
+   
     }
     
  

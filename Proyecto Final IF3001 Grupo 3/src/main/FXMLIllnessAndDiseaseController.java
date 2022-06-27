@@ -48,7 +48,6 @@ import javafx.util.Callback;
  */
 public class FXMLIllnessAndDiseaseController implements Initializable {
 
-    FXMLAddIllnesAndDiseaseController add = new FXMLAddIllnesAndDiseaseController();
     ArchiveTXT archives = new ArchiveTXT();
     private SinglyLinkedList illness;
     private Alert alert;

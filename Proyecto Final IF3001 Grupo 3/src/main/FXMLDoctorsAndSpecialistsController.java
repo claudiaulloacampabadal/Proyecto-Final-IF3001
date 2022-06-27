@@ -39,7 +39,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Callback;
-import images.FXMLPatientsController;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.PrintWriter;
@@ -54,7 +53,7 @@ import javafx.stage.Stage;
 public class FXMLDoctorsAndSpecialistsController implements Initializable {
     ArchiveTXT archives = new ArchiveTXT();
     Alert alert;
-    DoublyLinkedList doctors;
+    private DoublyLinkedList doctors;
     @FXML
     private BorderPane bp;
     @FXML
@@ -229,8 +228,9 @@ public class FXMLDoctorsAndSpecialistsController implements Initializable {
 
     @FXML
     private void btnDeleteOnAction(ActionEvent event) {
-         TextInputDialog delete = new TextInputDialog("Element for delete");
-        delete.setTitle("");
+         TextInputDialog delete = new TextInputDialog();
+        delete.setTitle("Remove - Doctors AND Specialists");
+        delete.setHeaderText("Enter the element to remove: ");
         delete.showAndWait();
         
         alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -238,9 +238,14 @@ public class FXMLDoctorsAndSpecialistsController implements Initializable {
         alert.showAndWait();
         
         if(alert.getResult().getText().equalsIgnoreCase("aceptar")){
+            Doctor d = new Doctor(Integer.parseInt(delete.getResult()), "", "", null, "", "", "");
             try {
-                doctors.remove(new Sickness(Integer.parseInt(delete.getResult()), ""));
-                util.Utility.setDoublyLinkedList(doctors);
+               doctors.remove(d);
+               util.Utility.setDoublyLinkedList(doctors);
+               
+               
+               
+               
                 if(!doctors.isEmpty()){
                     this.doctorTableView.setItems(getData());
                 }else{
@@ -254,7 +259,8 @@ public class FXMLDoctorsAndSpecialistsController implements Initializable {
                 alert.setContentText("Invalid character, try a number.");
                 alert.show();
             }
-            //removeArchive(delete.getResult());
+            removeArchive(delete.getResult(),"doctors");
+             removeArchive(delete.getResult(),"users");
         }
     }
  
@@ -373,10 +379,10 @@ public class FXMLDoctorsAndSpecialistsController implements Initializable {
         return list;
     }
     
-    private void removeArchive(String lineToRemove) {
+    private void removeArchive(String lineToRemove, String path) {
       try {
  
-        File file = new File("doctors.txt");
+        File file = new File(path+".txt");
  
         if (!file.isFile()) {
             return;
@@ -385,7 +391,7 @@ public class FXMLDoctorsAndSpecialistsController implements Initializable {
         //Construct the new file that will later be renamed to the original filename.
         File tempFile = new File(file.getAbsolutePath()+".tmp");
  
-        BufferedReader br = archives.getBufferedReader("doctors");
+        BufferedReader br = archives.getBufferedReader(path);
         PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
  
         String line = "";
@@ -414,7 +420,7 @@ public class FXMLDoctorsAndSpecialistsController implements Initializable {
         }
  
         //Rename the new file to the filename the original file had.
-        if (!tempFile.renameTo(new File("doctors.txt"))){
+        if (!tempFile.renameTo(new File(path+".txt"))){
             System.out.println("Could not rename file");
  
         }

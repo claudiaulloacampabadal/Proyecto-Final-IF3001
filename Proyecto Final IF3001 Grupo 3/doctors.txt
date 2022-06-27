@@ -1,1 +1,2 @@
-1;Montoya Bonilla;Maria Celeste;18/08/1998;88888888;macebonilla03@gmail.com;Paraiso
+305460720;Montoya Bonilla;Maria Celeste;18/08/2003;85487353;macebonilla03@gmail.com;Paraiso, Cartago
+345677000;Solano;Martha;14/07/1996;9999000;example@gmail.com;Turrialba

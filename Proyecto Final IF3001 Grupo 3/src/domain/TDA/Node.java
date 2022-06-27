@@ -12,7 +12,7 @@ import domain.*;
  * @author Maria Celeste
  */
 public class Node {
-      public Object data;
+     public Object data;
     public Node next; //apuntador al sgte node
     public Node prev; //apuntador al nodo anterior
     
@@ -22,9 +22,11 @@ public class Node {
         this.prev = this.next = null;
     }
 
-    Node() {
-          this.next = null;
+    public Node() {
+        this.next = null;
     }
+    
+ 
 
     public Object getData() {
         return data;

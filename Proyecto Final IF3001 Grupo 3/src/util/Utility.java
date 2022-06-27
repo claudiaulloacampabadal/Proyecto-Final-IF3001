@@ -28,7 +28,7 @@ public class Utility {
     private static SinglyLinkedList singlyLinkedList = new SinglyLinkedList();
     private static SinglyLinkedList singlyLinkedListPassWord = new SinglyLinkedList();
     private static DoublyLinkedList doublyLinkedList = new DoublyLinkedList();
-   private static DoublyLinkedList doublyLinkedListAppointment = new DoublyLinkedList();
+    private static DoublyLinkedList doublyLinkedListAppointment = new DoublyLinkedList();
     private static CircularLinkedList circularLinkedList = new CircularLinkedList();
     private static CircularDoublyLinkedList circularDoublyLinkedList = new CircularDoublyLinkedList();
     private static HeaderLinkedQueue headerLinkedQueue = new HeaderLinkedQueue();
@@ -104,6 +104,13 @@ public class Utility {
     public static void setDoublyLinkedList(DoublyLinkedList doublyLinkedList) {
         Utility.doublyLinkedList = doublyLinkedList;
     }
+    public static DoublyLinkedList getDoublyLinkedListAppointment() {
+        return doublyLinkedListAppointment;
+    }
+
+    public static void setDoublyLinkedListAppointment(DoublyLinkedList doublyLinkedListAppointment) {
+        Utility.doublyLinkedListAppointment = doublyLinkedListAppointment;
+    }
 
     public static HeaderLinkedQueue getHeaderLinkedQueue() {
         return headerLinkedQueue;
@@ -147,6 +154,35 @@ public class Utility {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy  HH:mm"); 
         return format.format(value);
     }
+     
+     
+     public static String passwordGenerator(){
+        //Generador del passoword
+        String resultado ="";
+        String lettersMin ="abcdefghijklmopqrstvwxyz";String lettersMay = "ABCDEFGHIJKLMNOPQRSTVWXYZ";
+        String characters = "+-,;/?¡¿!><[](){}.:=%*";String numbers = "0123456789";
+ 
+        resultado = aleatorio(resultado, lettersMay, 2);
+        resultado = aleatorio(resultado, lettersMin, 4);
+        resultado = aleatorio(resultado, characters, 1);
+        resultado = aleatorio(resultado, numbers, 2);
+     
+       return resultado;
+   }
+     
+     
+     //Para generar el paswword de forma aleatoria
+    public static String aleatorio(String resultado,String palabras, int numero){
+        String[] arrayPalabra = palabras.split("");
+        int numeroAleatorio;
+        for (int i = 0; i < numero; i++) {
+            numeroAleatorio = (int) (Math.random()*(arrayPalabra.length-1)+0);
+            resultado += arrayPalabra[numeroAleatorio];
+        }
+        return resultado;
+    }  
+     
+   
      
     public static void fill(int a[]) {
         Random random = new Random();

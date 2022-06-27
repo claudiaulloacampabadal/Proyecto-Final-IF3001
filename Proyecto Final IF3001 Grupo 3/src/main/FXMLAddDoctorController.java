@@ -7,6 +7,7 @@ package main;
 
 import domain.Archives.ArchiveTXT;
 import domain.Doctor;
+import domain.Security;
 import domain.TDA.DoublyLinkedList;
 import domain.TDA.ListException;
 import java.io.BufferedReader;
@@ -28,6 +29,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
+import static main.FXMLAddIllnesAndDiseaseController.loadPage;
 
 /**
  * FXML Controller class
@@ -36,8 +39,9 @@ import javafx.scene.layout.BorderPane;
  */
 public class FXMLAddDoctorController implements Initializable {
     ArchiveTXT archives = new ArchiveTXT();
-    
+
     DoublyLinkedList doctors;
+    BorderPane doctorPane;
     Alert alert;
     @FXML
     private BorderPane bp;
@@ -67,9 +71,12 @@ public class FXMLAddDoctorController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        //Llama a la lista 
        this.doctors = util.Utility.getDoublyLinkedList();
-       
-    }    
+       //Llama al BorderPane del doctor
+       this.doctorPane = util.Utility.getBorderPaneDoctor();
+    }
+    
     public static void loadPage(URL ui, BorderPane bp){
         Parent root = null;
         try {
@@ -91,21 +98,28 @@ public class FXMLAddDoctorController implements Initializable {
     private void btnAddOnAction(ActionEvent event) {
          if(!doctors.isEmpty() && doctors != null){
             try{
+                //Inspecciona que todas las casillas esten completas
              if(!idTextField.getText().equals("") && ! emailTextField.getText().equals("") && !phoneTextField.getText().equals("")
                && !addressTextField.getText().equals("") && !firstNTextField.getText().equals("") && !lastNTextField.getText().equals("")
                && !"".equals(calendarChoice)){
+                 //Le hace una isntancia para el date
                  Calendar date = Calendar.getInstance();
+                 //Le da un set añ date para obtener los valores que se requieren
                  date.set(calendarChoice.getValue().getYear(),calendarChoice.getValue().getMonthValue(), calendarChoice.getValue().getDayOfMonth());
                  Doctor d = new Doctor(Integer.parseInt(idTextField.getText()), lastNTextField.getText(), firstNTextField.getText(), date.getTime(), phoneTextField.getText(), emailTextField.getText(), addressTextField.getText());
+                 Security s = new Security(idTextField.getText(),util.Utility.passwordGenerator() , "Doctor"); 
+                 //Si no contiene el mismo id del doctor o algo similar
                  if(!doctors.contains(d)){
                      doctors.add(d);
                      util.Utility.setDoublyLinkedList(doctors);
-                     addArchive(d);
+                     addArchive(d,"doctors");
+                     addArchive(s,"users");
                      btnCleanOnAction(event);
                      alert = new Alert(Alert.AlertType.INFORMATION);
                      alert.setTitle("Doctors - Add");
                      alert.setContentText("Element add succesfully");
                      alert.show();
+                      loadPage(getClass().getResource("FXMLDoctorsAndSpecialists.fxml"),doctorPane);
                  }else{
                    alert = new Alert(Alert.AlertType.ERROR);
                    alert.setTitle("Doctors - Add");
@@ -138,14 +152,18 @@ public class FXMLAddDoctorController implements Initializable {
                  Calendar date = Calendar.getInstance();
                  date.set(calendarChoice.getValue().getYear(),calendarChoice.getValue().getMonthValue(), calendarChoice.getValue().getDayOfMonth());
                  Doctor d = new Doctor(Integer.parseInt(idTextField.getText()), lastNTextField.getText(), firstNTextField.getText(), date.getTime(), phoneTextField.getText(), emailTextField.getText(), addressTextField.getText());
+                //Algoritmo para genera una contraseña
+                 Security s = new Security(idTextField.getText(),util.Utility.passwordGenerator() , "Doctor"); 
                     doctors.add(d);
                     util.Utility.setDoublyLinkedList(doctors);
-                    addArchive(d);
+                    addArchive(d,"doctors");
+                    addArchive(s, "users");
                     btnCleanOnAction(event);
                     alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Doctors - Add");
                     alert.setContentText("Element add succesfully");
                     alert.show();
+                    loadPage(getClass().getResource("FXMLDoctorsAndSpecialists.fxml"),doctorPane);
              }else{
                 alert = new Alert(Alert.AlertType.ERROR);
                  alert.setTitle("Doctor - Add");
@@ -164,7 +182,8 @@ public class FXMLAddDoctorController implements Initializable {
 
     @FXML
     private void bntCloseOnAction(ActionEvent event) {
-        loadPage(getClass().getResource("FXMLDoctorsAndSpecialists.fxml"), bp);
+         Stage mystage = (Stage) btnClose.getScene().getWindow();
+            mystage.close();
     }
 
     @FXML
@@ -178,10 +197,10 @@ public class FXMLAddDoctorController implements Initializable {
         this.phoneTextField.setText("");
     }
     
-    private void addArchive(Doctor d) {
-        BufferedReader br = archives.getBufferedReader("doctors");
-        PrintStream ps = archives.getPrintStream(true, "doctors");
-        File file = new File("doctors.txt");
+    private void addArchive(Object o, String path) {
+        BufferedReader br = archives.getBufferedReader(path);
+        PrintStream ps = archives.getPrintStream(true, path);
+        File file = new File(path+".txt");
         try {
             if(file.exists()){
              String lineRegister = "";
@@ -192,7 +211,7 @@ public class FXMLAddDoctorController implements Initializable {
                 if(lineRegister != null){
 
                 }else{
-                   ps.println(d.toString());
+                   ps.println(o.toString());
                    break;
                  }
               }

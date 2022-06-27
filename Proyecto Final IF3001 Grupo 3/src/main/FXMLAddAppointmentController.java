@@ -11,11 +11,13 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -33,10 +35,12 @@ import javafx.util.StringConverter;
 public class FXMLAddAppointmentController implements Initializable {
     
     DoublyLinkedList appoitments;
+    DoublyLinkedList doctors;
+    Alert alert;
     @FXML
     private BorderPane bp;
     @FXML
-    private ComboBox<?> cB_DoctorsList;
+    private ComboBox<List<String>> cB_DoctorsList;
     @FXML
     private Button btnAdd;
     @FXML
@@ -46,7 +50,7 @@ public class FXMLAddAppointmentController implements Initializable {
     @FXML
     private Pane pane;
     @FXML
-     DateTimePicker calendarChoice = new DateTimePicker(LocalDateTime.now());
+    DateTimePicker calendarChoice = new DateTimePicker(LocalDateTime.now());
     /**
      * Initializes the controller class.
      */

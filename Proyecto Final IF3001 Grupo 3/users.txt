@@ -1,6 +1,2 @@
-Maria Celeste;ArrozConLeche12;Administrator
-Paula Bonilla;Paciente123;Patient
-
-
-
-
+305460720;WPrmet¡71;Doctor
+345677000;BSgygb¿14;Doctor

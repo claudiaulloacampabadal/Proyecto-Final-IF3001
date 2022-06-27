@@ -5,12 +5,8 @@
  */
 package main;
 
-import images.FXMLPatientsController;
 import domain.Archives.ArchiveTXT;
-import domain.MailMessage;
-import domain.Patient;
 import domain.Security;
-import domain.Sickness;
 import domain.TDA.CircularLinkedList;
 import domain.TDA.SinglyLinkedList;
 import java.io.BufferedReader;
@@ -30,10 +26,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import main.FXMLAddIllnesAndDiseaseController;
-import main.FXMLMainMenuController;
-import images.FXMLPatientsController;
-import static images.FXMLPatientsController.loadPage;
+
 
 /**
  * FXML Controller class
