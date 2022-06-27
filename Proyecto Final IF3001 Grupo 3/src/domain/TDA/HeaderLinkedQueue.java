@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Usuario
+ * @author Claudia
  */
 public class HeaderLinkedQueue implements Queue {
     

@@ -4,7 +4,6 @@
  */
 package domain;
 
-import java.util.Scanner;
 
 /**
  *
