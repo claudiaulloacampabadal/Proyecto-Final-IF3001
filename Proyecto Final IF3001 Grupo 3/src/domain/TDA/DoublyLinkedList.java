@@ -9,7 +9,7 @@ import static util.Utility.greaterT;
 
 /**
  *
- * @author Usuario
+ * @author Claudia
  */
 public class DoublyLinkedList implements List {
      private Node first; //apunta al inicio de la lista

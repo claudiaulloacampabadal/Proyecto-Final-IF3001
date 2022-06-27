@@ -6,7 +6,7 @@ package domain;
 
 /**
  *
- * @author Usuario
+ * @author Claudia
  */
 public class Security {
     

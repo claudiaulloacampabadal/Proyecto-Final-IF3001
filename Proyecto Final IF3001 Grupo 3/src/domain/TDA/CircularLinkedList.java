@@ -8,7 +8,7 @@ import domain.*;
 
 /**
  *
- * @author Usuario
+ * @author Claudia
  */
 public class CircularLinkedList implements List{
     
