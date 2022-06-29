@@ -109,35 +109,35 @@ public class FXMLPatientsController implements Initializable {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<List<String>, String> data) {
                 //
-                return new ReadOnlyObjectWrapper<>(data.getValue().get(1));//tome los valores que estan en el indice 0
+                return new ReadOnlyObjectWrapper<>(data.getValue().get(1));//tome los valores que estan en el indice 1
             }
         });
          this.lastNameTableColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<List<String>, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<List<String>, String> data) {
                 //
-                return new ReadOnlyObjectWrapper<>(data.getValue().get(2));//tome los valores que estan en el indice 0
+                return new ReadOnlyObjectWrapper<>(data.getValue().get(2));//tome los valores que estan en el indice 2
             }
         });
          this.birthdayTableColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<List<String>, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<List<String>, String> data) {
                 //
-                return new ReadOnlyObjectWrapper<>(data.getValue().get(3));//tome los valores que estan en el indice 0
+                return new ReadOnlyObjectWrapper<>(data.getValue().get(3));//tome los valores que estan en el indice 3
             }
         });
         this.addressTableColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<List<String>, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<List<String>, String> data) {
                 //
-                return new ReadOnlyObjectWrapper<>(data.getValue().get(4));//tome los valores que estan en el indice 0
+                return new ReadOnlyObjectWrapper<>(data.getValue().get(4));//tome los valores que estan en el indice 4
             }
         });
         this.emailTableColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<List<String>, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<List<String>, String> data) {
                 //
-                return new ReadOnlyObjectWrapper<>(data.getValue().get(5));//tome los valores que estan en el indice 0
+                return new ReadOnlyObjectWrapper<>(data.getValue().get(5));//tome los valores que estan en el indice 5
             }
         });
           

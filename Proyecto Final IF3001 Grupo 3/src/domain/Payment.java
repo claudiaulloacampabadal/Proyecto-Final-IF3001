@@ -24,26 +24,26 @@ import java.io.*;
 public class Payment {
     
   
-    private int patientID;
+    private int id;
     private String paymentMode;
     private double serviceCharge;
     private Date billingDate;
     private double totalCharge;//(serviceCharge+30%)
 
-    public Payment(int patientID, String paymentMode, double serviceCharge, Date billingDate, double totalCharge) {        
-        this.patientID = patientID;
+    public Payment(int id, String paymentMode, double serviceCharge, Date billingDate, double totalCharge) {        
+        this.id = id;
         this.paymentMode = paymentMode;
         this.serviceCharge = serviceCharge;
         this.billingDate = billingDate;
         this.totalCharge = totalCharge;
     }
     
-    public int getPatientID() {
-        return patientID;
+    public int getId() {
+        return id;
     }
 
-    public void setPatientID(int patientID) {
-        this.patientID = patientID;
+    public void setId(int patientID) {
+        this.id = patientID;
     }
 
     public String getPaymentMode() {
