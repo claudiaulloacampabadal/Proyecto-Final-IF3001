@@ -23,31 +23,21 @@ import java.io.*;
  */
 public class Payment {
     
-    
-    private int identity;
+  
     private int patientID;
     private String paymentMode;
     private double serviceCharge;
-    private Date bilingualDate;
+    private Date billingDate;
     private double totalCharge;//(serviceCharge+30%)
 
-    public Payment(int identity, int patientID, String paymentMode, double serviceCharge, Date bilingualDate, double totalCharge) {
-        this.identity = identity;
+    public Payment(int patientID, String paymentMode, double serviceCharge, Date billingDate, double totalCharge) {        
         this.patientID = patientID;
         this.paymentMode = paymentMode;
         this.serviceCharge = serviceCharge;
-        this.bilingualDate = bilingualDate;
+        this.billingDate = billingDate;
         this.totalCharge = totalCharge;
     }
-
-    public int getIdentity() {
-        return identity;
-    }
-
-    public void setIdentity(int identity) {
-        this.identity = identity;
-    }
-
+    
     public int getPatientID() {
         return patientID;
     }
@@ -72,12 +62,12 @@ public class Payment {
         this.serviceCharge = serviceCharge;
     }
 
-    public Date getBilingualDate() {
-        return bilingualDate;
+    public Date getBillingDate() {
+        return billingDate;
     }
 
-    public void setBilingualDate(Date bilingualDate) {
-        this.bilingualDate = bilingualDate;
+    public void setBillingDate(Date bilingualDate) {
+        this.billingDate = bilingualDate;
     }
 
     public double getTotalCharge() {
