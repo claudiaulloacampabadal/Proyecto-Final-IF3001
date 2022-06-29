@@ -16,14 +16,12 @@ import javafx.scene.layout.BorderPane;
 /**
  * FXML Controller class
  *
- * @author Usuario
+ * @author Fiorella
  */
 public class FXMLPaymentController implements Initializable {
 
     @FXML
     private BorderPane bp;
-    @FXML
-    private ComboBox<?> comboPayment;
 
     /**
      * Initializes the controller class.
@@ -34,8 +32,5 @@ public class FXMLPaymentController implements Initializable {
         // TODO
     }    
 
-    @FXML
-    private void Select(ActionEvent event) {
-    }
     
 }
