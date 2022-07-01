@@ -7,7 +7,6 @@ package main;
 
 import domain.Archives.ArchiveTXT;
 import domain.Doctor;
-import domain.Sickness;
 import domain.TDA.DoublyLinkedList;
 import domain.TDA.ListException;
 import java.io.BufferedReader;
@@ -222,8 +221,10 @@ public class FXMLDoctorsAndSpecialistsController implements Initializable {
 
     @FXML
     private void btnUpdateOnAction(ActionEvent event) {
+        if(!doctors.isEmpty()){
           util.Utility.setBorderPaneDoctor(bp);
-        loadPage(getClass().getResource("FXMLModifyDoctor.fxml"));
+          loadPage(getClass().getResource("FXMLModifyDoctor.fxml"));
+        }
     }
 
     @FXML
@@ -242,10 +243,6 @@ public class FXMLDoctorsAndSpecialistsController implements Initializable {
             try {
                doctors.remove(d);
                util.Utility.setDoublyLinkedList(doctors);
-               
-               
-               
-               
                 if(!doctors.isEmpty()){
                     this.doctorTableView.setItems(getData());
                 }else{

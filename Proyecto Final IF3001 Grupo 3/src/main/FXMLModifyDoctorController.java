@@ -7,10 +7,9 @@ package main;
 
 import domain.Archives.ArchiveTXT;
 import domain.Doctor;
-import domain.Sickness;
+import domain.Patient;
 import domain.TDA.DoublyLinkedList;
 import domain.TDA.ListException;
-import domain.TDA.SinglyLinkedList;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -18,8 +17,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
@@ -39,7 +41,6 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import static main.FXMLModifyIllnesAndDiseaseController.loadPage;
 
 /**
  * FXML Controller class
@@ -74,6 +75,8 @@ public class FXMLModifyDoctorController implements Initializable {
     private Button btnClose;
     @FXML
     private Button btnClean;
+    @FXML
+    private Button btnSearch;
 
     /**
      * Initializes the controller class.
@@ -118,31 +121,34 @@ public class FXMLModifyDoctorController implements Initializable {
                   String id = String.valueOf(cB_Id.getValue()).replace("[","").replace("]", "");
                 if(!id.equals("") && !firstNTextField.getText().equals("") && !lastNTextField.getText().equals("")&& calendarChoice.getValue() != null 
                    && !emailTextField.getText().equals("")&& !phoneTextField.getText().equals("") && !addressTextField.getText().equals("")){
-             
-                      Calendar date = Calendar.getInstance();
-                     //Le da un set añ date para obtener los valores que se requieren
-                     date.set(calendarChoice.getValue().getYear(),calendarChoice.getValue().getMonthValue(), calendarChoice.getValue().getDayOfMonth());
-                    
-                    Doctor d1 = new Doctor(Integer.parseInt(id), "", "", null, "", "", "");
-                    Doctor d2 = new Doctor(Integer.parseInt(id),lastNTextField.getText(), firstNTextField.getText(), date.getTime(),phoneTextField.getText() , emailTextField.getText(), addressTextField.getText());
-                    if(doctors.contains(d1)){
-                        //Buscar donde esta
-                        updateList(d1,d2);
-                        modifyArchive(id,d2 );
-                       alert = new Alert(Alert.AlertType.INFORMATION);
-                       alert.setTitle("Illness - Update");
-                       alert.setContentText("Element update, succesfully!");
-                       alert.show();
-                        loadPage(getClass().getResource("FXMLDoctorsAndSpecialists.fxml"),doctorPane);
+                    if(util.Utility.emailValidation(emailTextField.getText())){
+                         Calendar date = Calendar.getInstance();
+                         //Le da un set añ date para obtener los valores que se requieren
+                         date.set(calendarChoice.getValue().getYear(),calendarChoice.getValue().getMonthValue(), calendarChoice.getValue().getDayOfMonth());
+
+                        Doctor d1 = new Doctor(Integer.parseInt(id), "", "", null, "", "", "");
+                        Doctor d2 = new Doctor(Integer.parseInt(id),lastNTextField.getText(), firstNTextField.getText(), date.getTime(),phoneTextField.getText() , emailTextField.getText(), addressTextField.getText());
+                        if(doctors.contains(d1)){
+                            //Buscar donde esta
+                            updateList(d1,d2);
+                            modifyArchive(id,d2 );
+                           alert = new Alert(Alert.AlertType.INFORMATION);
+                           alert.setTitle("Doctors - Update");
+                           alert.setContentText("Element update, succesfully!");
+                           alert.show();
+                            loadPage(getClass().getResource("FXMLDoctorsAndSpecialists.fxml"),doctorPane);
+                        }else{
+                           alert = new Alert(Alert.AlertType.ERROR);
+                           alert.setTitle("Doctors - Update");
+                           alert.setContentText("Element doesn't exist, try again");
+                           alert.show();
+                        }
                     }else{
-                       alert = new Alert(Alert.AlertType.ERROR);
-                       alert.setTitle("Illness - Update");
-                       alert.setContentText("Element doesn't exist, try again");
-                       alert.show();
+                        
                     }
                 }else{
                      alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Illness - Update");
+                    alert.setTitle("Doctors - Update");
                     alert.setContentText("Fill all the blank spaces");
                     alert.show();
                 }
@@ -150,14 +156,14 @@ public class FXMLModifyDoctorController implements Initializable {
              Logger.getLogger(FXMLIllnessAndDiseaseController.class.getName()).log(Level.SEVERE, null, ex);
       } catch(NumberFormatException nfe){
             alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Illness - Update");
+            alert.setTitle("Doctors - Update");
             alert.setContentText("Invalid character, try a number.");
             alert.show();
             }
             
         }else{
             alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Illness - Update");
+            alert.setTitle("Doctors - Update");
             alert.setContentText("List is Empty!");
             alert.show();
             
@@ -178,6 +184,33 @@ public class FXMLModifyDoctorController implements Initializable {
         this.emailTextField.setText("");
         this.addressTextField.setText("");
         this.phoneTextField.setText("");
+    }
+     @FXML
+    private void btnSearchOnAction(ActionEvent event) {
+              if(cB_Id.getValue() != null){
+            try {
+                String id = String.valueOf(cB_Id.getValue()).replace("[","").replace("]", "");
+                int index = doctors.indexOf(new Patient(Integer.parseInt(id), "", "", null, "", ""));
+                Doctor d = (Doctor) doctors.getNode(index).data;
+                this.firstNTextField.setText(d.getFirstname());
+                this.lastNTextField.setText(d.getLastname());
+                Date oldDate = d.getBirthday();
+                 LocalDate newDate = oldDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                this.calendarChoice.setValue(newDate);
+                this.phoneTextField.setText(d.getPhoneNumber());
+                this.emailTextField.setText(d.getEmail());
+                this.addressTextField.setText(d.getAdress());
+            } catch (ListException ex) {
+                Logger.getLogger(FXMLModifyPatientController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            alert = new Alert(Alert.AlertType.ERROR);
+           alert.setTitle("Doctors - Update");
+            alert.setContentText("Select the ID to search");
+            alert.show();
+            
+        } 
+        
     }
     
     
@@ -275,10 +308,7 @@ public class FXMLModifyDoctorController implements Initializable {
                 
           return data;  
      }
-    
-    
-    
-    
-    
+
+     
     
 }

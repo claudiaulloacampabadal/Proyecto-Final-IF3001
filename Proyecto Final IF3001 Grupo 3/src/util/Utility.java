@@ -5,10 +5,12 @@
  */
 package util;
 
+import domain.Appointment;
 import domain.Doctor;
 import domain.Patient;
 import domain.Security;
 import domain.Sickness;
+import domain.TDA.BTree;
 import domain.TDA.CircularDoublyLinkedList;
 import domain.TDA.CircularLinkedList;
 import domain.TDA.DoublyLinkedList;
@@ -16,8 +18,13 @@ import domain.TDA.HeaderLinkedQueue;
 import domain.TDA.SinglyLinkedList;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.scene.layout.BorderPane;
 
 /**
@@ -32,10 +39,13 @@ public class Utility {
     private static CircularLinkedList circularLinkedList = new CircularLinkedList();
     private static CircularDoublyLinkedList circularDoublyLinkedList = new CircularDoublyLinkedList();
     private static HeaderLinkedQueue headerLinkedQueue = new HeaderLinkedQueue();
+    private static BTree btree = new BTree();
     private static BorderPane bpIllness = new BorderPane();
     private static BorderPane bpAppointment = new BorderPane();
     private static BorderPane bpDoctor = new BorderPane();
     private static BorderPane bpPatient = new BorderPane();
+    private static int user = 0;
+    private static String patientId ="";
     
     public static BorderPane getBorderPanePatient() {
         return bpPatient;
@@ -119,6 +129,31 @@ public class Utility {
     public static void setHeaderLinkedQueue(HeaderLinkedQueue headerLinkedQueue) {
         Utility.headerLinkedQueue = headerLinkedQueue;
     }
+    
+    public static BTree getBTree() {
+        return btree;
+    }
+
+    public static void setBTree(BTree btree) {
+        Utility.btree = btree;
+    }
+    
+    public static void setUser(int user){
+        Utility.user = user;
+    }
+    
+    public static int getUser(){
+        return user;
+    }
+    
+    public static void setPatientId(List<String> patientId) {
+       String idp = String.valueOf(patientId).replace("[","").replace("]", "");
+        Utility.patientId = idp;
+    }
+    
+    public static String getPatientId(){
+        return patientId;
+    }
         
 
     public static int random(){
@@ -150,8 +185,9 @@ public class Utility {
         return format.format(value);
     }
     
-     public static String formatDateTime(Date value){
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy  HH:mm"); 
+     public static String formatDateTime(LocalDateTime value){
+        // DateTimeFormatter format = new DateTimeFormatter.ofPattern("dd/MM/yyyy  HH:mm"); 
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         return format.format(value);
     }
      
@@ -160,7 +196,7 @@ public class Utility {
         //Generador del passoword
         String resultado ="";
         String lettersMin ="abcdefghijklmopqrstvwxyz";String lettersMay = "ABCDEFGHIJKLMNOPQRSTVWXYZ";
-        String characters = "+-,;/?¡¿!><[](){}.:=%*";String numbers = "0123456789";
+        String characters = "+-,/?¡¿!><[](){}.:=%*";String numbers = "0123456789";
  
         resultado = aleatorio(resultado, lettersMay, 2);
         resultado = aleatorio(resultado, lettersMin, 4);
@@ -222,6 +258,7 @@ public class Utility {
         if(a instanceof Security && b instanceof Security) return "Security";
         if(a instanceof Doctor && b instanceof Doctor) return "Doctor";
         if(a instanceof Patient && b instanceof Patient) return "Patient";
+        if(a instanceof Appointment && b instanceof Appointment) return "Appointment";
         return "unknown";
     }
 
@@ -251,6 +288,10 @@ public class Utility {
             case "Patient":
                 Patient p1 =(Patient)a; Patient p2 =(Patient)b;
                 return p1.getId()== p2.getId() ;
+            case "Appointment":
+                 Appointment ap1 = (Appointment) a; Appointment ap2 = (Appointment) b;
+                 return ap1.getDoctorID() == ap2.getDoctorID() && ap1.getDateTime().getHour() == ap1.getDateTime().getHour() &&
+                         ap1.getDateTime().getMonthValue() == ap1.getDateTime().getMonthValue();
                
         }
         return false;
@@ -268,8 +309,10 @@ public class Utility {
             case "Character":
                 Character a3=(Character)a; Character b3=(Character)b;
                 return a3.compareTo(b3)<0;
-                
-        }
+            case "Appointment":
+                Appointment ap1 = (Appointment) a; Appointment ap2 = (Appointment) b;
+                return ap1.getDateTime().isBefore(ap2.getDateTime()) && ap1.getDateTime().getHour() < ap2.getDateTime().getHour();
+            }
         return false; 
     }
     
@@ -285,9 +328,47 @@ public class Utility {
             case "Character":
                 Character a3=(Character)a; Character b3=(Character)b;
                 return a3.compareTo(b3)>0;
+            case "Appointment":
+                Appointment ap1 = (Appointment) a; Appointment ap2 = (Appointment) b;
+                return ap1.getDateTime().isAfter(ap2.getDateTime()) && ap1.getDateTime().getHour() > ap2.getDateTime().getHour();
+            
          
         }
         return false;
+    }
+    
+    public static String message(String type, String user, String pass, String date, String doctor){
+        switch(type){
+            case "Patient":
+               return "\nHi, here is your password and user for your account: "+
+                      "\n\n  User: "+user+"\n  Password: "+pass+
+                    "\n\n Remember to use this password that is both strong and unique to your account."+
+                    "\n\n\nDon't reply this message.";
+            case "Appointment":
+                return "Hi, remember your appointment";
+              
+        }
+        return null;
+    }
+    
+    public static boolean emailValidation(String email){
+        String regx = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        Pattern pattern = Pattern.compile(regx); 
+        
+        Matcher matcher = pattern.matcher(email);  
+        return matcher.matches();
+    }
+    
+    
+    public static int countDigits(int id){
+        int digitos = 0;
+        while(id != 0){
+            
+            id = id /10;
+            digitos++;
+        }
+        return digitos;
     }
 
     

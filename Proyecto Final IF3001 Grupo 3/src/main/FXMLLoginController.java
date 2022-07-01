@@ -108,6 +108,8 @@ public class FXMLLoginController implements Initializable {
 
             //revisa si la lista contiene ese usuario
             if(users.contains(new Security(txtUser.getText(), txtPassword.getText(), cbLogin.getValue()))) {
+                int index = users.indexOf(new Security(txtUser.getText(), txtPassword.getText(), cbLogin.getValue()));
+                util.Utility.setUser(index);
                     //dependiendo si es paciente o adminstrador abre diferentes menus
                 if(cbLogin.getValue().equalsIgnoreCase("Administrator")){//carga las paginas dependiendo si es administrador o paciente
                       loadPage(getClass().getResource("FXMLMainMenu.fxml"));

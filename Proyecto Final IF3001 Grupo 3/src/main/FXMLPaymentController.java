@@ -5,10 +5,8 @@
 package main;
 
 import domain.Archives.ArchiveTXT;
-import domain.Patient;
 import domain.Payment;
 import domain.TDA.HeaderLinkedQueue;
-import domain.TDA.ListException;
 import domain.TDA.QueueException;
 import java.io.BufferedReader;
 import java.io.File;
@@ -27,17 +25,14 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Callback;
-import static jdk.nashorn.internal.runtime.Debug.id;
 
 /**
  * FXML Controller class

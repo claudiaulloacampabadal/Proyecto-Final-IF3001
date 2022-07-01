@@ -4,6 +4,7 @@
  */
 package domain;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -16,11 +17,11 @@ public class MedicalCare {
     private int identity;
     private int doctorID;
     private int patientID;
-    private Date dateTime;
+    private LocalDateTime dateTime;
     private int sicknessID;
     private String annotations;
 
-    public MedicalCare(int identity, int doctorID, int patientID, Date dateTime, int sicknessID, String annotations) {
+    public MedicalCare(int identity, int doctorID, int patientID, LocalDateTime dateTime, int sicknessID, String annotations) {
         this.identity = identity;
         this.doctorID = doctorID;
         this.patientID = patientID;
@@ -53,11 +54,11 @@ public class MedicalCare {
         this.patientID = patientID;
     }
 
-    public Date getDateTime() {
+    public LocalDateTime getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(Date dateTime) {
+    public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
 
@@ -75,6 +76,11 @@ public class MedicalCare {
 
     public void setAnnotations(String annotations) {
         this.annotations = annotations;
+    }
+
+    @Override
+    public String toString() {
+        return  identity + ";" + doctorID + ";" + patientID + ";" + util.Utility.formatDateTime(dateTime) + ";" + sicknessID + ";" + annotations ;
     }
 
     

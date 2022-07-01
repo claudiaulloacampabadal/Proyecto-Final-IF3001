@@ -42,7 +42,7 @@ public class MinuteSecondPicker extends VBox implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         slider.setMin(0);
-        slider.setMax(59);
+        slider.setMax(30);
         slider.valueProperty().addListener((observable, oldValue, newValue) -> {
             final int newValueInt = newValue.intValue();
             label.setText(String.format("%02d", newValueInt));

@@ -102,30 +102,37 @@ public class FXMLAddDoctorController implements Initializable {
              if(!idTextField.getText().equals("") && ! emailTextField.getText().equals("") && !phoneTextField.getText().equals("")
                && !addressTextField.getText().equals("") && !firstNTextField.getText().equals("") && !lastNTextField.getText().equals("")
                && !"".equals(calendarChoice)){
-                 //Le hace una isntancia para el date
-                 Calendar date = Calendar.getInstance();
-                 //Le da un set añ date para obtener los valores que se requieren
-                 date.set(calendarChoice.getValue().getYear(),calendarChoice.getValue().getMonthValue(), calendarChoice.getValue().getDayOfMonth());
-                 Doctor d = new Doctor(Integer.parseInt(idTextField.getText()), lastNTextField.getText(), firstNTextField.getText(), date.getTime(), phoneTextField.getText(), emailTextField.getText(), addressTextField.getText());
-                 Security s = new Security(idTextField.getText(),util.Utility.passwordGenerator() , "Doctor"); 
-                 //Si no contiene el mismo id del doctor o algo similar
-                 if(!doctors.contains(d)){
-                     doctors.add(d);
-                     util.Utility.setDoublyLinkedList(doctors);
-                     addArchive(d,"doctors");
-                     addArchive(s,"users");
-                     btnCleanOnAction(event);
-                     alert = new Alert(Alert.AlertType.INFORMATION);
-                     alert.setTitle("Doctors - Add");
-                     alert.setContentText("Element add succesfully");
-                     alert.show();
-                      loadPage(getClass().getResource("FXMLDoctorsAndSpecialists.fxml"),doctorPane);
-                 }else{
-                   alert = new Alert(Alert.AlertType.ERROR);
-                   alert.setTitle("Doctors - Add");
-                   alert.setContentText("Element is repeated");
-                   alert.show();
+                 if(util.Utility.emailValidation(emailTextField.getText())){
+                     //Le hace una isntancia para el date
+                     Calendar date = Calendar.getInstance();
+                     //Le da un set añ date para obtener los valores que se requieren
+                     date.set(calendarChoice.getValue().getYear(),calendarChoice.getValue().getMonthValue(), calendarChoice.getValue().getDayOfMonth());
+                     Doctor d = new Doctor(Integer.parseInt(idTextField.getText()), lastNTextField.getText(), firstNTextField.getText(), date.getTime(), phoneTextField.getText(), emailTextField.getText(), addressTextField.getText());
+                     Security s = new Security(idTextField.getText(),util.Utility.passwordGenerator() , "Doctor"); 
+                     //Si no contiene el mismo id del doctor o algo similar
+                     if(!doctors.contains(d)){
+                         doctors.add(d);
+                         util.Utility.setDoublyLinkedList(doctors);
+                         addArchive(d,"doctors");
+                         addArchive(s,"users");
+                         btnCleanOnAction(event);
+                         alert = new Alert(Alert.AlertType.INFORMATION);
+                         alert.setTitle("Doctors - Add");
+                         alert.setContentText("Element add succesfully");
+                         alert.show();
+                          loadPage(getClass().getResource("FXMLDoctorsAndSpecialists.fxml"),doctorPane);
+                     }else{
+                       alert = new Alert(Alert.AlertType.ERROR);
+                       alert.setTitle("Doctors - Add");
+                       alert.setContentText("Element is repeated");
+                       alert.show();
 
+                     }
+                  }else{
+                    alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Doctor - Add");
+                    alert.setContentText("Email wrong domain.com");
+                    alert.show();
                  }
              }else{
                 alert = new Alert(Alert.AlertType.ERROR);
@@ -149,21 +156,28 @@ public class FXMLAddDoctorController implements Initializable {
              if(!idTextField.getText().equals("") && ! emailTextField.getText().equals("") && !phoneTextField.getText().equals("")
                && !addressTextField.getText().equals("") && !firstNTextField.getText().equals("") && !lastNTextField.getText().equals("")
                && !calendarChoice.equals("")){
-                 Calendar date = Calendar.getInstance();
-                 date.set(calendarChoice.getValue().getYear(),calendarChoice.getValue().getMonthValue(), calendarChoice.getValue().getDayOfMonth());
-                 Doctor d = new Doctor(Integer.parseInt(idTextField.getText()), lastNTextField.getText(), firstNTextField.getText(), date.getTime(), phoneTextField.getText(), emailTextField.getText(), addressTextField.getText());
-                //Algoritmo para genera una contraseña
-                 Security s = new Security(idTextField.getText(),util.Utility.passwordGenerator() , "Doctor"); 
-                    doctors.add(d);
-                    util.Utility.setDoublyLinkedList(doctors);
-                    addArchive(d,"doctors");
-                    addArchive(s, "users");
-                    btnCleanOnAction(event);
-                    alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Doctors - Add");
-                    alert.setContentText("Element add succesfully");
+                 if(util.Utility.emailValidation(emailTextField.getText())){
+                     Calendar date = Calendar.getInstance();
+                     date.set(calendarChoice.getValue().getYear(),calendarChoice.getValue().getMonthValue(), calendarChoice.getValue().getDayOfMonth());
+                     Doctor d = new Doctor(Integer.parseInt(idTextField.getText()), lastNTextField.getText(), firstNTextField.getText(), date.getTime(), phoneTextField.getText(), emailTextField.getText(), addressTextField.getText());
+                    //Algoritmo para genera una contraseña
+                     Security s = new Security(idTextField.getText(),util.Utility.passwordGenerator() , "Doctor"); 
+                        doctors.add(d);
+                        util.Utility.setDoublyLinkedList(doctors);
+                        addArchive(d,"doctors");
+                        addArchive(s, "users");
+                        btnCleanOnAction(event);
+                        alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Doctors - Add");
+                        alert.setContentText("Element add succesfully");
+                        alert.show();
+                        loadPage(getClass().getResource("FXMLDoctorsAndSpecialists.fxml"),doctorPane);
+                 }else{
+                    alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Doctor - Add");
+                    alert.setContentText("Email wrong domain.com");
                     alert.show();
-                    loadPage(getClass().getResource("FXMLDoctorsAndSpecialists.fxml"),doctorPane);
+                 }
              }else{
                 alert = new Alert(Alert.AlertType.ERROR);
                  alert.setTitle("Doctor - Add");

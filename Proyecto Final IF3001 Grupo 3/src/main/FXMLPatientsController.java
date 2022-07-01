@@ -6,11 +6,8 @@
 package main;
 
 import domain.Archives.ArchiveTXT;
-import domain.Doctor;
 import domain.Patient;
-import domain.Sickness;
 import domain.TDA.CircularLinkedList;
-import domain.TDA.DoublyLinkedList;
 import domain.TDA.ListException;
 import java.io.BufferedReader;
 import java.io.File;
@@ -46,7 +43,6 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import static main.FXMLIllnessAndDiseaseController.loadPage;
 
 /**
  * FXML Controller class
@@ -90,7 +86,7 @@ public class FXMLPatientsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
           //Si no esta vacia
-        if(!util.Utility.getDoublyLinkedList().isEmpty()){
+        if(!util.Utility.getCircularLinkedList().isEmpty()){
             //carga la lista utility, que añadio
             this.patients = util.Utility.getCircularLinkedList();
         }else{//si esta vacia por primera vez entonces
@@ -213,8 +209,10 @@ public class FXMLPatientsController implements Initializable {
 
     @FXML
     private void btnUpdateOnAction(ActionEvent event) {
-        util.Utility.setBorderPanePatient(bp);
-        loadPage(getClass().getResource("FXMLModifyPatient.fxml"));
+        if(!patients.isEmpty()){
+            util.Utility.setBorderPanePatient(bp);
+            loadPage(getClass().getResource("FXMLModifyPatient.fxml"));
+        }
     }
 
     @FXML
@@ -231,28 +229,39 @@ public class FXMLPatientsController implements Initializable {
         
         if(alert.getResult().getText().equalsIgnoreCase("aceptar")){
             try {
-                //Se remueve de la lista
-                patients.remove(new Patient(Integer.parseInt(delete.getResult()), "","",null,"",""));
-                util.Utility.setCircularLinkedList(patients);
-                //Si esta vacia solo se limpia la lista sino se vueleve a llamar la tabla
-                if(!patients.isEmpty()){
-                    this.patientsTableView.setItems(getData());
+                if(patients.contains(new Patient(Integer.parseInt(delete.getResult()), "", "", null, "", ""))){
+                    try {
+                        //Se remueve de la lista
+                        patients.remove(new Patient(Integer.parseInt(delete.getResult()), "","",null,"",""));
+                        util.Utility.setCircularLinkedList(patients);
+                        //Si esta vacia solo se limpia la lista sino se vueleve a llamar la tabla
+                        if(!patients.isEmpty()){
+                            this.patientsTableView.setItems(getData());
+                        }else{
+                            this.patientsTableView.getItems().clear();
+                        }
+                    } catch (ListException ex) {
+                        Logger.getLogger(FXMLIllnessAndDiseaseController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch(NumberFormatException nfe){
+                        alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Illness - Remove");
+                        alert.setContentText("Invalid character, try a number.");
+                        alert.show();
+                    }
+                    //Se ejecuta el metodo remueve archivo
+                    //Se manda el id
+                    removeArchive(delete.getResult(), "patients");
+                    //Se busca el id y se remueve el doctor, con el user
+                    removeArchive(delete.getResult(), "users");
                 }else{
-                    this.patientsTableView.getItems().clear();
-               }
+                    alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Illness - Remove");
+                    alert.setContentText("Patient doesn't exist.");
+                    alert.show();
+                }
             } catch (ListException ex) {
-                Logger.getLogger(FXMLIllnessAndDiseaseController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch(NumberFormatException nfe){
-                alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Illness - Remove");
-                alert.setContentText("Invalid character, try a number.");
-                alert.show();
+                Logger.getLogger(FXMLPatientsController.class.getName()).log(Level.SEVERE, null, ex);  
             }
-            //Se ejecuta el metodo remueve archivo
-            //Se manda el id
-            removeArchive(delete.getResult(), "patients");
-            //Se busca el id y se remueve el doctor, con el user
-            //removeArchive(delete.getResult(), "users");
         }
     }
     
@@ -361,7 +370,7 @@ public class FXMLPatientsController implements Initializable {
     
     //Remover las variables de un archivo
     //Se remueve por id
-    private void removeArchive(String lineToRemove, String path) {
+   private void removeArchive(String lineToRemove, String path) {
       try {
  
         File file = new File(path+".txt");

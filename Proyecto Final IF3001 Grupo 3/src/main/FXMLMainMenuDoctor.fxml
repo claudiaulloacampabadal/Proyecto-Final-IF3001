@@ -23,19 +23,15 @@
    <top>
       <HBox prefHeight="95.0" prefWidth="902.0" style="-fx-background-color: #8DAAFF;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnPatients" mnemonicParsing="false" onAction="#btnPatientsOnAction" prefHeight="94.0" prefWidth="222.0" style="-fx-background-color: transparent; -fx-border-width: 0px 2px 0px 2px; -fx-border-color: blue;" text="Patients">
+            <Button fx:id="btnPatients" mnemonicParsing="false" onAction="#btnPatientsOnAction" prefHeight="94.0" prefWidth="354.0" style="-fx-background-color: transparent; -fx-border-width: 0px 2px 0px 2px; -fx-border-color: blue;" text="Patients Appointments">
                <font>
                   <Font name="Agency FB" size="22.0" />
                </font></Button>
-            <Button fx:id="btnMedicalAttention" mnemonicParsing="false" onAction="#btnMedicalAttentionOnAction" prefHeight="94.0" prefWidth="216.0" style="-fx-background-color: transparent; -fx-border-color: blue; -fx-border-width: 0px 2px 0px 2px;" text="Medical Attention" textAlignment="CENTER" wrapText="true">
+            <Button fx:id="btnMedicalAttention" mnemonicParsing="false" onAction="#btnMedicalAttentionOnAction" prefHeight="94.0" prefWidth="347.0" style="-fx-background-color: transparent; -fx-border-color: blue; -fx-border-width: 0px 2px 0px 2px;" text="Medical Attention" textAlignment="CENTER" wrapText="true">
                <font>
                   <Font name="Agency FB" size="22.0" />
                </font></Button>
-            <Button fx:id="btnPayment" mnemonicParsing="false" onAction="#btnPaymentOnAction" prefHeight="94.0" prefWidth="222.0" style="-fx-background-color: transparent; -fx-border-color: blue; -fx-border-width: 0px 2px 0px 2px;" text="Payment" textAlignment="CENTER" wrapText="true">
-               <font>
-                  <Font name="Agency FB" size="22.0" />
-               </font></Button>
-            <Button fx:id="btnReports" mnemonicParsing="false" onAction="#btnReportOnAction" prefHeight="94.0" prefWidth="266.0" style="-fx-background-color: transparent; -fx-border-color: blue; -fx-border-width: 0px 2px 0px 2px;" text="System Reports" textAlignment="CENTER" wrapText="true">
+            <Button fx:id="btnReports" mnemonicParsing="false" onAction="#btnReportOnAction" prefHeight="94.0" prefWidth="316.0" style="-fx-background-color: transparent; -fx-border-color: blue; -fx-border-width: 0px 2px 0px 2px;" text="System Reports" textAlignment="CENTER" wrapText="true">
                <font>
                   <Font name="Agency FB" size="22.0" />
                </font></Button>

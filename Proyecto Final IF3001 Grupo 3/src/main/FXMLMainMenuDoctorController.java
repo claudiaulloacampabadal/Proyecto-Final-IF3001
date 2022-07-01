@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import static main.FXMLMainMenuPatientController.loadPage;
 
 /**
  * FXML Controller class
@@ -31,8 +32,6 @@ public class FXMLMainMenuDoctorController implements Initializable {
     private Button btnPatients;
     @FXML
     private Button btnMedicalAttention;
-    @FXML
-    private Button btnPayment;
     @FXML
     private Button btnReports;
     @FXML
@@ -58,11 +57,9 @@ public class FXMLMainMenuDoctorController implements Initializable {
 
     @FXML
     private void btnMedicalAttentionOnAction(ActionEvent event) {
+        loadPage(getClass().getResource("FXMLMedicalCare.fxml"), bp);
     }
 
-    @FXML
-    private void btnPaymentOnAction(ActionEvent event) {
-    }
 
     @FXML
     private void btnReportOnAction(ActionEvent event) {

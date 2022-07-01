@@ -78,34 +78,6 @@ public class Payment {
         this.totalCharge = totalCharge;
     }
     
-    //pdf
-    public static void generateReport(String nameFile, String pdfTitle, String objContent) throws FileNotFoundException, DocumentException, BadElementException, IOException {
-
-        FileOutputStream archive = new FileOutputStream("C:\\Users\\Saúl Machado\\Desktop\\Algoritmos y estructuras de datos\\PruebasCorreo" + "\\" + nameFile + ".pdf");
-        Document doc = new Document();
-
-        PdfWriter.getInstance(doc, archive);
-        doc.open();
-
-        Paragraph title = new Paragraph(pdfTitle + "\n\n", FontFactory.getFont("arial", 22, Font.BOLD, BaseColor.BLACK));
-
-        title.setAlignment(Paragraph.ALIGN_CENTER);
-
-////        Image img = Image.getInstance("C:\\Users");
-////        img.setAlignment(Image.ALIGN_CENTER);
-//        img.setBorder(Image.BOX);
-//        img.setBorderWidth(0);
-//        img.setBorderColor(BaseColor.WHITE);
-//        img.scaleToFit(1100, 100); // tamaño 
-//        doc.add(img);
-        doc.add(title);
-
-        Paragraph dateReport = new Paragraph(objContent, FontFactory.getFont("arial", 18, Font.NORMAL, BaseColor.BLACK));
-        dateReport.setAlignment(Paragraph.ALIGN_CENTER);
-        doc.add(dateReport);
-
-        doc.close();
-
-    }
+  
     
 }

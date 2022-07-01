@@ -84,7 +84,7 @@ public class Patient {
 
     @Override
     public String toString() {
-        return id + ";" + lastname + ";" + firstname + ";" + birthday + ";" +email + ";" +adress;
+        return id + ";" + lastname + ";" + firstname + ";" + util.Utility.format(birthday) + ";" +email + ";" +adress;
    }
     
     

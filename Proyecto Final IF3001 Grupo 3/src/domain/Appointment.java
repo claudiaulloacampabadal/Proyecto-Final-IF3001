@@ -4,6 +4,8 @@
  */
 package domain;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -16,12 +18,13 @@ public class Appointment {
     private int identity;
     private int patientID;
     private int doctorID;
-    private Date dateTime;
+    private LocalDateTime dateTime;
     private String remarks;
+    private static int autoID;
 
     //constructor
-    public Appointment(int identity, int patientID, int doctorID, Date dateTime, String remarks) {
-        this.identity = identity;
+    public Appointment(int identity, int patientID, int doctorID, LocalDateTime dateTime, String remarks) {
+        this.identity = ++autoID;
         this.patientID = patientID;
         this.doctorID = doctorID;
         this.dateTime = dateTime;
@@ -53,11 +56,11 @@ public class Appointment {
         this.doctorID = doctorID;
     }
 
-    public Date getDateTime() {
+    public LocalDateTime getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(Date dateTime) {
+    public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
 
@@ -71,7 +74,7 @@ public class Appointment {
 
     @Override
     public String toString() {
-        return identity + ";" + patientID + ";" + doctorID + ";" + dateTime + ";" + remarks;
+        return patientID + ";" + doctorID + ";" + dateTime + ";" + remarks;
     }
     
     

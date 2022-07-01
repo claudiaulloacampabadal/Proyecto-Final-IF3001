@@ -50,7 +50,7 @@
       </VBox>
    </left>
    <center>
-      <TableView fx:id="doctorTableView" editable="true" prefHeight="328.0" prefWidth="667.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="appointmentTableView" editable="true" prefHeight="328.0" prefWidth="667.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="idTableColumn" prefWidth="111.0" text="ID" />
           <TableColumn fx:id="idPatientTableColumn" prefWidth="128.0" text="ID Patient" />
