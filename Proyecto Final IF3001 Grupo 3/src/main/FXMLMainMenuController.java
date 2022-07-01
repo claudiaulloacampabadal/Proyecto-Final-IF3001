@@ -92,7 +92,7 @@ public class FXMLMainMenuController implements Initializable {
 
     @FXML
     private void btnReportOnAction(ActionEvent event) {
-        
+        loadPage(getClass().getResource("FXMLReports.fxml"), bp);
     }
 
     @FXML
