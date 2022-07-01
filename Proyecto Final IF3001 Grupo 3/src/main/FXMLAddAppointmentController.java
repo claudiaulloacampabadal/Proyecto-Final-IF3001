@@ -44,6 +44,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import static main.FXMLAddDoctorController.loadPage;
 
 /**
  * FXML Controller class
@@ -103,6 +104,9 @@ public class FXMLAddAppointmentController implements Initializable {
                 idUserTextField.setText(s.getUser());
             }
             
+            numTextField.setText(String.valueOf(Appointment.getAutoID()+1));
+            
+            
             
         } catch (ListException ex) {
             Logger.getLogger(FXMLAddAppointmentController.class.getName()).log(Level.SEVERE, null, ex);
@@ -131,33 +135,59 @@ public class FXMLAddAppointmentController implements Initializable {
     @FXML
     private void btnAddOnAction(ActionEvent event){
         //Añadir una cita
-        if(!appointments.isEmpty() && appointments != null){
-            String idDoctor = String.valueOf(cB_DoctorsList.getValue()).replace("[", "").replace("]", "");
-            if(calendarChoice.getTime() != null && !idDoctor.equals("")){
-                try {
-                    Date today = calendarChoice.getTime();
-                    LocalDateTime ldt = LocalDateTime.ofInstant(today.toInstant(), ZoneId.systemDefault());
-                    Appointment ap = new Appointment(0, Integer.parseInt(idDoctor), Integer.parseInt(idUserTextField.getText()), ldt, txtARemarks.getText());
-                    if(appointments.contains(ap)){
+            try{
+                if(calendarChoice.getTime() != null &&  cB_DoctorsList.getValue() != null){
+                    try { 
+                        int autoId = Appointment.getAutoID();
+                        String id = String.valueOf(cB_DoctorsList.getValue()).replace("[", "").replace("]", "").substring(0, 9);
+                            Date today = calendarChoice.getTime();
+                            LocalDateTime ldt = LocalDateTime.ofInstant(today.toInstant(), ZoneId.systemDefault());
                         
-                    }else{
-                        
-                        
+                        if(appointments != null && !appointments.isEmpty() && appointments.contains(new Appointment( Integer.parseInt(id), Integer.parseInt(idUserTextField.getText()), ldt, txtARemarks.getText()))){
+                             Appointment.setAutoID(autoId);
+                             
+                             
+                        }else{
+                            Appointment.setAutoID(autoId);
+                            Appointment ap = new Appointment(Integer.parseInt(idUserTextField.getText()), Integer.parseInt(id)
+                               , ldt, txtARemarks.getText());
+                                if(!appointments.contains(ap)){
+                                    appointments.add(ap);
+                                    util.Utility.setDoublyLinkedListAppointment(appointments);
+                                    addArchive(ap,"appointment");
+                                    btnCleanOnAction(event);
+                                    numTextField.setText(String.valueOf(autoId));
+                                    alert = new Alert(Alert.AlertType.INFORMATION);
+                                    alert.setTitle("Appointment - Add");
+                                    alert.setContentText("Element add succesfully");
+                                    alert.show();
+                                    loadPage(getClass().getResource("FXMLAppointment.fxml"),appointmentPane); 
+                                    btnCleanOnAction(event);
+                                }else{
+                                    alert = new Alert(Alert.AlertType.INFORMATION);
+                                    alert.setTitle("Appointment - Add");
+                                    alert.setContentText("Element is Repeated");
+                                    alert.show(); 
+                                }
+                        }
+                       
+                    } catch (ListException ex) {
+                        Logger.getLogger(FXMLAddAppointmentController.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                } catch (ListException ex) {
-                    Logger.getLogger(FXMLAddAppointmentController.class.getName()).log(Level.SEVERE, null, ex);
+                }else{
+                   alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Appointment - Update");
+                    alert.setContentText("Fill all the blank spaces");
+                    alert.show();
+
                 }
-            }else{
-                
-                
+            }catch(NumberFormatException nfe){
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Patient - Update");
+                alert.setContentText("Invalid character, try a number.");
+                alert.show(); 
             }
-            
-            
-            
-            
-        }else{
-            
-        }
+      
              
     }
 
@@ -287,12 +317,11 @@ public class FXMLAddAppointmentController implements Initializable {
                     if(lineRegister != null){
                         list.add(d);
                     }
-                        lineRegister = br.readLine();
-                 
+                    lineRegister = br.readLine();
                     
                 }
                 //Se pone aqui para que se carge en el addList
-                util.Utility.setDoublyLinkedList(list);
+                  util.Utility.setDoublyLinkedList(list);
 
             } else {
                 //Sino existe se crea uno

@@ -46,6 +46,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import static main.FXMLModifyPatientController.loadPage;
@@ -78,6 +79,8 @@ public class FXMLMedicalCareController implements Initializable {
     private Button btnPayment;
     @FXML
     private Button btnCleanOnAction;
+    @FXML
+    private TextField numIdText;
 
     /**
      * Initializes the controller class.
@@ -87,6 +90,7 @@ public class FXMLMedicalCareController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
                
         try {
+               this.users = util.Utility.getSinglyLinkedListPassword();
             if(!util.Utility.getDoublyLinkedListAppointment().isEmpty()){
                 this.appointments = util.Utility.getDoublyLinkedListAppointment();
             }else{
@@ -114,7 +118,6 @@ public class FXMLMedicalCareController implements Initializable {
                this.illness = getIllness();
             }
             this.appointments.sort();
-            this.users = util.Utility.getSinglyLinkedListPassword();
             
             cB_PatientsAppointments.setItems(getData());
            
@@ -295,7 +298,7 @@ public class FXMLMedicalCareController implements Initializable {
                                 break;
                         }
                     }//End while   
-                     Appointment ap = new Appointment(id,idPatient, idDoctor, dateTime, remarks);
+                     Appointment ap = new Appointment(idPatient, idDoctor, dateTime, remarks);
                     //Esto evita que en la lista se repiten enfermedades o se sumen dobles
                     
                     if(lineRegister != null){
@@ -348,33 +351,29 @@ public class FXMLMedicalCareController implements Initializable {
                     while (sT.hasMoreTokens()) {
                         switch (controlTokens) {
                             case 1:
-                                id = Integer.parseInt(sT.nextToken());
+                                idDoctor = Integer.parseInt(sT.nextToken());
                                 controlTokens++;//El id del Paciente
                                 break;
                             case 2:
-                                idDoctor = Integer.parseInt(sT.nextToken());
-                                controlTokens++;//El id del doctor
-                                break;
-                            case 3:
                                 idPatient = Integer.parseInt(sT.nextToken());
                                 controlTokens++;//El id del doctor
                                 break;
-                            case 4:
+                            case 3:
                                 //Convierte de String a local date time
                                 dateTime = LocalDateTime.parse(sT.nextToken(),format);
                                 controlTokens++;
                                 break;
-                            case 5:
+                            case 4:
                                 idSickness = Integer.parseInt(sT.nextToken());
                                 controlTokens++;//Remarks 
                                 break;
-                            case 6:
+                            case 5:
                                 remarks = sT.nextToken();
                                 controlTokens++;//Remarks 
                                 break;    
                         }
                     }//End while   
-                    MedicalCare mc = new MedicalCare(idPatient, idDoctor, idPatient, dateTime, idSickness, remarks);
+                    MedicalCare mc = new MedicalCare(idDoctor, idPatient, dateTime, idSickness, remarks);
                     //Esto evita que en la lista se repiten enfermedades o se sumen dobles
                     
                     if(lineRegister != null){

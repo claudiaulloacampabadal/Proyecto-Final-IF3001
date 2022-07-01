@@ -58,7 +58,7 @@ public class DateTimePickerPopup extends VBox implements Initializable {
 
     public DateTimePickerPopup(final DateTimePicker parentControl) {
         this.hour = parentControl.dateTimeProperty().get().getHour();
-        this.minute = parentControl.dateTimeProperty().get().getMinute();
+        //this.minute = parentControl.dateTimeProperty().get().getMinute();
         //this.second = parentControl.dateTimeProperty().get().getSecond();
 
         this.parentControl = parentControl;
@@ -134,7 +134,7 @@ public class DateTimePickerPopup extends VBox implements Initializable {
         parentControl.dateTimeProperty().addListener((observable, oldValue, newValue) -> hoursPicker.setHour(newValue.getHour()));
 
         hoursButton.setOnAction(this::handleHoursButtonAction);
-        minutesButton.setOnAction(this::handleMinutesButtonAction);
+     //   minutesButton.setOnAction(this::handleMinutesButtonAction);
     //    secondsButton.setOnAction(this::handleSecondsButtonAction);
         okButton.setOnAction(this::handleOkButtonAction);
 
@@ -156,7 +156,7 @@ public class DateTimePickerPopup extends VBox implements Initializable {
 
     void setTime(final LocalTime time) {
         hour = time.getHour();
-        minute = time.getMinute();
+       // minute = time.getMinute();
       //  second = time.getSecond();
         setTimeButtonText();
     }
@@ -172,7 +172,7 @@ public class DateTimePickerPopup extends VBox implements Initializable {
     void restoreTimePanel() {
         // Update hour
         hour = hoursPicker.getHour();
-        minute = minutesPicker.getValue();
+       // minute = minutesPicker.getValue();
        // second = secondsPicker.getValue();
         setTimeButtonText();
 

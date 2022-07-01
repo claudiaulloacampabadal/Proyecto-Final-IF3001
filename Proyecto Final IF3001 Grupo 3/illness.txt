@@ -1,4 +1,4 @@
 1;Obesidad
 2;Cáncer de pancreas
 5;Artritis
-3;Autismo
+3;Influenza

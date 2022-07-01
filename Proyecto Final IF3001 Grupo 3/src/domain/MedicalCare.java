@@ -20,9 +20,10 @@ public class MedicalCare {
     private LocalDateTime dateTime;
     private int sicknessID;
     private String annotations;
+    private static int autoID;
 
-    public MedicalCare(int identity, int doctorID, int patientID, LocalDateTime dateTime, int sicknessID, String annotations) {
-        this.identity = identity;
+    public MedicalCare( int doctorID, int patientID, LocalDateTime dateTime, int sicknessID, String annotations) {
+        this.identity = ++autoID;
         this.doctorID = doctorID;
         this.patientID = patientID;
         this.dateTime = dateTime;
@@ -80,7 +81,7 @@ public class MedicalCare {
 
     @Override
     public String toString() {
-        return  identity + ";" + doctorID + ";" + patientID + ";" + util.Utility.formatDateTime(dateTime) + ";" + sicknessID + ";" + annotations ;
+        return  doctorID + ";" + patientID + ";" + util.Utility.formatDateTime(dateTime) + ";" + sicknessID + ";" + annotations ;
     }
 
     

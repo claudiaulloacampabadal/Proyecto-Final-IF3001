@@ -131,7 +131,7 @@ public class FXMLModifyDoctorController implements Initializable {
                         if(doctors.contains(d1)){
                             //Buscar donde esta
                             updateList(d1,d2);
-                            modifyArchive(id,d2 );
+                            modifyArchive(id,d2);
                            alert = new Alert(Alert.AlertType.INFORMATION);
                            alert.setTitle("Doctors - Update");
                            alert.setContentText("Element update, succesfully!");
@@ -190,7 +190,7 @@ public class FXMLModifyDoctorController implements Initializable {
               if(cB_Id.getValue() != null){
             try {
                 String id = String.valueOf(cB_Id.getValue()).replace("[","").replace("]", "");
-                int index = doctors.indexOf(new Patient(Integer.parseInt(id), "", "", null, "", ""));
+                int index = doctors.indexOf(new Doctor(Integer.parseInt(id), "", "", null, "","", ""));
                 Doctor d = (Doctor) doctors.getNode(index).data;
                 this.firstNTextField.setText(d.getFirstname());
                 this.lastNTextField.setText(d.getLastname());
@@ -273,6 +273,8 @@ public class FXMLModifyDoctorController implements Initializable {
         }
         pw.close();
         br.close();
+        br.close();
+        pw.close();
         //Delete the original file
         if (!file.delete()) {
             System.out.println("Could not delete file");

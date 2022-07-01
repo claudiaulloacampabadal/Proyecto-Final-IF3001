@@ -81,6 +81,7 @@ public class FXMLAppointmentController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        this.users = util.Utility.getSinglyLinkedListPassword();
          //Si no esta vacia
         if(!util.Utility.getDoublyLinkedListAppointment().isEmpty()){
             //carga la lista utility, que añadio
@@ -88,9 +89,9 @@ public class FXMLAppointmentController implements Initializable {
         }else{//si esta vacia por primera vez entonces
             //Llama al metodo que carga el archivo
             this.appointments = getAppointment();
-             util.Utility.setDoublyLinkedListAppointment(appointments);
+             //util.Utility.setDoublyLinkedListAppointment(appointments);
         }
-        this.users = util.Utility.getSinglyLinkedListPassword();
+    
         
         this.idTableColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<List<String>, String>, ObservableValue<String>>() {
             @Override
@@ -129,7 +130,7 @@ public class FXMLAppointmentController implements Initializable {
         });
        
         //Cargar los datos en una tableView
-        if (appointments!=null && !appointments.isEmpty()) {
+        if (appointments!=null && !appointments.isEmpty() && !getData().isEmpty()) {
             this.appointmentTableView.setItems(getData());
         }  
        
@@ -183,21 +184,20 @@ public class FXMLAppointmentController implements Initializable {
         ObservableList<List<String>> data = FXCollections.observableArrayList();
 
         try {
+               Security s = (Security) users.getNode(util.Utility.getUser()).data;
             for(int i = 1; i <= appointments.size(); i++) {
                 Appointment ap = (Appointment) appointments.getNode(i).data;
-                Security s = (Security) users.getNode(util.Utility.getUser()).data;
-                
                 List<String> arrayList = new ArrayList<>();
                 
-                if(s.getUser().equalsIgnoreCase(String.valueOf(ap.getPatientID()))){
+                if(Integer.parseInt(s.getUser()) == ap.getPatientID()){
                     arrayList.add(String.valueOf(ap.getIdentity()));
                     arrayList.add(String.valueOf(ap.getPatientID()));
                     arrayList.add(String.valueOf(ap.getDoctorID()));
                     arrayList.add(util.Utility.formatDateTime(ap.getDateTime()));
                     arrayList.add(ap.getRemarks());
-               
-                    data.add(arrayList);
-             }
+                    
+                     data.add(arrayList);
+                 }
             }
         } catch (ListException ex) {
             Logger.getLogger(FXMLIllnessAndDiseaseController.class.getName()).log(Level.SEVERE, null, ex);
@@ -218,50 +218,45 @@ public class FXMLAppointmentController implements Initializable {
     
                 String lineRegister = br.readLine();
                 while (lineRegister != null) {
-                    int id = 0;
+             
                     int idPatient = 0;
                     int idDoctor = 0;
                     DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
                     LocalDateTime dateTime = null; 
                     String remarks ="";
- 
                     //EL token es;
                     StringTokenizer sT = new StringTokenizer(lineRegister, ";");
                     int controlTokens = 1;
-
                     //Para separar los tokens
                     while (sT.hasMoreTokens()) {
                         switch (controlTokens) {
                             case 1:
-                                id = Integer.parseInt(sT.nextToken());
-                                controlTokens++;//El id del Paciente
-                                break;
-                            case 2:
                                 idPatient = Integer.parseInt(sT.nextToken());
                                 controlTokens++;//El id del Paciente
                                 break;
-                            case 3:
+                            case 2:
                                 idDoctor = Integer.parseInt(sT.nextToken());
                                 controlTokens++;//El id del doctor
                                 break;
-                            case 4:
+                            case 3:
                                 //Convierte de String a local date time
                                 dateTime = LocalDateTime.parse(sT.nextToken(),format);
                                 controlTokens++;
                                 break;
-                            case 5:
+                            case 4:
                                 remarks = sT.nextToken();
                                 controlTokens++;//Remarks 
                                 break;
                         }
                     }//End while   
-                     Appointment ap = new Appointment(id, idPatient, idDoctor, dateTime, remarks);
+                     Appointment ap = new Appointment(idPatient, idDoctor, dateTime, remarks);
+                    
                     //Esto evita que en la lista se repiten enfermedades o se sumen dobles
-                    if(lineRegister != null){
-                        list.add(ap);
-                    }
-                        lineRegister = br.readLine();
-                 
+                      if(lineRegister != null){
+                         list.add(ap);
+                      }
+                    
+                    lineRegister = br.readLine();
                     
                 }
                 //Se pone aqui para que se carge en el addList

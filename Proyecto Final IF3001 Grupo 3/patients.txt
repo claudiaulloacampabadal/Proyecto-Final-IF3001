@@ -1,1 +1,3 @@
-303930239;Montoya Bonilla;Paula;19/01/1984;macebonilla03@gmail.com;Cartago
+303930239;Bonilla Madriz;Paula;19/01/1984;macebonilla03@gmail.com;Cartago
+111111111;Madriz Fallas;Andrea;22/08/1983;pawbon@hotmail.com;Paraiso
+222222222;Solis Solano;Gerardo;05/08/1990;maria.montoyabonilla@ucr.ac.cr;Cartago

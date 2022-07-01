@@ -290,8 +290,8 @@ public class Utility {
                 return p1.getId()== p2.getId() ;
             case "Appointment":
                  Appointment ap1 = (Appointment) a; Appointment ap2 = (Appointment) b;
-                 return ap1.getDoctorID() == ap2.getDoctorID() && ap1.getDateTime().getHour() == ap1.getDateTime().getHour() &&
-                         ap1.getDateTime().getMonthValue() == ap1.getDateTime().getMonthValue();
+                 return ap1.getDoctorID() == ap2.getDoctorID() && ap1.getDateTime().getHour() == ap2.getDateTime().getHour() &&
+                        ap1.getDateTime().getMonthValue() == ap2.getDateTime().getMonthValue() ;
                
         }
         return false;

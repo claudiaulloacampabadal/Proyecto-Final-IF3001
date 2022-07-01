@@ -1,4 +1,6 @@
 305460720;WPrmet¡71;Doctor
 345677000;BSgygb¿14;Doctor
 303930239;JFkbrv!47;Patient
-105460720;HELLO1233;Adminstrator
+105460720;HELLO1233;Administrator
+111111111;NVyrmg(76;Patient
+222222222;BOdwvm!06;Patient
