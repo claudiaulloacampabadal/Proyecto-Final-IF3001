@@ -88,42 +88,40 @@ public class FXMLMedicalCareController implements Initializable {
     //Los doctores 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-               
         try {
-               this.users = util.Utility.getSinglyLinkedListPassword();
+            this.users = util.Utility.getSinglyLinkedListPassword();
+            
             if(!util.Utility.getDoublyLinkedListAppointment().isEmpty()){
                 this.appointments = util.Utility.getDoublyLinkedListAppointment();
             }else{
                 this.appointments = getAppointment();
-                util.Utility.setDoublyLinkedListAppointment(appointments);
             }
             if(!util.Utility.getBTree().isEmpty()){
                 this.medicalCare = util.Utility.getBTree();
             }else{
                 this.medicalCare = getMedical();
-                util.Utility.setBTree(medicalCare);
             }
             if(!util.Utility.getCircularLinkedList().isEmpty()){
                 this.patients = util.Utility.getCircularLinkedList();
             }else{
                 this.patients = getPatients();
-                util.Utility.setCircularLinkedList(patients);
             }
-                   //Si no esta vacia
+            //Si no esta vacia
             if(!util.Utility.getSinglyLinkedList().isEmpty()){
                 //carga la lista utility, que añadio
                 this.illness = util.Utility.getSinglyLinkedList();
             }else{//si esta vacia por primera vez entonces
                 //Llama al metodo que carga el archivo
-               this.illness = getIllness();
+                this.illness = getIllness();
             }
             this.appointments.sort();
-            
-            cB_PatientsAppointments.setItems(getData());
-           
+            if(!appointments.isEmpty() && !getData().isEmpty()){  
+                cB_PatientsAppointments.setItems(getData());
+            }
+                 System.out.print(appointments.toString());
         } catch (ListException ex) {
             Logger.getLogger(FXMLMedicalCareController.class.getName()).log(Level.SEVERE, null, ex);
-        }    
+        }
         
     } 
     
@@ -154,7 +152,11 @@ public class FXMLMedicalCareController implements Initializable {
     private void btnHistorialOnAction(ActionEvent event) {
         if(cB_PatientsAppointments.getValue() != null){
            util.Utility.setPatientId(cB_PatientsAppointments.getValue());
-          loadPage(getClass().getResource("FXMLHistoricalMedicalCare.fxml"));
+          loadPage(getClass().getResource("FXMLHistorialMedicalCare.fxml"));
+        }else{//Alert que no se econtro
+            
+               
+            
         }
     }
 
@@ -231,7 +233,7 @@ public class FXMLMedicalCareController implements Initializable {
             for(int i = 1; i <= appointments.size(); i++) {
                 Appointment ap = (Appointment) appointments.getNode(i).data;
                 Security s = (Security) users.getNode(util.Utility.getUser()).data;
-                if(s.getUser().equalsIgnoreCase(String.valueOf(ap.getDoctorID()))){
+                if(Integer.parseInt(s.getUser()) == ap.getDoctorID()){
                     List<String> arrayList = new ArrayList<>();
                     arrayList.add(String.valueOf(ap.getIdentity()));
                     arrayList.add(String.valueOf(ap.getPatientID()));
@@ -249,9 +251,9 @@ public class FXMLMedicalCareController implements Initializable {
           return data;  
      }
     
-      //Para obetner los datos dela rchivo y cargarlos alas listas
+        //Para obetner los datos dela rchivo y cargarlos alas listas
     private DoublyLinkedList getAppointment() {
-        DoublyLinkedList list = util.Utility.getDoublyLinkedList();
+        DoublyLinkedList list = util.Utility.getDoublyLinkedListAppointment();
         BufferedReader br = archives.getBufferedReader("appointment");
         File file = new File("appointment.txt");
 
@@ -261,51 +263,45 @@ public class FXMLMedicalCareController implements Initializable {
     
                 String lineRegister = br.readLine();
                 while (lineRegister != null) {
-                    int id = 0;
+             
                     int idPatient = 0;
                     int idDoctor = 0;
                     DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
                     LocalDateTime dateTime = null; 
                     String remarks ="";
- 
                     //EL token es;
                     StringTokenizer sT = new StringTokenizer(lineRegister, ";");
                     int controlTokens = 1;
-
                     //Para separar los tokens
                     while (sT.hasMoreTokens()) {
                         switch (controlTokens) {
                             case 1:
-                                id = Integer.parseInt(sT.nextToken());
-                                controlTokens++;//El id del Paciente
-                                break;
-                            case 2:
                                 idPatient = Integer.parseInt(sT.nextToken());
                                 controlTokens++;//El id del Paciente
                                 break;
-                            case 3:
+                            case 2:
                                 idDoctor = Integer.parseInt(sT.nextToken());
                                 controlTokens++;//El id del doctor
                                 break;
-                            case 4:
+                            case 3:
                                 //Convierte de String a local date time
                                 dateTime = LocalDateTime.parse(sT.nextToken(),format);
                                 controlTokens++;
                                 break;
-                            case 5:
+                            case 4:
                                 remarks = sT.nextToken();
                                 controlTokens++;//Remarks 
                                 break;
                         }
                     }//End while   
                      Appointment ap = new Appointment(idPatient, idDoctor, dateTime, remarks);
-                    //Esto evita que en la lista se repiten enfermedades o se sumen dobles
                     
-                    if(lineRegister != null){
-                        list.add(ap);
-                    }
-                        lineRegister = br.readLine();
-                 
+                    //Esto evita que en la lista se repiten enfermedades o se sumen dobles
+                      if(lineRegister != null){
+                         list.add(ap);
+                      }
+                    
+                    lineRegister = br.readLine();
                     
                 }
                 //Se pone aqui para que se carge en el addList

@@ -311,7 +311,9 @@ public class Utility {
                 return a3.compareTo(b3)<0;
             case "Appointment":
                 Appointment ap1 = (Appointment) a; Appointment ap2 = (Appointment) b;
-                return ap1.getDateTime().isBefore(ap2.getDateTime()) && ap1.getDateTime().getHour() < ap2.getDateTime().getHour();
+                return( ap1.getDateTime().getDayOfMonth() < ap2.getDateTime().getDayOfMonth() &&
+                        ap1.getDateTime().getHour() < ap2.getDateTime().getHour()) || 
+                        ap1.getDateTime().getMonthValue() < ap2.getDateTime().getMonthValue() ;
             }
         return false; 
     }
@@ -330,7 +332,9 @@ public class Utility {
                 return a3.compareTo(b3)>0;
             case "Appointment":
                 Appointment ap1 = (Appointment) a; Appointment ap2 = (Appointment) b;
-                return ap1.getDateTime().isAfter(ap2.getDateTime()) && ap1.getDateTime().getHour() > ap2.getDateTime().getHour();
+                return (ap1.getDateTime().getDayOfMonth() > ap2.getDateTime().getDayOfMonth() 
+                     && ap1.getDateTime().getHour() > ap2.getDateTime().getHour())
+                     || ap1.getDateTime().getMonthValue() > ap2.getDateTime().getMonthValue() ;
             
          
         }
@@ -345,7 +349,10 @@ public class Utility {
                     "\n\n Remember to use this password that is both strong and unique to your account."+
                     "\n\n\nDon't reply this message.";
             case "Appointment":
-                return "Hi, remember your appointment";
+                return "Hi, remember your appointment:"+
+                       "\n\n Date: "+date+"\nDoctor: "+doctor
+                        +"\n\n\nDon't reply this message.";
+                        
               
         }
         return null;
