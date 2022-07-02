@@ -53,8 +53,9 @@ public class FXMLReportsController implements Initializable {
         bp.setCenter(root);
     }
 
-    private void btnGeneratePDF(ActionEvent event) {
-        loadPage(getClass().getResource("FXMLPatientsReports.fxml"), bp);
+         private void btnGeneratePDF(ActionEvent event) {
+         PDF pdf =  new PDF();
+         
 
     }
 }
