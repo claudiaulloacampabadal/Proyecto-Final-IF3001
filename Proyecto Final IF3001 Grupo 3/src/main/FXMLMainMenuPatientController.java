@@ -78,6 +78,7 @@ public class FXMLMainMenuPatientController implements Initializable {
 
     @FXML
     private void btnReportOnAction(ActionEvent event) {
+        loadPage(getClass().getResource("FXMLPatientsReports.fxml"), bp);
     }
 
     @FXML
