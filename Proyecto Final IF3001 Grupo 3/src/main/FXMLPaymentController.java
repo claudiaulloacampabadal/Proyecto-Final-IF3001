@@ -45,7 +45,6 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import static main.FXMLPatientsController.loadPage;
 
 /**
  * FXML Controller class
@@ -176,9 +175,6 @@ public class FXMLPaymentController implements Initializable {
         }
     }
 
-
-
-
     @FXML
     private void btnUpdateOnAction(ActionEvent event) {
         if(!payment.isEmpty()){
@@ -203,7 +199,7 @@ public class FXMLPaymentController implements Initializable {
             if (payment.contains(new Payment(Integer.parseInt(delete.getResult()), "", Double.parseDouble(delete.getResult()), null, Double.parseDouble(delete.getResult())))) {
 
                 //Se remueve de la lista
-                payment.deQueue();
+                remove(this.payment,(new Payment(Integer.parseInt(delete.getResult()), "", Double.parseDouble(delete.getResult()), null, Double.parseDouble(delete.getResult()))));
                 util.Utility.setHeaderLinkedQueue(payment);
                 //Si esta vacia solo se limpia la lista sino se vueleve a llamar la tabla
                 if (!payment.isEmpty()) {
@@ -301,7 +297,6 @@ public class FXMLPaymentController implements Initializable {
             util.Utility.setHeaderLinkedQueue(payment);
 
             List<String> arrayList = new ArrayList<>();
-
             arrayList.add(" "+String.valueOf(p.getId()));
             arrayList.add(" "+util.Utility.format(p.getBillingDate()));
             arrayList.add(" "+String.valueOf(p.getPaymentMode()));
@@ -368,4 +363,22 @@ public class FXMLPaymentController implements Initializable {
     }
         
    }
+   
+   //desencolar por id
+   private void remove(Object element, HeaderLinkedQueue queue) throws QueueException{
+        HeaderLinkedQueue aux = new HeaderLinkedQueue();
+       
+        while(!queue.isEmpty()){
+             if(util.Utility.equals(queue.front(), element)){
+                 queue.deQueue();
+             }else{
+                 aux.enQueue(queue.deQueue());
+             }
+        }
+   
+        while(!aux.isEmpty()){
+            queue.enQueue(aux.deQueue());
+        }
+        
+    }
 }

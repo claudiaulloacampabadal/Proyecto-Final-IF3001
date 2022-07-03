@@ -8,6 +8,7 @@ package util;
 import domain.Appointment;
 import domain.Doctor;
 import domain.Patient;
+import domain.Payment;
 import domain.Security;
 import domain.Sickness;
 import domain.TDA.BTree;
@@ -44,6 +45,7 @@ public class Utility {
     private static BorderPane bpAppointment = new BorderPane();
     private static BorderPane bpDoctor = new BorderPane();
     private static BorderPane bpPatient = new BorderPane();
+    private static BorderPane bpPayment = new BorderPane();
     private static int user = 0;
     private static String patientId ="";
     
@@ -52,6 +54,13 @@ public class Utility {
     }
     public static void setBorderPanePatient(BorderPane bpPatient) {
         Utility.bpPatient =  bpPatient;
+    }
+    
+    public static BorderPane getBorderPanePayment() {
+        return bpPayment;
+    }
+    public static void setBorderPanePayment(BorderPane bpPayment) {
+        Utility.bpPayment =  bpPayment;
     }
     
      public static BorderPane getBorderPaneDoctor() {
@@ -259,6 +268,7 @@ public class Utility {
         if(a instanceof Doctor && b instanceof Doctor) return "Doctor";
         if(a instanceof Patient && b instanceof Patient) return "Patient";
         if(a instanceof Appointment && b instanceof Appointment) return "Appointment";
+        if(a instanceof Payment && b instanceof Payment) return "Payment";
         return "unknown";
     }
 
@@ -292,7 +302,9 @@ public class Utility {
                  Appointment ap1 = (Appointment) a; Appointment ap2 = (Appointment) b;
                  return ap1.getDoctorID() == ap2.getDoctorID() && ap1.getDateTime().getHour() == ap2.getDateTime().getHour() &&
                         ap1.getDateTime().getMonthValue() == ap2.getDateTime().getMonthValue() ;
-               
+            case "Payment":
+                Payment pay1 =(Payment)a; Payment pay2 =(Payment)b;
+                return pay1.getId()== pay2.getId() ;   
         }
         return false;
     }
