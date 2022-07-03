@@ -54,7 +54,7 @@ public class FXMLReportsController implements Initializable {
     }
 
          private void btnGeneratePDF(ActionEvent event) {
-         PDF pdf =  new PDF();
+        // PDF pdf =  new PDF();
          
 
     }

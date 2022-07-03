@@ -28,22 +28,22 @@
             </TableView>
             <VBox layoutX="-2.0" layoutY="102.0" prefHeight="320.0" prefWidth="113.0" style="-fx-background-color: #07F4FF;">
                <children>
-                  <Button fx:id="btnCreate" mnemonicParsing="false" prefHeight="71.0" prefWidth="129.0" style="-fx-background-color: #07F4FF; -fx-border-color: white; -fx-border-width: 4px 0px 4px 0px;" text="Create">
+                  <Button fx:id="btnCreate" mnemonicParsing="false" onAction="#btnCreateOnAction" prefHeight="71.0" prefWidth="129.0" style="-fx-background-color: #07F4FF; -fx-border-color: white; -fx-border-width: 4px 0px 4px 0px;" text="Create">
                      <font>
                         <Font name="Agency FB" size="27.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnRead" mnemonicParsing="false" prefHeight="67.0" prefWidth="113.0" style="-fx-background-color: #07F4FF; -fx-border-color: white; -fx-border-width: 4px 0px 4px 0px;" text="Read">
+                  <Button fx:id="btnRead" mnemonicParsing="false" onAction="#btnReadOnAction" prefHeight="67.0" prefWidth="113.0" style="-fx-background-color: #07F4FF; -fx-border-color: white; -fx-border-width: 4px 0px 4px 0px;" text="Read">
                      <font>
                         <Font name="Agency FB" size="27.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnUpdate" mnemonicParsing="false" prefHeight="71.0" prefWidth="139.0" style="-fx-background-color: #07F4FF; -fx-border-color: white; -fx-border-width: 4px 0px 4px 0px;" text="Update">
+                  <Button fx:id="btnUpdate" mnemonicParsing="false" onAction="#btnUpdateOnAction" prefHeight="71.0" prefWidth="139.0" style="-fx-background-color: #07F4FF; -fx-border-color: white; -fx-border-width: 4px 0px 4px 0px;" text="Update">
                      <font>
                         <Font name="Agency FB" size="27.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnDelete" mnemonicParsing="false" prefHeight="71.0" prefWidth="139.0" style="-fx-background-color: #07F4FF; -fx-border-color: white; -fx-border-width: 4px 0px 4px 0px;" text="Delete">
+                  <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#btnDeleteOnAction" prefHeight="71.0" prefWidth="139.0" style="-fx-background-color: #07F4FF; -fx-border-color: white; -fx-border-width: 4px 0px 4px 0px;" text="Delete">
                      <font>
                         <Font name="Agency FB" size="27.0" />
                      </font>
