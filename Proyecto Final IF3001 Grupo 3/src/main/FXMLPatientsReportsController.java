@@ -4,6 +4,9 @@
  */
 package main;
 
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.DocumentException;
+import domain.PDF;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -52,7 +55,10 @@ public class FXMLPatientsReportsController implements Initializable {
         bp.setCenter(root);
     }
      
-     private void btnGeneratePDF(ActionEvent event) {
-         loadPage(getClass().getResource("FXMLPatientsReports.fxml"), bp);
-}
+     private void btnGeneratePDF(ActionEvent event) throws DocumentException, BadElementException, IOException {
+         PDF pdf =  new PDF();
+         
+         PDF.generateReport("Reporte", "Reporte", toString());
+         
+    }
 }
