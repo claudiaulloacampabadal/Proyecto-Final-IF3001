@@ -20,7 +20,7 @@ import java.io.IOException;
 
 /**
  *
- * @author Maria Celeste
+ * @author Fiorella
  */
 public class PDF {
     

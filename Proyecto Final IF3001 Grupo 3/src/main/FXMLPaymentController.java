@@ -3,12 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
 package main;
-
 import domain.Archives.ArchiveTXT;
-import domain.Patient;
 import domain.Payment;
 import domain.TDA.HeaderLinkedQueue;
-import domain.TDA.ListException;
 import domain.TDA.QueueException;
 import java.io.BufferedReader;
 import java.io.File;
