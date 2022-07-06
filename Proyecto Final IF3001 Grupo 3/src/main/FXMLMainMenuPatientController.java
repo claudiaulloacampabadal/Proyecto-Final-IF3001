@@ -27,7 +27,7 @@ import static main.FXMLMainMenuController.loadPage;
  * @author Maria Celeste
  */
 public class FXMLMainMenuPatientController implements Initializable {
-    
+
     Alert alert;
     @FXML
     private BorderPane bp;
@@ -43,6 +43,8 @@ public class FXMLMainMenuPatientController implements Initializable {
     private AnchorPane ap;
     @FXML
     private Label lbClinica;
+    @FXML
+    private Button btnMenu;
 
     /**
      * Initializes the controller class.
@@ -50,30 +52,29 @@ public class FXMLMainMenuPatientController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
     //loader
-    public static void loadPage(URL ui, BorderPane bp){
+    public static void loadPage(URL ui, BorderPane bp) {
         Parent root = null;
         try {
-            root = FXMLLoader.load(ui); 
+            root = FXMLLoader.load(ui);
         } catch (IOException ex) {
             Logger.getLogger(FXMLMainMenuController.class.getName());
         }
         //cleaning nodes
-       // bp.setTop(null);
-        bp.setCenter(null); 
+        // bp.setTop(null);
+        bp.setCenter(null);
         //bp.setBottom(null); 
         //bp.setLeft(null);
         //bp.setRight(null);
-        
+
         bp.setCenter(root);
     }
 
-
     @FXML
     private void btnAppointmentOnAction(ActionEvent event) {
-          loadPage(getClass().getResource("FXMLAppointment.fxml"), bp);
+        loadPage(getClass().getResource("FXMLAppointment.fxml"), bp);
     }
 
     @FXML
@@ -86,9 +87,10 @@ public class FXMLMainMenuPatientController implements Initializable {
         alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText("Are you sure you want to close this session?");
         alert.showAndWait();
-           
-            if(alert.getResult().getText().equalsIgnoreCase("aceptar"))
-                System.exit(-1);
+
+        if (alert.getResult().getText().equalsIgnoreCase("aceptar")) {
+            System.exit(-1);
+        }
     }
 
     @FXML
@@ -97,5 +99,11 @@ public class FXMLMainMenuPatientController implements Initializable {
         this.bp.setCenter(ap);
     }
 
-  
+    @FXML
+    private void btnMenuOnAction(ActionEvent event) {
+        loadPage(getClass().getResource("FXMLLogin.fxml"), bp);
+
+    }
+
 }
+
