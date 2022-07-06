@@ -48,6 +48,8 @@ public class FXMLMainMenuController implements Initializable {
     private BorderPane bp;
     @FXML
     private AnchorPane ap;
+    @FXML
+    private Button btnMenu;
 
     /**
      * Initializes the controller class.
@@ -116,7 +118,15 @@ public class FXMLMainMenuController implements Initializable {
     private void btnConfigurationOnAction(ActionEvent event) {
     }
 
+    @FXML
+    private void btnMenu(ActionEvent event) {
+        loadPage(getClass().getResource("FXMLLogin.fxml"), bp);
+
+        
+    }
+
 
 
     
 }
+
