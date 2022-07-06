@@ -42,6 +42,8 @@ public class FXMLMainMenuDoctorController implements Initializable {
     private AnchorPane ap;
     @FXML
     private Label lbClinica;
+    @FXML
+    private Button btnMenu;
 
     /**
      * Initializes the controller class.
@@ -63,6 +65,8 @@ public class FXMLMainMenuDoctorController implements Initializable {
 
     @FXML
     private void btnReportOnAction(ActionEvent event) {
+        loadPage(getClass().getResource("FXMLReports.fxml"), bp);
+       
     }
 
     @FXML
@@ -77,8 +81,16 @@ public class FXMLMainMenuDoctorController implements Initializable {
 
     @FXML
     private void btnHomeOnAction(ActionEvent event) {
+        loadPage(getClass().getResource("FXMLMainMenuDoctorController.fxml"), bp);
         
+    }
+
+    @FXML
+    private void btnMenu(ActionEvent event) {
+         loadPage(getClass().getResource("FXMLLogin.fxml"), bp);
+       
     }
 
     
 }
+
