@@ -81,7 +81,7 @@ public class FXMLMainMenuDoctorController implements Initializable {
 
     @FXML
     private void btnHomeOnAction(ActionEvent event) {
-        loadPage(getClass().getResource("FXMLMainMenuDoctorController.fxml"), bp);
+        loadPage(getClass().getResource("FXMLMainMenuDoctor.fxml"), bp);
         
     }
 
