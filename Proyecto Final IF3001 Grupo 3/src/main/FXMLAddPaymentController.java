@@ -19,6 +19,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import static main.FXMLAddPatientController.loadPage;
 
 /**
  * FXML Controller class
@@ -28,6 +30,7 @@ import javafx.scene.control.TextField;
 public class FXMLAddPaymentController implements Initializable {
     Alert alert;
     private Payment payment;
+    BorderPane paymentPane;
 
     @FXML
     private Button btnCreate;
@@ -41,6 +44,8 @@ public class FXMLAddPaymentController implements Initializable {
     private TextField idTextField;
     @FXML
     private DatePicker calendarChoice;
+    @FXML
+    private BorderPane bp;
 
     /**
      * Initializes the controller class.
@@ -52,13 +57,39 @@ public class FXMLAddPaymentController implements Initializable {
 
     @FXML
     private void btnCreateOnAction(ActionEvent event) {
-        if (!idTextField.getText().equals("") && !serviceTextField.getText().equals("") && !"".equals(calendarChoice)) {
-            if (util.Utility.countDigits(Integer.parseInt(idTextField.getText())) == 9) {
-                //Le hace una isntancia para el date
-                Calendar date = Calendar.getInstance();
-                //Le da un set a date para obtener los valores que se requieren
-                date.set(calendarChoice.getValue().getYear(), calendarChoice.getValue().getMonthValue(), calendarChoice.getValue().getDayOfMonth());
+        try {
+            if (!idTextField.getText().equals("") && !serviceTextField.getText().equals("") && !"".equals(calendarChoice) && !totalTextField.getText().equals("")) {
+                if (util.Utility.countDigits(Integer.parseInt(idTextField.getText())) == 9) {
+                    //Le hace una isntancia para el date
+                    Calendar date = Calendar.getInstance();
+                    //Le da un set a date para obtener los valores que se requieren               
+                    date.set(calendarChoice.getValue().getYear(), calendarChoice.getValue().getMonthValue(), calendarChoice.getValue().getDayOfMonth());
+                    payment = new Payment(Integer.parseInt(idTextField.getText()), paymentComboBox.getAccessibleText(), Integer.parseInt(serviceTextField.getText()), date.getTime(), Integer.parseInt(totalTextField.getText()));
+                    if (!payment.equals(idTextField)) {
+                        alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Creating bill");
+                        alert.setContentText("Created bill");
+                        alert.show();
+                        loadPage(getClass().getResource("FXMLPayment.fxml"), paymentPane);
+                    } else {
+                        alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Creating bill");
+                        alert.setContentText("Element is repeated");
+                        alert.show();
+                    }
+                } else {//Revisa que no esten vacios los espacios
+                    alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Creating bill");
+                    alert.setContentText("Fill ALL the blank spaces");
+                    alert.show();
+
+                }
             }
+        } catch (NumberFormatException nfe) {//La validacion si insertan una letra
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Patients - Add");
+            alert.setContentText("Invalid character, try a number.");
+            alert.show();
         }
     }
 }
