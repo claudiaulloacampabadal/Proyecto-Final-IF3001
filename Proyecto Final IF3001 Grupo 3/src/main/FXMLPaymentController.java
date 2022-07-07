@@ -35,7 +35,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextInputDialog;
@@ -62,17 +61,15 @@ public class FXMLPaymentController implements Initializable {
     @FXML
     private Button btnRead;
     @FXML
-    private Button btnUpdate;
-    @FXML
-    private Button btnDelete;
-    @FXML
-    private ComboBox<String> optionsPayment;
-    @FXML
     private TableColumn<List<String>,String> serviceTableColumn;
     @FXML
     private TableColumn<List<String>,String> dateTableColumn;
     @FXML
     private TableColumn<List<String>,String> totalTableColumn;
+    @FXML
+    private TableColumn<List<String>,String> paymentTableColumn;
+    @FXML
+    private Button btnSend;
 
     /**
      * Initializes the controller class.
@@ -80,7 +77,7 @@ public class FXMLPaymentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
          //Si no esta vacia
-        if(!util.Utility.getDoublyLinkedList().isEmpty()){
+        if(!util.Utility.getHeaderLinkedQueue().isEmpty()){
             //carga la lista utility, que añadio
             this.payment = util.Utility.getHeaderLinkedQueue();
         }else{try {
@@ -110,6 +107,13 @@ public class FXMLPaymentController implements Initializable {
             public ObservableValue<String> call(TableColumn.CellDataFeatures<List<String>, String> data) {
                 //
                 return new ReadOnlyObjectWrapper<>(data.getValue().get(2));//tome los valores que estan en el indice 2
+            }
+        });
+        this.paymentTableColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<List<String>, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<List<String>, String> data) {
+                //
+                return new ReadOnlyObjectWrapper<>(data.getValue().get(3));//tome los valores que estan en el indice 2
             }
         });
         
@@ -171,45 +175,12 @@ public class FXMLPaymentController implements Initializable {
             alert.show();
         }
     }
-
-    @FXML
-    private void btnUpdateOnAction(ActionEvent event) {
-        if(!payment.isEmpty()){
-            util.Utility.setBorderPanePatient(bp);
-            loadPage(getClass().getResource("FXMLModifyPayment.fxml"));
-        }
+    
+     @FXML
+    private void btnSendOnAction(ActionEvent event) {
     }
 
-    @FXML
-    private void btnDeleteOnAction(ActionEvent event) throws QueueException {
-         //Prgunta cual es el id que se quiere remover
-        TextInputDialog delete = new TextInputDialog();
-        delete.setTitle("Remove - Payment");
-        delete.setHeaderText("Enter the ID to remove");
-        delete.showAndWait();
-        //Se pregunta si de verdad quiere remover el archivo
-        alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setHeaderText("Are you sure you want to remove this element?");
-        alert.showAndWait();
-
-        if (alert.getResult().getText().equalsIgnoreCase("aceptar")) {
-            if (payment.contains(new Payment(Integer.parseInt(delete.getResult()), "", Double.parseDouble(delete.getResult()), null, Double.parseDouble(delete.getResult())))) {
-
-                //Se remueve de la lista
-                remove(this.payment,(new Payment(Integer.parseInt(delete.getResult()), "", Double.parseDouble(delete.getResult()), null, Double.parseDouble(delete.getResult()))));
-                util.Utility.setHeaderLinkedQueue(payment);
-                //Si esta vacia solo se limpia la lista sino se vueleve a llamar la tabla
-                if (!payment.isEmpty()) {
-                    this.paymentTableView.setItems(getData());
-                } else {
-                    this.paymentTableView.getItems().clear();
-                }
-
-                //se remueve el archivo con el id
-                removeArchive(delete.getResult(), "payment");
-            }
-        }
-    }
+   
 
     private HeaderLinkedQueue getPayment() throws QueueException {
     
@@ -378,4 +349,6 @@ public class FXMLPaymentController implements Initializable {
         }
         
     }
+
+   
 }
