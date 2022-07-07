@@ -224,6 +224,12 @@ public class FXMLPaymentController implements Initializable {
                                 billingDate = format.parse(sT.nextToken());
                                 controlTokens++;
                                 break;
+                            case 4:
+                                serviceCharges=Double.parseDouble(sT.nextToken());
+                                controlTokens++;
+                            case 5:
+                                totalCharge=Double.parseDouble(sT.nextToken());
+                                controlTokens++;
                         }
                     }
                     
