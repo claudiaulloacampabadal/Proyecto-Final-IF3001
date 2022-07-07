@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="523.0" prefWidth="762.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="main.FXMLLogBookController">
+   <children>
+      <BorderPane prefHeight="94.0" prefWidth="762.0" style="-fx-background-color: #1A2C63;">
+         <center>
+            <Label prefHeight="50.0" prefWidth="149.0" text="Logbook" textFill="WHITE" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="Agency FB" size="50.0" />
+               </font>
+            </Label>
+         </center>
+      </BorderPane>
+      <TableView layoutX="6.0" layoutY="114.0" prefHeight="370.0" prefWidth="752.0">
+        <columns>
+          <TableColumn prefWidth="109.0" text="Usuario" />
+          <TableColumn minWidth="0.0" prefWidth="97.0" text="Fecha" />
+            <TableColumn minWidth="0.0" prefWidth="92.0" text="Hora" />
+            <TableColumn prefWidth="190.0" text="Evento" />
+            <TableColumn editable="false" minWidth="0.0" prefWidth="263.0" resizable="false" text="Descripción del evento" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
