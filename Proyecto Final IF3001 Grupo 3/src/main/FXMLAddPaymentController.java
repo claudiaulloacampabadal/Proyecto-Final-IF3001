@@ -13,7 +13,9 @@ import domain.TDA.ListException;
 import domain.TDA.QueueException;
 import domain.TDA.SinglyLinkedList;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -43,12 +45,15 @@ import javafx.stage.Stage;
  * @author Fiorella
  */
 public class FXMLAddPaymentController implements Initializable {
+
     ArchiveTXT archives = new ArchiveTXT();
     Alert alert;
     private HeaderLinkedQueue payment;
     BorderPane paymentPane;
     private SinglyLinkedList users;
     private DoublyLinkedList appointments;
+    private BufferedWriter bw;
+    private File f;
 
     @FXML
     private Button btnCreate;
@@ -104,7 +109,7 @@ public class FXMLAddPaymentController implements Initializable {
     }
 
     @FXML
-    private void btnCreateOnAction(ActionEvent event) throws QueueException {
+    private void btnCreateOnAction(ActionEvent event) throws QueueException, IOException {
         try {
             if (!idTextField.getText().equals("") && !serviceTextField.getText().equals("") && !"".equals(calendarChoice) && !totalTextField.getText().equals("")) {
                 if (util.Utility.countDigits(Integer.parseInt(idTextField.getText())) == 9) {
@@ -139,6 +144,16 @@ public class FXMLAddPaymentController implements Initializable {
             alert.setContentText("Invalid character, try a number.");
             alert.show();
         }
+        
+        //crea el archivo para pasarselo al pdf
+        File file=new File("Payments.txt");        
+        
+        //Revisa si el archivo no existe
+            if (!file.exists()) {
+                file.createNewFile();                
+            }else{
+                
+            }
         Stage mystage = (Stage) btnCreate.getScene().getWindow();
         mystage.close();
     }
@@ -187,7 +202,6 @@ public class FXMLAddPaymentController implements Initializable {
                     }//End while   
                      Appointment ap = new Appointment(idPatient, idDoctor, dateTime, remarks);
                     
-                    //Esto evita que en la lista se repiten enfermedades o se sumen dobles
                       if(lineRegister != null){
                          list.add(ap);
                       }
@@ -208,27 +222,14 @@ public class FXMLAddPaymentController implements Initializable {
         }
         return list;
     }
+       
 
     @FXML
-    private void btnSendOnAction(ActionEvent event) {
-    }
-    
-    //desencolar por id
-   private void remove(Object element, HeaderLinkedQueue queue) throws QueueException{
-        HeaderLinkedQueue aux = new HeaderLinkedQueue();
-       
-        while(!queue.isEmpty()){
-             if(util.Utility.equals(queue.front(), element)){
-                 queue.deQueue();
-             }else{
-                 aux.enQueue(queue.deQueue());
-             }
-        }
-   
-        while(!aux.isEmpty()){
-            queue.enQueue(aux.deQueue());
-        }
+    private void btnSendOnAction(ActionEvent event) throws IOException {
         
     }
+
+    
+
 
 }

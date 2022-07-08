@@ -411,14 +411,14 @@ public class FXMLPatientsController implements Initializable {
         }
  
         //Rename the new file to the filename the original file had.
-        if (!tempFile.renameTo(new File(path+".txt"))){
-            System.out.println("Could not rename file");
- 
+        if (!tempFile.renameTo(new File(path + ".txt"))) {
+                System.out.println("Could not rename file");
+
+            }
+        } catch (FileNotFoundException ex) {
+        } catch (IOException ex) {
         }
-    } catch (FileNotFoundException ex) {
-    } catch (IOException ex) {
+
     }
-        
-   }
-    
+
 }
