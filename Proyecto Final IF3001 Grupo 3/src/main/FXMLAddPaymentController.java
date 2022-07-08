@@ -4,15 +4,26 @@
  */
 package main;
 
+import domain.Appointment;
+import domain.Archives.ArchiveTXT;
 import domain.Payment;
+import domain.Security;
+import domain.TDA.DoublyLinkedList;
 import domain.TDA.HeaderLinkedQueue;
+import domain.TDA.ListException;
 import domain.TDA.QueueException;
+import domain.TDA.SinglyLinkedList;
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
@@ -29,17 +40,19 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import static main.FXMLAddPatientController.loadPage;
 
 /**
  * FXML Controller class
  *
- * @author Usuario
+ * @author Fiorella
  */
 public class FXMLAddPaymentController implements Initializable {
+    ArchiveTXT archives = new ArchiveTXT();
     Alert alert;
     private HeaderLinkedQueue payment;
     BorderPane paymentPane;
+    private SinglyLinkedList users;
+    private DoublyLinkedList appointments;
 
     @FXML
     private Button btnCreate;
@@ -48,7 +61,7 @@ public class FXMLAddPaymentController implements Initializable {
     @FXML
     private TextField totalTextField;
     @FXML
-    private ComboBox<List<String>> paymentComboBox;
+    private ComboBox paymentComboBox;
     @FXML
     private TextField idTextField;
     @FXML
@@ -57,6 +70,7 @@ public class FXMLAddPaymentController implements Initializable {
     private BorderPane bp;
     @FXML
     private Button btnSend;
+    String []paymentMode={"Card","Cash"};   
 
     /**
      * Initializes the controller class.
@@ -64,17 +78,16 @@ public class FXMLAddPaymentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        if (!util.Utility.getHeaderLinkedQueue().isEmpty()) {
-            this.payment = util.Utility.getHeaderLinkedQueue();
-        }
+        appointments= new DoublyLinkedList();
+   
         try {
-            if (payment!=null && payment.isEmpty() && !getData().isEmpty()) {
-                paymentComboBox.setItems(getData());
+            for (int i = 1; i <= appointments.size(); i++) {
+                this.paymentComboBox.setItems((ObservableList) getAppointment());
             }
-        } catch (QueueException ex) {
+        } catch (ListException ex) {
             Logger.getLogger(FXMLAddPaymentController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        paymentComboBox.getItems().addAll(paymentMode);
     }
 
     public static void loadPage(URL ui, BorderPane bp) {
@@ -134,35 +147,70 @@ public class FXMLAddPaymentController implements Initializable {
         mystage.close();
     }
     
-     //El getData para la tableView
-     private ObservableList<List<String>> getData() throws QueueException{
-        //recordar agregar los datos
-        ObservableList<List<String>> data = FXCollections.observableArrayList();
-        domain.TDA.HeaderLinkedQueue c2= new domain.TDA.HeaderLinkedQueue();
+       private DoublyLinkedList getAppointment() {
+        DoublyLinkedList list = util.Utility.getDoublyLinkedListAppointment();
+        BufferedReader br = archives.getBufferedReader("appointment");
+        File file = new File("appointment.txt");
 
-        while (!payment.isEmpty()) {
-            //desencola
-            Payment p = (Payment) payment.deQueue();
-            
-            //encola en la auxiliar
-            c2.enQueue(p);
-            
-            //Se le actualizan los cambios a la cola original en utility
-            util.Utility.setHeaderLinkedQueue(payment);
+        try {
+            //Revisa si el archivo existe
+            if (file.exists()) {
+    
+                String lineRegister = br.readLine();
+                while (lineRegister != null) {
+             
+                    int idPatient = 0;
+                    int idDoctor = 0;
+                    DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+                    LocalDateTime dateTime = null; 
+                    String remarks ="";
+                    //EL token es;
+                    StringTokenizer sT = new StringTokenizer(lineRegister, ";");
+                    int controlTokens = 1;
+                    //Para separar los tokens
+                    while (sT.hasMoreTokens()) {
+                        switch (controlTokens) {
+                            case 1:
+                                idPatient = Integer.parseInt(sT.nextToken());
+                                controlTokens++;//El id del Paciente
+                                break;
+                            case 2:
+                                idDoctor = Integer.parseInt(sT.nextToken());
+                                controlTokens++;//El id del doctor
+                                break;
+                            case 3:
+                                //Convierte de String a local date time
+                                dateTime = LocalDateTime.parse(sT.nextToken(),format);
+                                controlTokens++;
+                                break;
+                            case 4:
+                                remarks = sT.nextToken();
+                                controlTokens++;//Remarks 
+                                break;
+                        }
+                    }//End while   
+                     Appointment ap = new Appointment(idPatient, idDoctor, dateTime, remarks);
+                    
+                    //Esto evita que en la lista se repiten enfermedades o se sumen dobles
+                      if(lineRegister != null){
+                         list.add(ap);
+                      }
+                    
+                    lineRegister = br.readLine();
+                    
+                }
+                //Se pone aqui para que se carge en el addList
+                util.Utility.setDoublyLinkedListAppointment(list);
 
-            List<String> arrayList = new ArrayList<>();
-            arrayList.add(" "+String.valueOf(p.getId()));
-            arrayList.add(" "+util.Utility.format(p.getBillingDate()));
-            arrayList.add(" "+String.valueOf(p.getPaymentMode()));
-            arrayList.add(" "+String.valueOf(p.getServiceCharge()));
-            arrayList.add(" "+String.valueOf(p.getTotalCharge()));
+            } else {
+                //Sino existe se crea uno
+                file.createNewFile();
+            }
 
-            data.add(arrayList);
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLIllnessAndDiseaseController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        payment=c2;
-        util.Utility.setHeaderLinkedQueue(payment);
-
-        return data;
+        return list;
     }
 
     @FXML
