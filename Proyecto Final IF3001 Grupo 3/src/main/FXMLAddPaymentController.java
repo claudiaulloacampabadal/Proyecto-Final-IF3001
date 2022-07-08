@@ -67,9 +67,6 @@ public class FXMLAddPaymentController implements Initializable {
     BorderPane paymentPane;
     private SinglyLinkedList users;
     private DoublyLinkedList appointments;
-    private BufferedWriter bw;
-    private File f;
-    private CircularLinkedList patient;
 
     @FXML
     private Button btnCreate;
