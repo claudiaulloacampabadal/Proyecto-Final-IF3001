@@ -7,7 +7,6 @@ package main;
 import domain.Appointment;
 import domain.Archives.ArchiveTXT;
 import domain.Payment;
-import domain.Security;
 import domain.TDA.DoublyLinkedList;
 import domain.TDA.HeaderLinkedQueue;
 import domain.TDA.ListException;
@@ -19,14 +18,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -120,12 +116,12 @@ public class FXMLAddPaymentController implements Initializable {
                     if (!payment.contains(payment)) {
                         alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle("Creating bill");
-                        alert.setContentText("Created bill");
+                        alert.setContentText("CREATED BILL");
                         alert.show();
                         loadPage(getClass().getResource("FXMLPayment.fxml"), paymentPane);
                     } else {
                         alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("Creating bill");
+                        alert.setTitle("CREATED BILL");
                         alert.setContentText("Element is repeated");
                         alert.show();
                     }
@@ -139,7 +135,7 @@ public class FXMLAddPaymentController implements Initializable {
             }
         } catch (NumberFormatException nfe) {//La validacion si insertan una letra
             alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Patients - Add");
+            alert.setTitle("Creating bill");
             alert.setContentText("Invalid character, try a number.");
             alert.show();
         }
