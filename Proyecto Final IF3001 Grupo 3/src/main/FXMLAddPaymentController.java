@@ -4,9 +4,20 @@
  */
 package main;
 
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import domain.Appointment;
 import domain.Archives.ArchiveTXT;
 import domain.Payment;
+import domain.TDA.CircularLinkedList;
 import domain.TDA.DoublyLinkedList;
 import domain.TDA.HeaderLinkedQueue;
 import domain.TDA.ListException;
@@ -15,12 +26,16 @@ import domain.TDA.SinglyLinkedList;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
@@ -54,6 +69,7 @@ public class FXMLAddPaymentController implements Initializable {
     private DoublyLinkedList appointments;
     private BufferedWriter bw;
     private File f;
+    private CircularLinkedList patient;
 
     @FXML
     private Button btnCreate;
@@ -144,19 +160,11 @@ public class FXMLAddPaymentController implements Initializable {
             alert.setContentText("Invalid character, try a number.");
             alert.show();
         }
-        
-        //crea el archivo para pasarselo al pdf
-        File file=new File("Payments.txt");        
-        
-        //Revisa si el archivo no existe
-            if (!file.exists()) {
-                file.createNewFile();                
-            }else{
-                
-            }
         Stage mystage = (Stage) btnCreate.getScene().getWindow();
         mystage.close();
     }
+    
+    
     
        private DoublyLinkedList getAppointment() {
         DoublyLinkedList list = util.Utility.getDoublyLinkedListAppointment();
@@ -229,6 +237,45 @@ public class FXMLAddPaymentController implements Initializable {
         
     }
 
+    public void generateBill() throws FileNotFoundException, DocumentException, BadElementException, IOException {
+
+        FileOutputStream archive = new FileOutputStream("root" + "\\Factura Cita.pdf"); //Falta la ruta
+        Document doc = new Document();
+
+        PdfWriter.getInstance(doc, archive);
+        doc.open();
+
+        Paragraph title = new Paragraph("Clínica...\n\n", FontFactory.getFont("arial", 22, Font.BOLD, BaseColor.BLACK));
+
+        title.setAlignment(Paragraph.ALIGN_CENTER);
+
+        Image img = Image.getInstance("C:\\Users\\Saúl\\Desktop\\AED\\2022\\Proyecto AED\\ProyectAlgorithmsGrupo5\\Proyecto\\src\\images\\logo.png");
+        img.setAlignment(Image.ALIGN_CENTER);
+        img.setBorder(Image.BOX);
+        img.setBorderWidth(0);
+        img.setBorderColor(BaseColor.WHITE);
+        img.scaleToFit(1100, 100); // tamaño 
+        doc.add(img);
+        doc.add(title);
+
+        //  public Payment(int patientID, String paymentMode, double serviceCharge, Date billingDate) {
+        PdfPTable billTable = new PdfPTable(1); //El numero adentro del paréntesis es la cantidad de columnas
+
+        Date currentDate = new Date();
+        currentDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(); //Fecha Actual
+
+        String billCurrentDate = currentDate.getDate() + "/" + (currentDate.getMonth() + 1) + "/" + (currentDate.getYear() + 1900);
+        String billCurrentHour = currentDate.getHours() + ":" + currentDate.getMinutes();
+
+        if (currentDate.getMinutes() < 10) {
+            billCurrentHour = currentDate.getHours() + ":0" + currentDate.getMinutes();
+        }
+
+      
+
+        doc.close();
+
+    }
     
 
 
