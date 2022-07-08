@@ -192,7 +192,7 @@ public class FXMLMedicalCareController implements Initializable {
 
     @FXML
     private void btnPaymentOnAction(ActionEvent event) {
-         loadPage(getClass().getResource("FXMLPayment.fxml"));
+         loadPage(getClass().getResource("FXMLAddPayment.fxml"));
     }
     
     

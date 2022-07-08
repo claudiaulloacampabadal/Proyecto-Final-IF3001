@@ -4,7 +4,6 @@
  */
 package main;
 
-import domain.Patient;
 import domain.Payment;
 import domain.TDA.HeaderLinkedQueue;
 import domain.TDA.QueueException;
@@ -37,7 +36,7 @@ import static main.FXMLAddPatientController.loadPage;
  *
  * @author Usuario
  */
-public class FXMLPaymentController implements Initializable {
+public class FXMLAddPaymentController implements Initializable {
     Alert alert;
     private HeaderLinkedQueue payment;
     BorderPane paymentPane;
@@ -74,7 +73,7 @@ public class FXMLPaymentController implements Initializable {
             }
             System.out.print(payment.toString());
         } catch (QueueException ex) {
-            Logger.getLogger(FXMLPaymentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FXMLAddPaymentController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
