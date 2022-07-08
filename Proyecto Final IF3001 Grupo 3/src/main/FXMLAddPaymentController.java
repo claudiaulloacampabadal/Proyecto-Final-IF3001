@@ -246,7 +246,7 @@ public class FXMLAddPaymentController implements Initializable {
 
         title.setAlignment(Paragraph.ALIGN_CENTER);
 
-        Image img = Image.getInstance("C:\\Users\\Saúl\\Desktop\\AED\\2022\\Proyecto AED\\ProyectAlgorithmsGrupo5\\Proyecto\\src\\images\\logo.png");
+        Image img = Image.getInstance("C:\\Users\\\\Desktop\\AED\\2022\\Proyecto AED\\ProyectAlgorithmsGrupo5\\Proyecto\\src\\images\\logo.png");
         img.setAlignment(Image.ALIGN_CENTER);
         img.setBorder(Image.BOX);
         img.setBorderWidth(0);
