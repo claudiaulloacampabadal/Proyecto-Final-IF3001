@@ -68,10 +68,9 @@ public class FXMLAddPaymentController implements Initializable {
             this.payment = util.Utility.getHeaderLinkedQueue();
         }
         try {
-            if (!payment.isEmpty() && !getData().isEmpty()) {
+            if (payment!=null && payment.isEmpty() && !getData().isEmpty()) {
                 paymentComboBox.setItems(getData());
             }
-            System.out.print(payment.toString());
         } catch (QueueException ex) {
             Logger.getLogger(FXMLAddPaymentController.class.getName()).log(Level.SEVERE, null, ex);
         }
