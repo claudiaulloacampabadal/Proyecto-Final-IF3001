@@ -14,7 +14,6 @@ import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
-import domain.Archives.ArchiveTXT;
 import domain.TDA.BST;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -24,15 +23,14 @@ import java.io.IOException;
  *
  * @author Maria Celeste
  */
-public class PDF {
+public class PDFacturas {
     
      //pdf
     public static void generateReport(String nameFile, String pdfTitle, String objContent) throws FileNotFoundException, DocumentException, BadElementException, IOException {
-       //Ese path sera el camino en donde se guarden los datos
         BST configurations = util.Utility.getBST();
         Configuration confg = (Configuration) configurations.getRoot().data;
         //Se pone la ruta que impone el adminstrador
-        FileOutputStream archive = new FileOutputStream(confg.getPath()+"\\"+nameFile + ".pdf");
+        FileOutputStream archive = new FileOutputStream("facturas/"+nameFile + ".pdf");
        // "C:\\Users\\Maria Celeste\\Desktop\\U - I.E\\I Semestre-2022\\IF 3001\\ProyectoGr3\\Proyecto-Grupo3\\Proyecto Final IF3001 Grupo 3" +
         Document doc = new Document();
 
@@ -43,7 +41,6 @@ public class PDF {
 
         title.setAlignment(Paragraph.ALIGN_CENTER);
 
-        
         Image img = Image.getInstance(confg.getImagesPath());
         img.setAlignment(Image.ALIGN_LEFT);
         img.setBorder(Image.BOX);
@@ -54,7 +51,7 @@ public class PDF {
         doc.add(title);
 
         Paragraph dateReport = new Paragraph(objContent, FontFactory.getFont("arial", 14, Font.NORMAL, BaseColor.BLACK));
-        dateReport.setAlignment(Paragraph.ALIGN_CENTER);
+        dateReport.setAlignment(Paragraph.ALIGN_JUSTIFIED);
         doc.add(dateReport);
 
         doc.close();
